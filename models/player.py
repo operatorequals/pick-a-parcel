@@ -4,8 +4,8 @@
 class Player:
   def __init__(self, name=None):
     self.name = name
-    self.has_parcel = False
     self.symbol = ""
+    self.__has_parcel = False
 
   def get_parcel(self):
     self.has_parcel = True
@@ -14,6 +14,9 @@ class Player:
   def lose_parcel(self):
     self.has_parcel = False
     self.symbol = f"-{self.symbol[1:-1]}-"
+
+  def has_parcel(self):
+    return self.__has_parcel
 
   def __repr__(self):
     return self.name

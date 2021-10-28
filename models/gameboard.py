@@ -5,10 +5,10 @@ import random
 
 # https://pypi.org/project/board/
 # https://github.com/tjguk/dojo-board/blob/6eb075c2ea44942b75f916566ae318f0e408ff40/board.py
-import board
+from external import board
 
-from deck import Card
-from player import Player
+from .deck import Card
+from .player import Player
 
 
 class GameBoard(board.Board):
@@ -31,12 +31,12 @@ class GameBoard(board.Board):
 
     self.__players = players
     self.__player_positions = {}
-    for i,p in enumerate(players):
+    for i,player in enumerate(players):
       player_num = i+1
-      self.__players[i].symbol = f"-{player_num}-"
-      self.__players[i].name = str(player_num)
-      pos = self.__set_random(self.__players[i].symbol)
-      self.__player_positions[p] = pos
+      player.symbol = f"-{player_num}-"
+      player.name = str(player_num)
+      pos = self.__set_random(player.symbol)
+      self.__player_positions[player] = pos
 
 
   def __set_random(self, block):
@@ -59,7 +59,7 @@ class GameBoard(board.Board):
     del self[pos]
     return True
 
-  def move_player(self, player, orientation):
+  def move_player(self, player, orientation, shift = 0):
     if orientation not in Card.ORIENTATIONS:
       raise ValueError(f"Player movement must be in {Card.ORIENTATIONS}")
 
@@ -82,7 +82,7 @@ class GameBoard(board.Board):
 
     # Winning Condition!
     if new_pos == self.destination:
-      if player.has_parcel:
+      if player.has_parcel():
         raise Exception(f"Player {player} Wins!")
 
     # New position finds an obstacle
@@ -96,34 +96,9 @@ class GameBoard(board.Board):
     if self[new_pos] == GameBoard.PARCEL:
       player.get_parcel()
 
-
     # If moved keep the new player position
     if self.__move_block(pos, new_pos):
       self.__player_positions[player] = new_pos
       self[new_pos] = player.symbol
       return True
     return False
-
-
-if __name__ == "__main__":
-
-  import time,os
-  players = [
-    Player(),
-    Player(),
-  ]
-  b = GameBoard((5,5), stone_n=0,players=players)
-
-  os.system("clear")
-  b.draw(use_borders=False)
-  p = 0
-  current_player = players[p]
-  while True :
-    b.move_player(current_player, random.choice(Card.ORIENTATIONS[0:-1]))
-    p += 1
-    current_player = players[p % 2]
-    print("----")
-    import os
-    time.sleep(0.1)
-    os.system("clear")
-    b.draw(use_borders=False)
