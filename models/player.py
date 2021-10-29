@@ -8,11 +8,11 @@ class Player:
     self.__has_parcel = False
 
   def get_parcel(self):
-    self.has_parcel = True
+    self.__has_parcel = True
     self.symbol = f"({self.symbol})".replace("-","")
 
   def lose_parcel(self):
-    self.has_parcel = False
+    self.__has_parcel = False
     self.symbol = f"-{self.symbol[1:-1]}-"
 
   def has_parcel(self):
