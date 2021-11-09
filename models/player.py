@@ -1,6 +1,4 @@
 
-
-
 class Player:
   def __init__(self, name=None):
     self.name = name
@@ -20,3 +18,6 @@ class Player:
 
   def __repr__(self):
     return self.name
+
+  def get_hand(deck_hand):
+    self.current_hand = deck_hand

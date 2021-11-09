@@ -38,6 +38,7 @@ class GameBoard(board.Board):
       pos = self.__set_random(player.symbol)
       self.__player_positions[player] = pos
 
+    self.held_moves = {}
 
   def __set_random(self, block):
     while True:
@@ -58,6 +59,22 @@ class GameBoard(board.Board):
     self[new_pos] = self[pos]
     del self[pos]
     return True
+
+  def fetch(self, player):
+    pos = self.__player_positions[player]
+    neighs = self.neighbours(pos)
+    # for every block around player
+    for neigh in neighs:
+      # Fetch the parcel from the floor
+      if neigh == PARCEL:
+        return player.get_parcel()
+      # Fetch the parcel from the player
+      if Type(neigh) == Player:
+        neigh.lose_parcel()
+        return player.get_parcel()
+
+  def throw(self, player, orientation, shift = 0):
+    passb
 
   def move_player(self, player, orientation, shift = 0):
     if orientation not in Card.ORIENTATIONS:
@@ -102,3 +119,32 @@ class GameBoard(board.Board):
       self[new_pos] = player.symbol
       return True
     return False
+
+
+  def evaluate(card, player):
+    # If there is a held move
+    if self.held_moves.get(player, None) is not None:
+      # if the held move is throw
+      if self.held_moves[player] == Card.ACTIONS[1] # Throw
+        if not card.action == Card.ACTIONS[0]:  # Move
+          self.held_moves[player] = None
+          if player.has_parcel()
+            # TODO
+            return self.throw(player, card.orientation)
+      return False
+
+    else:
+      # If it is movement without a held move - walk
+      if card.action == Card.ACTIONS[0]:  # Move
+        self.held_moves[player] = None
+        return move_player(player, orientation)
+
+      # If it is throwing hold it for movement
+      elif card.action == Card.ACTIONS[1]:  # Throw
+        self.held_moves.set(player, card.action, None)
+        return True
+
+      elif card.action == Card.ACTIONS[2]:  # Fetch
+        self.held_moves[player] = None
+        return fetch(player)
+

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     Player(),
     Player(),
   ]
-  b = GameBoard((5,5), stone_n=0,players=players)
+  b = GameBoard((12,12), stone_n=5,players=players)
 
   os.system("clear")
   b.draw(use_borders=False)
