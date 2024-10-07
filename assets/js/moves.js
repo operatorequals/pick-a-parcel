@@ -240,7 +240,7 @@ const cardAction = {
     }
 }
 
-async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) {
+async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) { // this needs serious fix
     // playerID = G.ctx.currentPlayer // rely on G only
     console.log(`[PickAParcel] It's ${playerID}'s turn.`);
     const playerNum = Object.keys(G.players).length;
@@ -259,9 +259,11 @@ async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) {
         console.log(`[PickAParcel] Player ${playerID} playout finished!`);
         // updateG(G);
     } else {
+        G.players[playerID].phase = GAMEPHASES[7]  // EXECUTING
         G.decks.trunk.unshift(actionCard, directionCard)
         const action = actionCard.value
         const direction = directionCard.value
+        await new Promise(r => setTimeout(r, pauseTimer)); // Pause for a momen
 
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
@@ -270,10 +272,9 @@ async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) {
         } else if (action === 'throw') {
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
         } // add more card types here
-
-        await new Promise(r => setTimeout(r, pauseTimer)); // Pause for a momen
     }
     updateG(G);
+    G.players[playerID].phase = GAMEPHASES[3]  // PLAYOUT
 
     if (playerWon){
         console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);

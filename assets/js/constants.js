@@ -12,6 +12,7 @@ const GAMEPHASES = [
   "CHECKWIN",
   "LOSE",
   "WIN",
+  "EXECUTING"
 ]
 
 const EVENTS = {
