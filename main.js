@@ -14,7 +14,7 @@ class NetPlayJSGame extends netplayjs.Game {
           "turnStrategy": [],
           "phase" : GAMEPHASES[GAMEPHASE],
           "message": "",
-          "hasParcel": true,
+          "hasParcel": false,
         },
         1: {
           "hand": [],
@@ -65,13 +65,37 @@ class NetPlayJSGame extends netplayjs.Game {
     return false;
   }
 
+  pickRandomPosition() {
+
+    let nonColliding = 0;
+    let x = -1;
+    let y = -1;
+    const positions = Object.values(this.G.positions);
+    while (nonColliding < positions.length){
+      nonColliding = 0;
+      x = Math.floor(Math.random() * CONSTANTS.BOARDSIZE) + 1;
+      y = Math.floor(Math.random() * CONSTANTS.BOARDSIZE) + 1;
+      console.log(`${x}, ${y} - ${positions}`);
+      for (let i = 0; i < positions.length; i++){
+          const pos = positions[i]
+          const collision = (pos.x == x && y == pos.y);
+          if (!collision) nonColliding++;
+          else break;
+      }
+    }
+    return {'x':x, 'y':y};
+  }
+
   _gameSetupHostOnly() {
     console.log("[PickAParcel] Generating Decks...")
     this.G.decks.action = Deck.createDeck("action", CONSTANTS["DECKNUM"]);
     this.G.decks.direction = Deck.createDeck("direction", CONSTANTS["DECKNUM"]);
-    updateG(this.G);
-    }
 
+    Object.keys(this.G.positions).forEach(x => {
+      this.G.positions[x] = this.pickRandomPosition();
+    });
+    updateG(this.G);
+  }
 
   _startTurn(){
     this.players.forEach((player)=>{
