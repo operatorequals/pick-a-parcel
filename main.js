@@ -25,11 +25,10 @@ class NetPlayJSGame extends netplayjs.Game {
         },
       },
       "positions": {
-        // "parcel": {"x":5, "y":1}, //they all need to be -1
         "parcel": {"x":-1, "y":-1}, //they all need to be -1
-        "goal": {"x":1, "y":5},
-        0: {"x":2, "y":5},
-        1: {"x":5, "y":2},
+        "goal": {"x":-1, "y":-1},
+        0: {"x":-1, "y":-1},
+        1: {"x":-1, "y":-1},
       },
       "decks": {
         "action": [],
