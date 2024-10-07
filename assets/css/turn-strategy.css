@@ -1,0 +1,20 @@
+
+#turn-strategies {
+    flex: 0 0 auto;          /* Keep this at its natural size */
+    margin-left: 10px;       /* Add space between board and turn-strategies */
+    flex-direction: column;
+}
+
+[id^="turn-strategy-"] {
+    display: flex;            /* Use flexbox */
+    flex-direction: row;      /* Stack items vertically */
+    flex-wrap: no-wrap;
+    gap: 0.2em;
+	/*max-width: 80%*/
+	margin-top: 1em;
+}
+
+[id^="turn-strategy-card-"] {
+	max-height: 5%
+}
+

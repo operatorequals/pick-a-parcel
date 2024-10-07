@@ -1,0 +1,70 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+     /*background-color: #282c34;  */
+    display: flex;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*height: 100vh;*/
+    margin: 0;
+}
+
+
+div#screen {
+    display: flex;
+    flex-direction: row;
+    flex-flow: no-wrap;
+
+	row-gap: 2em;
+    column-gap: 1em;
+
+    margin-left:1em;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+
+    width: 80%;
+    height: 100%;
+}
+
+#playfield {
+    display: flex;            /* Use flexbox */
+    flex-direction: column;   /* Stack items vertically */
+    height: 100%;             /* Allow it to take up available height */
+    width: 80vw;
+}
+
+#playout {
+    display: flex;            /* Use flexbox */
+    flex-direction: row;   /* Stack items vertically */
+    height: 100%;             /* Allow it to take up available height */
+}
+
+#board {
+    flex: 0 0 auto;          /* Keep this at its natural size */
+}
+
+#hand {
+    flex: 1;                 /* Allow this to take remaining space */
+    overflow: auto;          /* Enable scrolling if needed */
+    width: 100%;
+    height: 100%;             /* Allow it to take up available height */
+
+}
+
+#submit {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #43443b; /* Bootstrap primary color */
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#submit:hover {
+    background-color: #272822; /* Darker shade on hover */
+}
+
+#submit:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
