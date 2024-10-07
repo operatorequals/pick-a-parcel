@@ -88,12 +88,26 @@ function updateInfo({G, playerID}){
     opponent = G.players[(playerID+1) % (Object.keys(G.players).length)]
     phase = GAMEPHASES[player.phase]
     infoStr = `
+    Message: <h1>${player.message !== undefined ? player.message : ""}</h1> <br/>
+
     PlayerID: ${playerID} <br/>
+    HasParcel: ${player.hasParcel} <br/>
+    Opponent HasParcel: ${opponent.hasParcel} <br/>
+    <br/>
     Phase: ${player.phase} <br/>
     Opponent Phase: ${opponent.phase} <br/>
-    HasParcel: ${player.hasParcel} <br/>
     <br/>
-    Message: ${player.message !== undefined ? player.message : ""} <br/>
+
+    Deck cards: ${G.decks["action"].cards.length + G.decks["direction"].cards.length} <br/>
+    <br/>
+
+    Cards in hand: ${player.hand.length}<br/>
+    Cards in opponent's hand: ${opponent.hand.length}<br/>
+    <br/>
+
+    Own Turn Strategy: ${player.turnStrategy.length}<br/>
+    Opponent Turn Strategy: ${opponent.turnStrategy.length}<br/>
+    <br/>
     `
     infoElm.append(infoStr);
 }
