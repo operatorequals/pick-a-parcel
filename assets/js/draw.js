@@ -55,8 +55,8 @@ function drawCards(targetElmID, cardList, callbackEvent, faceup=true){
 function drawBoard({G, playerID}){
 
     // Reset Board
-    $(".parcel").removeClass("parcel")
-    $(".goal").removeClass("goal")
+    $(".parcel").removeClass("parcel").empty()
+    $(".goal").removeClass("goal").empty()
     $(".player").each((i,elm)=>{
       const jelm = $(elm)
       jelm.empty();
@@ -66,10 +66,11 @@ function drawBoard({G, playerID}){
     Object.entries(G.positions).forEach(([x, pos]) => {
       // console.log(x,pos)
       if (x === "parcel"){
-        $(`#board-cell-${pos.x}-${pos.y}`).addClass("parcel")
+        $(`#board-cell-${pos.x}-${pos.y}`).addClass("parcel").append("P")
       }
       else if (x === "goal"){
-        $(`#board-cell-${pos.x}-${pos.y}`).addClass("goal")
+        $(`#board-cell-${pos.x}-${pos.y}`).addClass("goal").append("G")
+
       } // it is a player
       else {
         // console.log("Drawing player")
