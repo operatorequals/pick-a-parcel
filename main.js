@@ -46,7 +46,6 @@ class NetPlayJSGame extends netplayjs.Game {
       this._gameSetupHostOnly();
     }
 
-    this._startTurn()
   }
 
   _getOwnPlayerID(){
