@@ -1,0 +1,13 @@
+div#hand {
+    display: flex;
+    flex-direction: row;
+    /*flex-flow: wrap;*/
+
+	row-gap: 0.5em;
+    column-gap: 1em;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 0.5em;
+}

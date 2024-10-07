@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Game</title>
+    <!-- JQuery - our lord and saviour -->
+	<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+	<script src="assets/js/libs/jquery-3.7.1.js"></script>
+
+	<!-- Bootstrap -->
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+
+	<!-- Tha game styles -->
+    <link rel="stylesheet" type="text/css" href="assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/hand.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/card.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/board.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/turn-strategy.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/netplayjs.css">
+<!-- 
+    The NetPlayJS library handles local multiplayer:
+    	https://github.com/rameshvarun/netplayjs
+ -->    	
+	<!-- <script src="https://unpkg.com/netplayjs@0.4.1/dist/netplay.js"></script> -->
+	<script src="assets/js/libs/netplay-0.4.1.js"></script>
+
+	<!-- A way to pass events to NetPlay Host -->
+	<script src="assets/js/netplay-fix.js"></script>
+
+	<!-- The HTML templates of the Game components -->
+	<script src="templates/card.js"></script>
+	<script src="templates/board.js"></script>
+</head>
+
+<body>
+	<div id="debug">
+		<div id="debug-updatedOn" class="json-container"></div>
+		<div id="debug-decks" class="json-container"></div>
+		<div id="debug-hands" class="json-container"></div>
+		<div id="debug-turn-strategies" class="json-container"></div>
+		<div id="debug-positions" class="json-container"></div>
+	</div>
+	<div id="netplayjs" style="visibility: hidden;"></div>
+	<div id="screen">
+
+		<div id="playfield">
+			<div id="playout">
+				<div id="board"></div>
+				<div
+					id="turn-strategies"
+					class="turn-strategies">
+					<div id="turn-strategy-own"></div>
+					<div id="turn-strategy-opponent"></div>
+				</div>
+			</div>
+
+			<div id="hand" class="hand card-row"></div>
+			<div id="submit"><pre>Run Script...</pre></div>
+		</div>
+
+		<a id="test-button" href="#"></a>
+	</div>
+	<div id="info"></div>
+
+	<script type="text/javascript" src="assets/js/constants.js"></script>
+	<script type="text/javascript" src="assets/js/deck.js"></script>
+	<script type="text/javascript" src="assets/js/moves.js"></script>
+	<script type="text/javascript" src="assets/js/checks.js"></script>
+	<script type="text/javascript" src="assets/js/draw.js"></script>
+
+	<script src="main.js"></script>
+
+	<!-- Test Templates -->
+	<script>
+
+	$("canvas").each((i, c) => {
+		console.log(c)
+		c.id = `netplayjs-canvas-${i}`;
+		$('#netplayjs').append(c);
+	});
+
+	// hand_el = $("#hand");
+	// turnStrategies_el = $("#turn-strategies");
+
+	// hand_el.append(ActionCard("throw", "1", "alert(1);"))
+	// hand_el.append(ActionCard("move", "11"))
+	// hand_el.append(ActionCard("move", "14"))
+	// hand_el.append(ActionCard("steal", "12"))
+	// hand_el.append(DirectionCard("right", "2"))
+	// hand_el.append(DirectionCard("left", "3"))
+	// hand_el.append(DirectionCard("up", "4"))
+	// hand_el.append(DirectionCard("down", "5"))
+
+
+	// board = new Board(5);
+	// board.render();
+	</script>
+
+
+</body>
+
+</html>
