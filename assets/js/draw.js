@@ -33,6 +33,7 @@ function drawCards(targetElmID, cardList, callbackEvent, faceup=true){
 	      let cardHTML = FaceUpCard(card.type, card.value, cardID)
 	      cardholderElm.append(cardHTML)
 	      let cardElm = $(`#${cardID}`)
+        cardElm.addClass("card-animation")
 	      cardElm.click(() => {
 	        passToHost(`${EVENTS[callbackEvent]} ${card.id}`) // this is evaluated in Host's tick()
 	        cardElm.remove()

@@ -100,3 +100,31 @@ span.card-action-parenthesis {
 span.card-action-semicolon {
 	color: #ffffff;	
 }
+
+.card-animation {
+    opacity: 0; /* Start invisible */
+    transform: translateX(-100%); /* Start off-screen to the left */
+    animation: fall-in 0.5s forwards; /* Animation */
+}
+
+@keyframes fall-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Add a delay for each card */
+.card-animation:nth-child(1) { animation-delay: 0s; }
+.card-animation:nth-child(2) { animation-delay: 0.1s; }
+.card-animation:nth-child(3) { animation-delay: 0.2s; }
+.card-animation:nth-child(4) { animation-delay: 0.3s; }
+.card-animation:nth-child(5) { animation-delay: 0.35s; }
+.card-animation:nth-child(5) { animation-delay: 0.4s; }
+.card-animation:nth-child(6) { animation-delay: 0.44s; }
+.card-animation:nth-child(7) { animation-delay: 0.47s; }
+.card-animation:nth-child(8) { animation-delay: 0.5s; }
