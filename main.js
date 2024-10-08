@@ -156,7 +156,7 @@ class NetPlayJSGame extends netplayjs.Game {
     if (this.checkPhase(GAMEPHASES[2])) {// READY
       // This will only be called once per turn
       // as the GamePhase will change to "CHECKWIN" inside
-      playTurn({G:this.G, playerID:this.G.ctx.currentPlayer})
+      playout({G:this.G, playerID:this.G.ctx.currentPlayer})
     }
     // if playout is over - back to DRAW
     this.checkPhase(GAMEPHASES[4], GAMEPHASES[0]) // Playout is over - back to Draw

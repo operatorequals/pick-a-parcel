@@ -240,13 +240,31 @@ const cardAction = {
     }
 }
 
-async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) { // this needs serious fix
+async function playout({G, playerID}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
+    // Set everyone to playout
+    const playerNum = Object.keys(G.players).length;
+    Object.values(G.players).every(player => player.phase = GAMEPHASES[3]); //Playout
+
+    let allFinished = Object.values(G.players).every(player => player.phase === GAMEPHASES[4]);
+    while (!allFinished){
+        console.log(`[PickAParcel] Player ${playerID} goes next...`)
+        G.ctx.currentPlayer = playerID;
+        updateG(G);
+
+        pauseTimer = pauseTimer * pauseTimerReduceEachTurn
+        await playTurn({G:G, playerID:G.ctx.currentPlayer}, pauseTimer);
+        playerID = (playerID + 1) % playerNum
+        allFinished = Object.values(G.players).every(player => player.phase === GAMEPHASES[4]);
+    }
+    console.log(`[PickAParcel] All players finished. Continuing to next Turn...`)
+    return false;
+}
+
+async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious fix
     // playerID = G.ctx.currentPlayer // rely on G only
     console.log(`[PickAParcel] It's ${playerID}'s turn.`);
     const playerNum = Object.keys(G.players).length;
-    const nextPlayerID = (playerID + 1) % playerNum
-
-	G.players[playerID].phase = GAMEPHASES[3] // Playout
+    let nextPlayerID = (playerID + 1) % playerNum
 
     let turnStrategy = G.players[playerID].turnStrategy
     const actionCard = turnStrategy.shift();
@@ -256,14 +274,14 @@ async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) { 
     // Check if player has any cards left in Turn Strategy
     if (actionCard === undefined){
     	G.players[playerID].phase = GAMEPHASES[4]; //Checkwin
-        console.log(`[PickAParcel] Player ${playerID} playout finished!`);
-        // updateG(G);
+        console.log(`[PickAParcel] Player ${playerID} does not have any TurnStrategy cards!`);
     } else {
         G.players[playerID].phase = GAMEPHASES[7]  // EXECUTING
         G.decks.trunk.unshift(actionCard, directionCard)
         const action = actionCard.value
         const direction = directionCard.value
         await new Promise(r => setTimeout(r, pauseTimer)); // Pause for a momen
+        G.players[playerID].phase = GAMEPHASES[3]  // PLAYOUT
 
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
@@ -274,29 +292,18 @@ async function playTurn({G, playerID}, pauseTimer=3000, finishedPlayerIDs=[]) { 
         } // add more card types here
     }
     updateG(G);
-    G.players[playerID].phase = GAMEPHASES[3]  // PLAYOUT
 
     if (playerWon){
         console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
         G.players[playerID].phase = GAMEPHASES[6];
         G.players[playerID].message = "You just WON!"
 
-        G.players[nextPlayerID].phase = GAMEPHASES[5];
+        G.players[nextPlayerID].phase = GAMEPHASES[5]; // all other players
         G.players[nextPlayerID].message = "You just Lost!"
         // set state to win
+        updateG(G);
         return true;
     }
-    // Check for Winning Condition
-    // ...
-    // if checkWinning({G: G, playerID: playerID})
-    // return ...
 
-    // Change current player
-    if (G.players[nextPlayerID].phase !== GAMEPHASES[4]){
-        G.ctx.currentPlayer = nextPlayerID;
-        updateG(G);
-        await playTurn({G:G, playerID:G.ctx.currentPlayer});
-    }
-        // currentPlayer.phase = GAMEPHASES[4]; //Checkwin
     return false
 }
