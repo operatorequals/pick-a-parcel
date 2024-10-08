@@ -9,15 +9,34 @@ INVALID_MOVE = null;
 updateG = (G) => {G["updatedOn"] = +new Date();}
 
 const moves = {
-	draw: ({G, playerID}, type="action", num=CONSTANTS["DECKDRAW"]) => { //Not really a move
+    /* Control Moves */
+    createDeck({G, playerID}, type="action", num=CONSTANTS["DECKNUM"]){
+        console.log(`Creating ${type} Deck (${num} cards)...`);
+        const cardValues = VALIDCARDS[type]
+        let cards = []
+        for (let i = 0; i < num; i++)
+            cards.push( // rotate through card values to include them all
+                new Card(type, cardValues[i % cardValues.length])
+                );
+
+        for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        G.decks[type] = cards;
+        updateG(G);
+    },
+
+	draw: ({G, playerID}, type="action", num=CONSTANTS["DECKDRAW"]) => {
 		deck = G["decks"][type]
 		// if cards. // Check remaining cards
-		cards = deck.cards.splice(0, num);
+		cards = deck.splice(0, num);
 		G["players"][playerID].hand.push(...cards)
 		updateG(G)
 		return true
 	},
 
+    /* Playable Moves */
 	addToTurnStrategy: ({G, playerID}, cardID) => {
 		console.log("Adding card ", cardID)
 

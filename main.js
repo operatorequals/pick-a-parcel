@@ -12,14 +12,14 @@ class NetPlayJSGame extends netplayjs.Game {
         0: {
           "hand": [],
           "turnStrategy": [],
-          "phase" : GAMEPHASES[GAMEPHASE],
+          "phase" : GAMEPHASES[8], // SETUP
           "message": "",
           "hasParcel": false,
         },
         1: {
           "hand": [],
           "turnStrategy": [],
-          "phase" : GAMEPHASES[GAMEPHASE],
+          "phase" : GAMEPHASES[8],
           "message": "",
           "hasParcel": false,
         },
@@ -42,10 +42,6 @@ class NetPlayJSGame extends netplayjs.Game {
     }
 
     this.players = players;
-    if (this._isHost()){
-      this._gameSetupHostOnly();
-    }
-
   }
 
   _getOwnPlayerID(){
@@ -59,13 +55,12 @@ class NetPlayJSGame extends netplayjs.Game {
   _isHost(){
     for(let i = 0; i < this.players.length; i++){
       let player = this.players[i]
-      if (player['isHost']) return true;
+      if (!player.isClient()) return true;
     }
     return false;
   }
 
   pickRandomPosition() {
-
     let nonColliding = 0;
     let x = -1;
     let y = -1;
@@ -74,7 +69,6 @@ class NetPlayJSGame extends netplayjs.Game {
       nonColliding = 0;
       x = Math.floor(Math.random() * CONSTANTS.BOARDSIZE) + 1;
       y = Math.floor(Math.random() * CONSTANTS.BOARDSIZE) + 1;
-      console.log(`${x}, ${y} - ${positions}`);
       for (let i = 0; i < positions.length; i++){
           const pos = positions[i]
           const collision = (pos.x == x && y == pos.y);
@@ -87,12 +81,15 @@ class NetPlayJSGame extends netplayjs.Game {
 
   _gameSetupHostOnly() {
     console.log("[PickAParcel] Generating Decks...")
-    this.G.decks.action = Deck.createDeck("action", CONSTANTS["DECKNUM"]);
-    this.G.decks.direction = Deck.createDeck("direction", CONSTANTS["DECKNUM"]);
+    moves.createDeck({G: this.G, playerID:null}, "action")
+    moves.createDeck({G: this.G, playerID:null}, "direction")
 
+    console.log("[PickAParcel] Generating Positions...")
     Object.keys(this.G.positions).forEach(x => {
       this.G.positions[x] = this.pickRandomPosition();
     });
+
+    this.checkPhase(GAMEPHASES[8], GAMEPHASES[0]) // If they're both to SETUP, send them to DRAW
     updateG(this.G);
   }
 
@@ -147,7 +144,10 @@ class NetPlayJSGame extends netplayjs.Game {
       });
 
     // The rest can only be set to the state by the Host
-    if (!this._isHost()) return;
+    if (!this._isHost() && this._getOwnPlayerID()==0) return;
+    
+    if (this.checkPhase(GAMEPHASES[8])) //SETUP
+      this._gameSetupHostOnly();
 
     if (this.checkPhase(GAMEPHASES[0])) {// DRAW
       this._startTurn()
@@ -186,7 +186,6 @@ class NetPlayJSGame extends netplayjs.Game {
 
         delete input.keysPressed[event] // remove the event from the inputs
       });
-
     }
   }
 
@@ -211,17 +210,20 @@ class NetPlayJSGame extends netplayjs.Game {
     const hand = this.G["players"][playerID]["hand"]
     drawCards("hand", hand, EVENTS["ADD"], true)
 
+    // Turn Strategies
     this.players.forEach(player => {
       const turnStrategy = this.G["players"][[player.getID()]]["turnStrategy"]
-      if (player.getID() === this._getOwnPlayerID())
+      if (player.getID() == playerID)
         drawCards("turn-strategy-own", turnStrategy, EVENTS["REMOVE"], true)
       else
         drawCards("turn-strategy-opponent", turnStrategy, undefined, false)
     });
 
-    drawBoard({G:this.G, playerID:this._getOwnPlayerID()})
+    // Board
+    drawBoard({G:this.G, playerID:playerID})
 
-    updateInfo({G:this.G, playerID:this._getOwnPlayerID()});
+    // Info
+    updateInfo({G:this.G, playerID:playerID});
   }
 }
 
@@ -247,13 +249,17 @@ GameObjectWrapper.stats.remove();
 let GameInstance = null;
 let G = null;
 
+setG = setInterval(()=>{
+  GameInstance = GameObjectWrapper.game;
+  if (GameInstance !== undefined)
+    G = GameInstance.G
+  else
+    clearInterval(setG)
+}, 5000);
+
+/* Elements added through JQuery */
+$("#board").append(Board(CONSTANTS.BOARDSIZE))
+
 $('#submit').click(()=>{
   passToHost(EVENTS['SUBMIT']);
 });
-
-// setTimeout(()=>{
-//   GameInstance = GameObjectWrapper.game;
-//   G = GameInstance.G
-// }, 5000);
-
-$("#board").append(Board(CONSTANTS.BOARDSIZE))

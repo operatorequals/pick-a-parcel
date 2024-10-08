@@ -13,7 +13,8 @@ const GAMEPHASES = [
   "CHECKWIN",
   "LOSE",
   "WIN",
-  "EXECUTING"
+  "EXECUTING",
+  "SETUP",
 ]
 
 const EVENTS = {
@@ -21,3 +22,8 @@ const EVENTS = {
   "ADD": "ADD",
   "REMOVE": "REMOVE",
 }
+
+const VALIDCARDS = {
+    "action": ["move", "steal", "throw"],
+    "direction": ["up", "down", "left", "right"],
+};

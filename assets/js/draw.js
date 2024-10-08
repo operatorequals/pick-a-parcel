@@ -3,6 +3,9 @@
 function drawCards(targetElmID, cardList, callbackEvent, faceup=true){
 
     const cardholderElm = $(`#${targetElmID}`);
+    // Set background if EXECUTING script
+    // if (targetElmID.startsWith("turnStrategy"))
+
 
     const cardListIDs = cardList.map(card=>card.id);
 
@@ -99,7 +102,7 @@ function updateInfo({G, playerID}){
     Opponent Phase: ${opponent.phase} <br/>
     <br/>
 
-    Deck cards: ${G.decks["action"].cards.length + G.decks["direction"].cards.length} <br/>
+    Deck cards: ${G.decks["action"].length + G.decks["direction"].length} <br/>
     <br/>
 
     Cards in hand: ${player.hand.length}<br/>
@@ -109,6 +112,7 @@ function updateInfo({G, playerID}){
     Own Turn Strategy: ${player.turnStrategy.length}<br/>
     Opponent Turn Strategy: ${opponent.turnStrategy.length}<br/>
     <br/>
+    GameState updatedOn: ${G.updatedOn}<br/>
     `
     infoElm.append(infoStr);
 }

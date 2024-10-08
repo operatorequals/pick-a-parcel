@@ -3,12 +3,12 @@ sanity_checks = [
   cardNumber = (G) => {
     const sum = CONSTANTS["DECKNUM"] * 2;
     const cardPlaces = [
-  	  G.players[0].hand,
-  	 	G.players[0].turnStrategy,
-  	 	G.players[1].hand,
-  	 	G.players[1].turnStrategy,
-  	 	G.decks["direction"].cards,
-  	 	G.decks["action"].cards,
+      G.players[0].hand,
+      G.players[0].turnStrategy,
+      G.players[1].hand,
+      G.players[1].turnStrategy,
+      G.decks["direction"],
+      G.decks["action"],
       G.decks["trunk"],
     ]
     let current = 0
