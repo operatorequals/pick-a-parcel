@@ -172,16 +172,17 @@ const cardAction = {
                 const collision = (pos.x != neighbor.x || pos.y != neighbor.y);
                 if (collision) return; // There is no collision with x - allgood
                 if (x == playerID) return; // Player cannot steal themselves
-                if (x == "goal") return; // Player cannot steal the Goal
-                if (x == "parcel"){ // Player fetches the parcel from around
+                else if (x == "goal") return; // Player cannot steal the Goal
+                else if (x == "parcel"){ // Player fetches the parcel from around
                     console.log(`[PickAParcel] Player ${playerID} fetched the parcel.`);
                     G.players[playerID].hasParcel = true;
                     G.positions.parcel = { x: -1, y: -1 }; // Move parcel off board
                 } else { // This is another player - steal their parcel
                     stolenPlayerID = x;
+                    if (!G.players[stolenPlayerID].hasParcel) return // if other player has no parcel - no stealing
                     G.players[stolenPlayerID].hasParcel = false;
                     G.players[playerID].hasParcel = true;
-                    console.log(`[PickAParcel] ${playerID} stole the parcel from a ${stolenPlayerID}.`);
+                    console.log(`[PickAParcel] Player ${playerID} stole the parcel from Player ${stolenPlayerID}.`);
                 }
             });
         });

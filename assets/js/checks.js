@@ -27,10 +27,13 @@ sanity_checks = [
     const players = Object.keys(G.players)
     let parcelNum = 0;
     players.forEach((playerID) =>{
-      parcelNum += players[playerID].hasParcel ? 1 : 0;
+      parcelNum += G.players[playerID].hasParcel ? 1 : 0;
     });
-    if (parcelNum > 1){
-      console.error(`Inconsistend state: More than 1 players have the Parcel`)
+    const parcelPosition = G.positions.parcel;
+    if (parcelPosition.x != -1 && parcelPosition.y != -1)
+      parcelNum += 1;
+    if (parcelNum != 1){
+      console.error(`Inconsistend state: More than 1 Parcel in the game (found: ${parcelNum})`)
       return false
     }
     return true;
