@@ -2,7 +2,7 @@ const CONSTANTS = {
   "DECKDRAW": 4,
   "DECKNUM": 24,
   "BOARDSIZE": 5,
-  "PAUSETIMER": 3000,
+  "PAUSETIMER": 2000,
 }
 
 const GAMEPHASES = [

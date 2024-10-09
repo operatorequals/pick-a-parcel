@@ -22,7 +22,7 @@ sanity_checks = [
     }
     return true;
   },
-  
+
   twoParcels = (G) => {
     const players = Object.keys(G.players)
     let parcelNum = 0;
@@ -34,5 +34,5 @@ sanity_checks = [
       return false
     }
     return true;
-  }
+  },
 ]
