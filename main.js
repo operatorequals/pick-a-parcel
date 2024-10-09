@@ -53,11 +53,8 @@ class NetPlayJSGame extends netplayjs.Game {
   }
 
   _isHost(){
-    for(let i = 0; i < this.players.length; i++){
-      let player = this.players[i]
-      if (!player.isClient()) return true;
-    }
-    return false;
+    //if I'm not a Client - I'm HOST
+    return !this.players[this._getOwnPlayerID()].isClient()
   }
 
   pickRandomPosition() {
@@ -147,8 +144,8 @@ class NetPlayJSGame extends netplayjs.Game {
       });
 
     // The rest can only be set to the state by the Host
-    if (!this._isHost() && this._getOwnPlayerID()==0) return;
-    
+    if (!this._isHost()) return;
+
     if (this.checkPhase(GAMEPHASES[8])) //SETUP
       this._gameSetupHostOnly();
 
