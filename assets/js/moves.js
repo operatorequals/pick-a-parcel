@@ -5,12 +5,9 @@ The first parameter is always, G (Gamestate) and PlayerID
 
 INVALID_MOVE = null;
 
-
-updateG = (G) => {G["updatedOn"] = +new Date();}
-
 const moves = {
     /* Control Moves */
-    createDeck({G, playerID}, type="action", num=CONSTANTS["DECKNUM"]){
+    createDeck: ({G, playerID}, type="action", num=CONSTANTS["DECKNUM"]) => {
         console.log(`Creating ${type} Deck (${num} cards)...`);
         const cardValues = VALIDCARDS[type]
         let cards = []
@@ -24,7 +21,6 @@ const moves = {
             [cards[i], cards[j]] = [cards[j], cards[i]];
         }
         G.decks[type] = cards;
-        updateG(G);
     },
 
 	draw: ({G, playerID}, type="action", num=CONSTANTS["DECKDRAW"]) => {
@@ -32,7 +28,6 @@ const moves = {
 		// if cards. // Check remaining cards
 		cards = deck.splice(0, num);
 		G["players"][playerID].hand.push(...cards)
-		updateG(G)
 		return true
 	},
 
@@ -69,8 +64,6 @@ const moves = {
 		card = G.players[playerID].hand.splice(indexOfCard, 1) // remove from the hand
 		G.players[playerID].turnStrategy.push(...card) // add to the turn strategy
 		console.log(G.players[playerID].hand, handLengthBefore, G.players[playerID].hand.length)
-
-		return updateG(G)
 	},
 
 	removeFromTurnStrategy: ({G, playerID}) => {
@@ -78,11 +71,9 @@ const moves = {
 			console.error(`No cards in player ${playerID} Turn Strategy`)
 			return INVALID_MOVE
 		}
-
 		card = G.players[playerID].turnStrategy.pop()
 		G.players[playerID].hand.push(card)
 
-		updateG(G)
 	},
 
 	finishTurnStrategy: ({G, playerID}, ) => {
@@ -102,7 +93,6 @@ const moves = {
 		}
 
 		G.players[playerID].phase = GAMEPHASES[2] // PLAYOUT
-		updateG(G)
 	},
 }
 
@@ -161,7 +151,6 @@ const cardAction = {
             G.positions[playerID] = playerPosition;
 
         // if stepped on goal with parcel it's a win!
-        updateG(G);
         return playerWon;
     },
 
@@ -196,7 +185,6 @@ const cardAction = {
                 }
             });
         });
-        updateG(G);
     },
 
     throwParcel: ({G, playerID}, direction) => {
@@ -254,7 +242,6 @@ const cardAction = {
 
         }
         G.positions.parcel = parcelPosition;
-        updateG(G);
         return playerWon
     }
 }
@@ -268,7 +255,6 @@ async function playout({G, playerID}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTime
     while (!allFinished){
         console.log(`[PickAParcel] Player ${playerID} goes next...`)
         G.ctx.currentPlayer = playerID;
-        updateG(G);
 
         pauseTimer = pauseTimer * pauseTimerReduceEachTurn
         await playTurn({G:G, playerID:G.ctx.currentPlayer}, pauseTimer);
@@ -310,7 +296,6 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
         } // add more card types here
     }
-    updateG(G);
 
     if (playerWon){
         console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
@@ -320,7 +305,6 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
         G.players[nextPlayerID].phase = GAMEPHASES[5]; // all other players
         G.players[nextPlayerID].message = "You just Lost!"
         // set state to win
-        updateG(G);
         return true;
     }
 

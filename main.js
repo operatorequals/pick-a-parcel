@@ -7,7 +7,6 @@ class NetPlayJSGame extends netplayjs.Game {
     super();
 
     this.G = {
-      "updatedOn":  +new Date(), // Used to synchronize object
       "players": {
         0: {
           "hand": [],
@@ -90,7 +89,6 @@ class NetPlayJSGame extends netplayjs.Game {
 
     // Set Random player to have the first turn - not the host
     this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
-    updateG(this.G);
   }
 
   _startTurn(){
@@ -112,10 +110,8 @@ class NetPlayJSGame extends netplayjs.Game {
           );
       }
       this.G.players[playerID].phase = GAMEPHASES[1]
-      updateG(this.G);
     });
     this.G.ctx.turn++;
-    updateG(this.G);
   }
 
   checkPhase(phase, setTo=undefined){
@@ -131,7 +127,6 @@ class NetPlayJSGame extends netplayjs.Game {
     if (phaseCheck === playerNum){ // side-effect
       for (let p=0; p<playerNum; p++)
         this.G.players[p].phase = setTo
-      updateG(this.G)
       return true
     } else {
       return false
@@ -196,9 +191,7 @@ class NetPlayJSGame extends netplayjs.Game {
 
   deserialize(value) {
     let newG = JSON.parse(value);
-    // console.log(`Deserializing... - Trying to update with ${newG.updatedOn}`)
-    if (this.G.updatedOn < newG.updatedOn){
-      // console.log(`[+] Updating State... (${this.G.updatedOn} < ${newG.updatedOn}`)
+    if (!this._isHost()){
       this.G = newG
     }
   }

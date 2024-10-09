@@ -120,8 +120,6 @@ function updateInfo({G, playerID}){
 
     Own Turn Strategy: ${player.turnStrategy.length}<br/>
     Opponent Turn Strategy: ${opponent.turnStrategy.length}<br/>
-    <br/>
-    GameState updatedOn: ${G.updatedOn}<br/>
     `
     infoElm.append(infoStr);
 }
