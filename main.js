@@ -90,6 +90,9 @@ class NetPlayJSGame extends netplayjs.Game {
     });
 
     this.checkPhase(GAMEPHASES[8], GAMEPHASES[0]) // If they're both to SETUP, send them to DRAW
+
+    // Set Random player to have the first turn - not the host
+    this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
     updateG(this.G);
   }
 
