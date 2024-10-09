@@ -1,78 +1,92 @@
 
 
-function drawCards(targetElmID, cardList, callbackEvent, faceup=true){
+//TODO: make it boardgame.io compatible
+// function drawCards(targetElmID, cardList, callbackEvent, faceup=true){ 
+function drawCards({G, playerID}, targetElmID){
+  const playerNum = Object.keys(G.players).length;
+  let nextPlayerID = (playerID + 1) % playerNum;
+  const cardholderElm = $(`#${targetElmID}`);
+  let faceup = true;
+  let callbackEvent = undefined;
 
-    const cardholderElm = $(`#${targetElmID}`);
-    // Set background if EXECUTING script
-    // if (targetElmID.startsWith("turnStrategy"))
+  if (targetElmID === "hand"){
+    cardList = G.players[playerID].hand
+    callbackEvent = EVENTS["ADD"];
+    // cardholderElm.addClass(`player-${playerID+1}`);
+  }
+  else if (targetElmID === "turn-strategy-own"){
+    cardList = G.players[playerID].turnStrategy;
+    callbackEvent = EVENTS["REMOVE"];
+  }
+  else { // opponent
+    cardList = G.players[nextPlayerID].turnStrategy;
+    faceup=false;
+    // cardholderElm.addClass(`player-${nextPlayerID+1}`)
+  }
 
+  const cardListIDs = cardList.map(card=>card.id);
+  const drawnElm = $(`[id^=${targetElmID}-]`) // Card elements
+  // The card ID is the last element of the '-' of HTML ID:
+  // ex: hand-1234, turn-strategy-own-1234
+  const drawnElmIDs = drawnElm.get().map(elm=>{
+    return elm.id.split("-").findLast((x)=>x);
+  }); 
 
-    const cardListIDs = cardList.map(card=>card.id);
+  // Cards that aren't drawn but they should
+  const undrawnCardIDs = cardList.filter(card => {
+    if (!drawnElmIDs.includes(card.id)) return card
+  });
 
-    // console.log(`${targetElmID}: ${cardListIDs}`);
+  // Cards that are drawn that they shouldn't
+  const overdrawnCardIDs = drawnElmIDs.filter(cardID => {
+    if (!cardListIDs.includes(cardID)) return cardID
+  });
 
-    const drawnElm = $(`[id^=${targetElmID}-]`) // 
-    // The card ID is the last element of the '-' of HTML ID:
-    // ex: hand-1234, turn-strategy-own-1234
-    const drawnElmIDs = drawnElm.get().map(elm=>elm.id.split("-").findLast((x)=>x)) 
+  // console.log(`[${targetElmID}] Cards: ${cardListIDs}\n DrawnCards: ${drawnElmIDs}\nOverdrawn ${overdrawnCardIDs.length} - Undrawn: ${undrawnCardIDs.length}`)
+  // Draw Hand and set callback
+  undrawnCardIDs.forEach((card, i) => {
+    let cardID = `${targetElmID}-${card.id}`
 
-    // Cards that aren't drawn but they should
-    const undrawnCardIDs = cardList.filter(function(card) {
-      if (!drawnElmIDs.includes(card.id)) return card
-    });
+    if (faceup){
+      let cardHTML = FaceUpCard(card.type, card.value, cardID)
+      cardholderElm.append(cardHTML)
+      let cardElm = $(`#${cardID}`)
+      cardElm.addClass("card-animation")
+      cardElm.click(() => {
+        passToHost(`${EVENTS[callbackEvent]} ${card.id}`) // this is evaluated in Host's tick()
+        cardElm.remove()
+      });
+    } else {
+        let cardHTML = FaceDownCard(cardID)
+        // console.log(`facedown card ${cardID}`)
+        cardholderElm.append(cardHTML)
+    }
 
-    // Cards that are drawn that they shouldn't
-    const overdrawnCardIDs = drawnElmIDs.filter(function(cardID) {
-      if (!cardListIDs.includes(cardID)) return cardID
-    });
+  });
 
-    // console.log(`Drawn cards ${drawnElmIDs}`)
-    // console.log(`Hand: ${handIDs}\nOverdrawn ${overdrawnCardIDs.length} - Undrawn: ${undrawnCardIDs.length}`)
-    // Draw Hand and set callback
-    undrawnCardIDs.forEach((card, i) => {
-      let cardID = `${targetElmID}-${card.id}`
-
-      if (faceup){
-	      let cardHTML = FaceUpCard(card.type, card.value, cardID)
-	      cardholderElm.append(cardHTML)
-	      let cardElm = $(`#${cardID}`)
-        cardElm.addClass("card-animation")
-	      cardElm.click(() => {
-	        passToHost(`${EVENTS[callbackEvent]} ${card.id}`) // this is evaluated in Host's tick()
-	        cardElm.remove()
-	      });
-	  } else {
-	      let cardHTML = FaceDownCard(cardID)
-	      // console.log(`facedown card ${cardID}`)
-	      cardholderElm.append(cardHTML)
-	  }
-
-    });
-
-    // Remove cards no longer in Hand
-    overdrawnCardIDs.forEach(cardID => {
-      $(`#${targetElmID}-${cardID}`).remove()
-    })
+  // Remove cards no longer in Hand
+  overdrawnCardIDs.forEach(cardID => {
+    $(`#${targetElmID}-${cardID}`).remove()
+  })
 
 }
 
 function drawBoard({G, playerID}){
 
     // Reset Board
-    $(".parcel").removeClass("parcel").empty()
-    $(".goal").removeClass("goal").empty()
-    // $(".player").each((i,elm)=>{
-    $("[class*='player']").each((i,elm)=>{
+    $(".parcel").removeClass("parcel").removeClass("objective").empty()
+    $(".goal").removeClass("goal").removeClass("objective").empty()
+
+    $("#board div[class*='player']").each((i,elm)=>{
       const jelm = $(elm)
       // remove all classes starting with "player"
       jelm[0].classList.forEach(className => {
-        if (className.startsWith('player')){
+        if (className.startsWith('player'))
             jelm.removeClass(className);
-        }
-
       });
       jelm.empty();
     });
+
     // Draw Board Positions
     Object.entries(G.positions).forEach(([x, pos]) => {
       // console.log(x,pos)

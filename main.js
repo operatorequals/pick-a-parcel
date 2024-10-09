@@ -200,17 +200,18 @@ class NetPlayJSGame extends netplayjs.Game {
   draw(canvas) {
     // Player Hand
     const playerID = this._getOwnPlayerID()
-    const hand = this.G["players"][playerID]["hand"]
-    drawCards("hand", hand, EVENTS["ADD"], true)
+    drawCards({G:this.G, playerID:playerID}, "hand")
+    drawCards({G:this.G, playerID:playerID}, "turn-strategy-own")
+    drawCards({G:this.G, playerID:playerID}, "turn-strategy-opponent")
 
     // Turn Strategies
-    this.players.forEach(player => {
-      const turnStrategy = this.G["players"][[player.getID()]]["turnStrategy"]
-      if (player.getID() == playerID)
-        drawCards("turn-strategy-own", turnStrategy, EVENTS["REMOVE"], true)
-      else
-        drawCards("turn-strategy-opponent", turnStrategy, undefined, false)
-    });
+    // this.players.forEach(player => {
+    //   const turnStrategy = this.G["players"][[player.getID()]]["turnStrategy"]
+    //   if (player.getID() == playerID)
+    //     drawCards("turn-strategy-own", turnStrategy, EVENTS["REMOVE"], true)
+    //   else
+    //     drawCards("turn-strategy-opponent", turnStrategy, undefined, false)
+    // });
 
     // Board
     drawBoard({G:this.G, playerID:playerID})
