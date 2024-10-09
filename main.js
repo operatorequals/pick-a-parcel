@@ -112,11 +112,11 @@ class NetPlayJSGame extends netplayjs.Game {
           );
       }
       this.G.players[playerID].phase = GAMEPHASES[1]
+      updateG(this.G);
     });
-    this.G.ctx.turn++; 
+    this.G.ctx.turn++;
     updateG(this.G);
   }
-
 
   checkPhase(phase, setTo=undefined){
     let playerNum = this.players.length
@@ -251,10 +251,10 @@ let G = null;
 
 setG = setInterval(()=>{
   GameInstance = GameObjectWrapper.game;
-  if (GameInstance !== undefined)
+  if (GameInstance !== undefined){
     G = GameInstance.G
-  else
     clearInterval(setG)
+  }
 }, 5000);
 
 /* Elements added through JQuery */
