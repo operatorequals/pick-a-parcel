@@ -25,11 +25,15 @@ const moves = {
 
 	draw: ({G, playerID}, type="action", num=CONSTANTS["DECKDRAW"]) => {
 		deck = G["decks"][type]
-		// if cards. // Check remaining cards
+		// TODO: if cards. // Check remaining cards
 		cards = deck.splice(0, num);
 		G["players"][playerID].hand.push(...cards)
 		return true
 	},
+
+    messagePlayer: ({G, playerID}, message) => {
+
+    },
 
     /* Playable Moves */
 	addToTurnStrategy: ({G, playerID}, cardID) => {

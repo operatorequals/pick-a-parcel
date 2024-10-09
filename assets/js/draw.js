@@ -115,8 +115,9 @@ function updateInfo({G, playerID}){
     infoStr = `
     Message: <h1>${player.message !== undefined ? player.message : ""}</h1> <br/>
 
-    Plays Next: ${G.ctx.currentPlayer} <br/>
     PlayerID: ${playerID} <br/>
+    Plays Next: ${G.ctx.currentPlayer} <br/>
+    <br/>
     HasParcel: ${player.hasParcel} <br/>
     Opponent HasParcel: ${opponent.hasParcel} <br/>
     <br/>
