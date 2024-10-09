@@ -3,6 +3,8 @@
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     gap: 0.2em 0.1em;
     margin-top: 0.5em;
+
+    max-height: 32vw;
 }
 
 .cell {

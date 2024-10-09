@@ -221,7 +221,7 @@ class NetPlayJSGame extends netplayjs.Game {
 }
 
 
-NetPlayJSGame.timestep = 1000 / 2; // Our game runs slowly as it is a boardgame
+NetPlayJSGame.timestep = 1000 / 5; // Our game runs slowly as it is a boardgame
 NetPlayJSGame.deterministic = true;
 // Create a ghost game (no Canvas), that is only used
 // to sync the data and also for net discovery.

@@ -58,6 +58,7 @@ div#screen {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    height:80%;
 }
 
 #submit:hover {
