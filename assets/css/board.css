@@ -16,16 +16,54 @@
     margin-top: 0.1em;
 }
 
+.objective {
+    /*box-shadow:inset 0px 0px 0px 10px #000000;*/
+    background-color: #43443b;
+    color: #F5F5DC;
+}
+
 .parcel {
-    background-color: yellow;
+    box-shadow:inset 0px 0px 10px 6px #FF5722;
 }
 
 .goal {
-    background-color: green;
+    box-shadow:inset 0px 0px 10px 8px #39FF14;
 }
 
 .player {
-    background-color: blue;
+    /*background-color: blue;*/
+    box-shadow:inset 0px 0px 1px 1px #43443b;
     color: white;
     font-weight: bold;
+    border: 1px solid rgba(255,255,255,0);
+
+    background-image: url("../../assets/img/robot.png");
+    background-size: 4vw;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+.player-1 {
+    background-color: #7D7F7D;
+}
+
+.player-2 {
+    background-color: #3D7E9A;
+}
+
+.player-3 {
+    background-color: #FFC107;
+}
+
+.player-4 {
+    background-color: #A52A2A;
+}
+
+.player-5 {
+    background-color: #2ECC71;
+}
+
+.player-6 {
+    background-color: #9B59B6;
+}
+

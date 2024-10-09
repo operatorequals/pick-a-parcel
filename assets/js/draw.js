@@ -61,24 +61,32 @@ function drawBoard({G, playerID}){
     // Reset Board
     $(".parcel").removeClass("parcel").empty()
     $(".goal").removeClass("goal").empty()
-    $(".player").each((i,elm)=>{
+    // $(".player").each((i,elm)=>{
+    $("[class*='player']").each((i,elm)=>{
       const jelm = $(elm)
+      // remove all classes starting with "player"
+      jelm[0].classList.forEach(className => {
+        if (className.startsWith('player')){
+            jelm.removeClass(className);
+        }
+
+      });
       jelm.empty();
-      jelm.removeClass("player");
     });
     // Draw Board Positions
     Object.entries(G.positions).forEach(([x, pos]) => {
       // console.log(x,pos)
       if (x === "parcel"){
-        $(`#board-cell-${pos.x}-${pos.y}`).addClass("parcel").append("P")
+        $(`#board-cell-${pos.x}-${pos.y}`).addClass("objective").addClass("parcel").append("P")
       }
       else if (x === "goal"){
-        $(`#board-cell-${pos.x}-${pos.y}`).addClass("goal").append("G")
+        $(`#board-cell-${pos.x}-${pos.y}`).addClass("objective").addClass("goal").append("G")
 
       } // it is a player
       else {
         // console.log("Drawing player")
         $(`#board-cell-${pos.x}-${pos.y}`).addClass("player")
+        $(`#board-cell-${pos.x}-${pos.y}`).addClass(`player-${Number(x)+1}`)
         $(`#board-cell-${pos.x}-${pos.y}`).append(x)
         // Define which player!
       }
