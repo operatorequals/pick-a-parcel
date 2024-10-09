@@ -1,0 +1,8 @@
+{
+  "name": "Pick-A-Parcel",
+  "description": "A Boardgame on programming Warehouse Robots!",
+  "start_url": "/",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "landscape"
+}
