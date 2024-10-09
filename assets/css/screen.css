@@ -12,7 +12,6 @@ body {
 div#screen {
     display: flex;
     flex-direction: row;
-    flex-flow: no-wrap;
 
 	row-gap: 2em;
     column-gap: 1em;

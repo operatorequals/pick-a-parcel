@@ -249,6 +249,7 @@ GameObjectWrapper.stats.remove();
 let GameInstance = null;
 let G = null;
 
+// Populate G and GameInstance - for debug purposes
 setG = setInterval(()=>{
   GameInstance = GameObjectWrapper.game;
   if (GameInstance !== undefined){
@@ -262,4 +263,5 @@ $("#board").append(Board(CONSTANTS.BOARDSIZE))
 
 $('#submit').click(()=>{
   passToHost(EVENTS['SUBMIT']);
+  $('html, body').scrollTop(0); // for mobiles to show the board again
 });

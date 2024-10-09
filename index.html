@@ -35,14 +35,7 @@
 </head>
 
 <body>
-	<div id="debug">
-		<div id="debug-updatedOn" class="json-container"></div>
-		<div id="debug-decks" class="json-container"></div>
-		<div id="debug-hands" class="json-container"></div>
-		<div id="debug-turn-strategies" class="json-container"></div>
-		<div id="debug-positions" class="json-container"></div>
-	</div>
-	<div id="netplayjs" style="visibility: hidden;"></div>
+	<!-- <div id="netplayjs" style="visibility: hidden;"></div> -->
 	<div id="screen">
 
 		<div id="playfield">
@@ -59,8 +52,6 @@
 			<div id="hand" class="hand card-row"></div>
 			<div id="submit"><pre>Run Script...</pre></div>
 		</div>
-
-		<a id="test-button" href="#"></a>
 	</div>
 	<div id="info"></div>
 
@@ -72,30 +63,16 @@
 
 	<script src="main.js"></script>
 
-	<!-- Test Templates -->
 	<script>
 
-	$("canvas").each((i, c) => {
-		console.log(c)
-		c.id = `netplayjs-canvas-${i}`;
-		$('#netplayjs').append(c);
-	});
+		// (Re)Move the NetPlayJS ghost canvas
+		$("canvas").each((i, c) => {
+			console.log(c)
+			c.id = `netplayjs-canvas-${i}`;
+			$('#netplayjs').remove(c);
+			// $('#netplayjs').append(c);
+		});
 
-	// hand_el = $("#hand");
-	// turnStrategies_el = $("#turn-strategies");
-
-	// hand_el.append(ActionCard("throw", "1", "alert(1);"))
-	// hand_el.append(ActionCard("move", "11"))
-	// hand_el.append(ActionCard("move", "14"))
-	// hand_el.append(ActionCard("steal", "12"))
-	// hand_el.append(DirectionCard("right", "2"))
-	// hand_el.append(DirectionCard("left", "3"))
-	// hand_el.append(DirectionCard("up", "4"))
-	// hand_el.append(DirectionCard("down", "5"))
-
-
-	// board = new Board(5);
-	// board.render();
 	</script>
 
 

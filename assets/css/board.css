@@ -1,18 +1,19 @@
 #board {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
-    gap: 0.2em 0.2em;
+    gap: 0.2em 0.1em;
     margin-top: 0.5em;
 }
 
 .cell {
-    width: 6vw;
-    height: 6vw;
-    border: 1px solid #000;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    width: 5.8vw;
+    height: 5.8vw;
+    border: 1px solid #000;
+    margin-top: 0.1em;
 }
 
 .parcel {
