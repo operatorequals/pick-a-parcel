@@ -17,7 +17,7 @@ sanity_checks = [
     })
 
     if (sum !== current){
-      console.error(`Inconsistend state: Total cards ${current} - should be ${sum}`)
+      console.error(`Inconsistent state: Total cards ${current} - should be ${sum}`)
       return false
     }
     return true;
@@ -33,7 +33,7 @@ sanity_checks = [
     if (parcelPosition.x != -1 && parcelPosition.y != -1)
       parcelNum += 1;
     if (parcelNum != 1){
-      console.error(`Inconsistend state: More than 1 Parcel in the game (found: ${parcelNum})`)
+      console.error(`Inconsistent state: More than 1 Parcel in the game (found: ${parcelNum})`)
       return false
     }
     return true;

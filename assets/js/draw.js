@@ -98,11 +98,10 @@ function drawBoard({G, playerID}){
 
       } // it is a player
       else {
-        // console.log("Drawing player")
         $(`#board-cell-${pos.x}-${pos.y}`).addClass("player")
+        // Define which player by color!
         $(`#board-cell-${pos.x}-${pos.y}`).addClass(`player-${Number(x)+1}`)
         $(`#board-cell-${pos.x}-${pos.y}`).append(x)
-        // Define which player!
       }
     });
 }

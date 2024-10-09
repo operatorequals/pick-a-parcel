@@ -5,7 +5,7 @@ const CONSTANTS = {
   "PAUSETIMER": 2000,
 }
 
-const GAMEPHASES = [
+const GAMEPHASES = [ // TODO: Make it a map
   "DRAW",
   "TURNSTRATEGY",
   "READY",

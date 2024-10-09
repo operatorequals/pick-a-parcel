@@ -45,7 +45,7 @@ const moves = {
 			return INVALID_MOVE
 		}
 
-		// Check if valid order for Turn Strategy
+		// TODO: Check if valid order for Turn Strategy
 		let card = G.players[playerID].hand[indexOfCard]
 		if (G.players[playerID].turnStrategy.length == 0){
 			if (card.type !== "action"){ // First card has to be "Action"
