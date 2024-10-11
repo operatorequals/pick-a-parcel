@@ -90,15 +90,15 @@ class NetPlayJSGame extends netplayjs.Game {
     // Set Random player to have the first turn - not the host
     this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
 
-    // If they're both to SETUP, send them to DRAW
-    this.checkPhase(GAMEPHASES.SETUP, GAMEPHASES.DRAW) 
+    // If they're both to SETUP, send them to CARDDRAW
+    this.checkPhase(GAMEPHASES.SETUP, GAMEPHASES.CARDDRAW) 
   }
 
   _startTurn(){
     this.players.forEach((player)=>{
       const playerID = player.getID();
       console.log(`[PickAParcel] Drawing cards for ${playerID}...`);
-      if (this.G.players[playerID].phase !== GAMEPHASES.DRAW){
+      if (this.G.players[playerID].phase !== GAMEPHASES.CARDDRAW){
         console.error(`Tried to start a turn with GamePhase ${this.G.players[playerID].phase}`)
         return;
       }
@@ -145,11 +145,11 @@ class NetPlayJSGame extends netplayjs.Game {
     if (!this._isHost()) return;
 
     if (this.checkPhase(GAMEPHASES.SETUP))
-      this._gameSetupHostOnly();  // Sets them to DRAW
+      this._gameSetupHostOnly();  // Sets them to CARDDRAW
     else // If game has begun - check for rule breaking/cheating etc
       sanityChecks.forEach((check) => {check(this.G)});
 
-    if (this.checkPhase(GAMEPHASES.DRAW))
+    if (this.checkPhase(GAMEPHASES.CARDDRAW))
       this._startTurn() // Sets them to TURNSTRATEGY
 
     if (this.checkPhase(GAMEPHASES.READY)) {// READY
@@ -157,8 +157,8 @@ class NetPlayJSGame extends netplayjs.Game {
       // as the GamePhase will change to "CHECKWIN" inside
       playout({G:this.G, playerID:this.G.ctx.currentPlayer})
     }
-    // if playout is over - back to DRAW
-    this.checkPhase(GAMEPHASES.FINISHED, GAMEPHASES.DRAW) // Playout is over - back to Draw
+    // if playout is over - back to CARDDRAW
+    this.checkPhase(GAMEPHASES.FINISHED, GAMEPHASES.CARDDRAW) // Playout is over - back to Draw
 
     // Run the moves
     for (const [player, input] of playerInputs.entries()) {

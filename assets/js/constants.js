@@ -26,7 +26,7 @@ const CONSTANTS = {
 
 const GAMEPHASES = {
   "SETUP": "SETUP",
-  "DRAW": "DRAW",
+  "CARDDRAW": "CARDDRAW",
   "TURNSTRATEGY": "TURNSTRATEGY",
   "READY": "READY",
   "PLAYOUT": "PLAYOUT",  
@@ -35,6 +35,7 @@ const GAMEPHASES = {
   "CHECKWIN": "CHECKWIN",
   "LOSE": "LOSE",
   "WIN": "WIN",
+  "DRAW": "DRAW",
 };
 
 const EVENTS = {
