@@ -110,12 +110,11 @@ function updateInfo({G, playerID}){
     opponent = G.players[(playerID+1) % (Object.keys(G.players).length)]
     phase = GAMEPHASES[player.phase]
     infoStr = `
-    Round: ${G.ctx.round} </br>
+    <h4>Round: ${G.ctx.round} </h4>
     Message: <h1>${player.message !== undefined ? player.message : ""}</h1> <br/>
-
     <h3>
     PlayerID: ${playerID}
-    </h3><br/>
+    </h3>
     <h4>Play First:</h4>
     ${G.ctx.currentPlayer === playerID} <br/>
     <h4>Phase:</h4>
