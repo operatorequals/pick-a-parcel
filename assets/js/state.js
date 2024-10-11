@@ -31,5 +31,6 @@ STATE = {
   "ctx": {
     "currentPlayer": 0,
     "turn": 0,
+    "round": 0,
   },
 }

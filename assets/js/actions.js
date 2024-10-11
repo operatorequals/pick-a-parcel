@@ -150,9 +150,22 @@ const cardAction = {
 }
 
 function checkWin({G, playerID}){
-    // CHECKWIN
-    // G.players[playerID].score += POINTS.HOLD_PARCEL
-
+    winnerExists = Object.values(G.players).every(player => player.hasParcel);
+    if (!winnerExists){
+        G.players[playerID].phase = GAMEPHASES.DRAW;
+        G.players[playerID].message = "It's a Draw!";
+        return false;
+    }
+    Object.entries(G.players).forEach((playerID, player)=>{
+        if (player.hasParcel){
+            G.players[playerID].phase = GAMEPHASES.WIN;
+            G.players[playerID].message = "You just WON!";
+            G.players[playerID].score += POINTS.HOLD_PARCEL;
+        } else {
+            G.players[playerID].phase = GAMEPHASES.LOSE;
+            G.players[playerID].message = "You just Lost!";
+        }
+    });
 }
 
 async function playout({G, playerID}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {

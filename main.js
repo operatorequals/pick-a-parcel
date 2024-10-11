@@ -43,6 +43,12 @@ class NetPlayJSGame extends netplayjs.Game {
   }
 
   _gameSetupHostOnly() {
+    if (this.G.ctx.round > 0){
+      console.log("[PickAParcel] Clearing Hands and Trunk...")
+      // TODO
+      console.log("[PickAParcel] Resetting Parcels...")
+      // TODO
+    }
     console.log("[PickAParcel] Generating Decks...")
     moves.createDeck({G: this.G, playerID:null}, "action")
     moves.createDeck({G: this.G, playerID:null}, "direction")
