@@ -5,6 +5,20 @@ The first parameter is always, G (Gamestate) and PlayerID
 
 INVALID_MOVE = null;
 
+const helpers = {
+    turnStrategyCheck: ({G, playerID}) => {
+        const turnStrategy = G.players[playerID].turnStrategy
+        const types = Object.keys(CARDSUMS); // action, direction - in that order
+        for (let c=0; c<turnStrategy.length; c++){
+            if (types[c%2] !== turnStrategy[c].type){
+                console.error(`TurnStrategy of ${playerID} does not have valid order!`)
+                return INVALID_MOVE
+            }
+        }
+        return true
+    }
+}
+
 const moves = {
     /* Control Moves */
     createDeck: ({G, playerID}, type="action") => {
@@ -26,10 +40,8 @@ const moves = {
 
 	drawCards: ({G, playerID}, type="action", num=CONSTANTS["DECKDRAW"]) => {
 		deck = G["decks"][type]
-        if (deck.length < num){
-            G.players[playerID].phase = GAMEPHASES.CHECKWIN;
+        if (deck.length < num)
             return false;
-        }
 		cards = deck.splice(0, num);
 		G["players"][playerID].hand.push(...cards)
 		return true
@@ -55,21 +67,9 @@ const moves = {
 			console.error(`Card ${cardID} is not player ${playerID} hand!`)
 			return INVALID_MOVE
 		}
-
-		// TODO: Check if valid order for Turn Strategy
-		let card = G.players[playerID].hand[indexOfCard]
-		if (G.players[playerID].turnStrategy.length == 0){
-			if (card.type !== "action"){ // First card has to be "Action"
-				console.error(`Card ${cardID} is of type "Action"!`)
-				return INVALID_MOVE
-			} // Then they have to alternate
-		}
-
-		// let previousCard = G.players[playerID].turnStrategy[G.players[playerID].turnStrategy.length-1]
-		// if (card.type === previousCard.type){
-		// 	console.error(`Card ${cardID} is of wrong type!`)
-		// 	return INVALID_MOVE
-		// }
+        // Check if TurnStrategy is OK before adding new
+        if (!helpers.turnStrategyCheck({G:G, playerID:playerID}))
+            return INVALID_MOVE
 
 		let handLengthBefore = G.players[playerID].hand.length
 		card = G.players[playerID].hand.splice(indexOfCard, 1) // remove from the hand
@@ -84,7 +84,6 @@ const moves = {
 		}
 		card = G.players[playerID].turnStrategy.pop()
 		G.players[playerID].hand.push(card)
-
 	},
 
 	finishTurnStrategy: ({G, playerID}, ) => {
@@ -94,14 +93,8 @@ const moves = {
 			return INVALID_MOVE
 		}
 
-		const turnStrategy = G.players[playerID].turnStrategy
-		const types = ['action', 'direction'];
-		for (let c=0; c<turnStrategy.length; c++){
-			if (types[c%2] !== turnStrategy[c].type){
-				console.error(`TurnStrategy of ${playerID} does not have valid order!`)
-				return INVALID_MOVE
-			}
-		}
+        if (!helpers.turnStrategyCheck({G:G, playerID:playerID}))
+            return INVALID_MOVE
 
 		G.players[playerID].phase = GAMEPHASES.READY
 	},
