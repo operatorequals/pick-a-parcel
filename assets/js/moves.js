@@ -6,12 +6,19 @@ The first parameter is always, G (Gamestate) and PlayerID
 INVALID_MOVE = null;
 
 const helpers = {
-    turnStrategyCheck: ({G, playerID}) => {
+    turnStrategyCheck: ({G, playerID}, finish=false) => {
         const turnStrategy = G.players[playerID].turnStrategy
         const types = Object.keys(CARDSUMS); // action, direction - in that order
         for (let c=0; c<turnStrategy.length; c++){
             if (types[c%2] !== turnStrategy[c].type){
                 console.error(`TurnStrategy of ${playerID} does not have valid order!`)
+                return INVALID_MOVE
+            }
+        }
+        if (finish){
+            const lastCard = turnStrategy[turnStrategy.length-1];
+            if (lastCard !== undefined && lastCard.type !== "direction"){
+                console.error(`TurnStrategy of ${playerID} has to end with a 'direction' card!`)
                 return INVALID_MOVE
             }
         }
@@ -93,7 +100,7 @@ const moves = {
 			return INVALID_MOVE
 		}
 
-        if (!helpers.turnStrategyCheck({G:G, playerID:playerID}))
+        if (!helpers.turnStrategyCheck({G:G, playerID:playerID}, true))
             return INVALID_MOVE
 
 		G.players[playerID].phase = GAMEPHASES.READY
