@@ -1,7 +1,4 @@
 
-
-//TODO: make it boardgame.io compatible
-// function drawCards(targetElmID, cardList, callbackEvent, faceup=true){ 
 function drawCards({G, playerID}, targetElmID){
   const playerNum = Object.keys(G.players).length;
   let nextPlayerID = (playerID + 1) % playerNum;

@@ -11,16 +11,18 @@ class NetPlayJSGame extends netplayjs.Game {
         0: {
           "hand": [],
           "turnStrategy": [],
-          "phase" : GAMEPHASES[8], // SETUP
+          "phase" : GAMEPHASES.SETUP,
           "message": "",
           "hasParcel": false,
+          "score": 0,
         },
         1: {
           "hand": [],
           "turnStrategy": [],
-          "phase" : GAMEPHASES[8],
+          "phase" : GAMEPHASES.SETUP,
           "message": "",
           "hasParcel": false,
+          "score": 0,
         },
       },
       "positions": {
@@ -85,33 +87,37 @@ class NetPlayJSGame extends netplayjs.Game {
       this.G.positions[x] = this.pickRandomPosition();
     });
 
-    this.checkPhase(GAMEPHASES[8], GAMEPHASES[0]) // If they're both to SETUP, send them to DRAW
-
     // Set Random player to have the first turn - not the host
     this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
+
+    // If they're both to SETUP, send them to DRAW
+    this.checkPhase(GAMEPHASES.SETUP, GAMEPHASES.DRAW) 
   }
 
   _startTurn(){
     this.players.forEach((player)=>{
       const playerID = player.getID();
       console.log(`[PickAParcel] Drawing cards for ${playerID}...`);
-      if (this.G.players[playerID].phase !== GAMEPHASES[0]){
+      if (this.G.players[playerID].phase !== GAMEPHASES.DRAW){
         console.error(`Tried to start a turn with GamePhase ${this.G.players[playerID].phase}`)
         return;
       }
+      let deckNotFinished = true;
       while (this.G.players[playerID].hand.length < CONSTANTS["DECKDRAW"]*2){
-        moves.draw(
+        deckNotFinished = moves.drawCards(
           {G: this.G, playerID: playerID},
           "action", 1,
           );
-        moves.draw(
+        deckNotFinished = moves.drawCards(
           {G: this.G, playerID: playerID},
           "direction", 1,
           );
+        if (!deckNotFinished) return false; // Deck finished!
       }
-      this.G.players[playerID].phase = GAMEPHASES[1]
+      this.G.players[playerID].phase = GAMEPHASES.TURNSTRATEGY;
     });
     this.G.ctx.turn++;
+    return true;
   }
 
   checkPhase(phase, setTo=undefined){
@@ -138,22 +144,21 @@ class NetPlayJSGame extends netplayjs.Game {
     // The rest can only be set to the state by the Host
     if (!this._isHost()) return;
 
-    if (this.checkPhase(GAMEPHASES[8])) //SETUP
-      this._gameSetupHostOnly();
+    if (this.checkPhase(GAMEPHASES.SETUP))
+      this._gameSetupHostOnly();  // Sets them to DRAW
     else // If game has begun - check for rule breaking/cheating etc
-      sanity_checks.forEach((check) => {check(this.G)});
+      sanityChecks.forEach((check) => {check(this.G)});
 
-    if (this.checkPhase(GAMEPHASES[0])) {// DRAW
-      this._startTurn()
-    }
+    if (this.checkPhase(GAMEPHASES.DRAW))
+      this._startTurn() // Sets them to TURNSTRATEGY
 
-    if (this.checkPhase(GAMEPHASES[2])) {// READY
+    if (this.checkPhase(GAMEPHASES.READY)) {// READY
       // This will only be called once per turn
       // as the GamePhase will change to "CHECKWIN" inside
       playout({G:this.G, playerID:this.G.ctx.currentPlayer})
     }
     // if playout is over - back to DRAW
-    this.checkPhase(GAMEPHASES[4], GAMEPHASES[0]) // Playout is over - back to Draw
+    this.checkPhase(GAMEPHASES.FINISHED, GAMEPHASES.DRAW) // Playout is over - back to Draw
 
     // Run the moves
     for (const [player, input] of playerInputs.entries()) {
@@ -169,12 +174,10 @@ class NetPlayJSGame extends netplayjs.Game {
           moves.finishTurnStrategy({G: this.G, playerID: player.getID()})
         }
         else if (eventAction == EVENTS['ADD']){
-          console.log(`Processing "ADD" ${event}`)
           let cardID = event.split(" ")[1]
           moves.addToTurnStrategy({G: this.G, playerID: player.getID()}, cardID)
         }
         else if (eventAction == EVENTS['REMOVE']){
-          console.log(`Processing "REMOVE" ${event}`)
           moves.removeFromTurnStrategy({G: this.G, playerID: player.getID()})
         }
 
@@ -184,15 +187,13 @@ class NetPlayJSGame extends netplayjs.Game {
   }
 
   serialize() {
-    // console.log("Serializing...")
     return JSON.stringify(this.G)
   }
 
   deserialize(value) {
     let newG = JSON.parse(value);
-    if (!this._isHost()){
+    if (!this._isHost())
       this.G = newG
-    }
   }
 
   // Draw the state of our game
@@ -203,16 +204,6 @@ class NetPlayJSGame extends netplayjs.Game {
     drawCards({G:this.G, playerID:playerID}, "turn-strategy-own")
     drawCards({G:this.G, playerID:playerID}, "turn-strategy-opponent")
 
-    // Turn Strategies
-    // this.players.forEach(player => {
-    //   const turnStrategy = this.G["players"][[player.getID()]]["turnStrategy"]
-    //   if (player.getID() == playerID)
-    //     drawCards("turn-strategy-own", turnStrategy, EVENTS["REMOVE"], true)
-    //   else
-    //     drawCards("turn-strategy-opponent", turnStrategy, undefined, false)
-    // });
-
-    // Board
     drawBoard({G:this.G, playerID:playerID})
 
     // Info

@@ -1,5 +1,5 @@
-
-sanity_checks = [
+/* Checks on the Game State to ensure things are as they should */
+sanityChecks = [
   cardNumber = (G) => {
     const sum = CONSTANTS["DECKNUM"] * 2;
     const cardPlaces = [
