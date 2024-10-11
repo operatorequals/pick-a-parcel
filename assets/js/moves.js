@@ -7,15 +7,16 @@ INVALID_MOVE = null;
 
 const moves = {
     /* Control Moves */
-    createDeck: ({G, playerID}, type="action", num=CONSTANTS["DECKNUM"]) => {
-        console.log(`Creating ${type} Deck (${num} cards)...`);
-        const cardValues = VALIDCARDS[type]
+    createDeck: ({G, playerID}, type="action") => {
+        const cardSums = CARDSUMS[type]
+        const cardTotal = Object.values(cardSums).reduce((a, b) => a + b, 0)
+        console.log(`Creating ${type} Deck (${cardTotal} cards)...`);
         let cards = []
-        for (let i = 0; i < num; i++)
-            cards.push( // rotate through card values to include them all
-                new Card(type, cardValues[i % cardValues.length])
-                );
-
+        for (const [value, num] of Object.entries(cardSums)){
+            for (let i = 0; i < num; i++)
+                cards.push(new Card(type, value));
+        }
+        // Deck shuffling
         for (let i = cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [cards[i], cards[j]] = [cards[j], cards[i]];

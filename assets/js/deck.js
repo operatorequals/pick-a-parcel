@@ -2,7 +2,7 @@
 
 class Card {
     constructor(type, value) {
-        if (VALIDCARDS[type].indexOf(value) === -1)
+        if (CARDSUMS[type][value] === undefined)
             throw new Error(`Invalid Card: "${type}" "${value}"`);
         this.type = type; // "action" or "direction"
         this.value = value; // e.g., "move", "left"
