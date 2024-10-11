@@ -149,6 +149,12 @@ const cardAction = {
     }
 }
 
+function checkWin({G, playerID}){
+    // CHECKWIN
+    // G.players[playerID].score += POINTS.HOLD_PARCEL
+
+}
+
 async function playout({G, playerID}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
     // Set everyone to playout
     const playerNum = Object.keys(G.players).length;
@@ -179,6 +185,7 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
     const directionCard = turnStrategy.shift();
 
     let playerWon = false;
+    let playerPoints = 0;
     // Check if player has any cards left in Turn Strategy
     if (actionCard === undefined){
     	G.players[playerID].phase = GAMEPHASES.FINISHED;
@@ -198,10 +205,12 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
 
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
+            playerPoints = POINTS.MOVE_TO_DESTINATION
         } else if (action === 'steal') {
             playerWon = cardAction.stealParcel({G:G, playerID: playerID});
         } else if (action === 'throw') {
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
+            playerPoints = POINTS.THROW_TO_DESTINATION
         } // add more card types here
     }
 
@@ -209,6 +218,7 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
         console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
         G.players[playerID].phase = GAMEPHASES.WIN;
         G.players[playerID].message = "You just WON!"
+        G.players[playerID].score += playerPoints
 
         G.players[nextPlayerID].phase = GAMEPHASES.LOSE; // all other players
         G.players[nextPlayerID].message = "You just Lost!"
