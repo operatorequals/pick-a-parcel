@@ -54,9 +54,6 @@ class NetPlayJSGame extends netplayjs.Game {
 
     // Set Random player to have the first turn - not the host
     this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
-
-    // If they're both to SETUP, send them to CARDDRAW
-    this.checkPhase(GAMEPHASES.SETUP, GAMEPHASES.CARDDRAW) 
   }
 
   _startTurn(){
@@ -77,7 +74,10 @@ class NetPlayJSGame extends netplayjs.Game {
           {G: this.G, playerID: playerID},
           "direction", 1,
           );
-        if (!deckNotFinished) return false; // Deck finished!
+        if (!deckNotFinished){
+          this.setPhase(GAMEPHASES.CHECKWIN)
+          return false; // Deck finished!
+        }
       }
       this.G.players[playerID].phase = GAMEPHASES.TURNSTRATEGY;
     });
@@ -85,51 +85,78 @@ class NetPlayJSGame extends netplayjs.Game {
     return true;
   }
 
-  checkPhase(phase, setTo=undefined){
-    let playerNum = this.players.length
-    let phaseCheck = 0;
+  setPhase(phase){
+    const playerNum = this.players.length
     for (let p=0; p<playerNum; p++)
-      phaseCheck += this.G.players[p].phase === phase ? 1 : 0 // Playout
+      this.G.players[p].phase = phase
+  }
 
-    const ret = (phaseCheck === playerNum)
-    if (setTo === undefined)
-      return ret
-
-    if (phaseCheck === playerNum){ // side-effect
-      for (let p=0; p<playerNum; p++)
-        this.G.players[p].phase = setTo
-      return true
-    } else {
-      return false
-    }
+  checkPhase(phase, all=true){
+    const players = Object.values(this.G.players)
+    if (all)
+      return players.every(player => player.phase === phase);
+    else
+      return players.some(player => player.phase === phase);
   }
 
   tick(playerInputs) {
+    // If game has begun - check the state for rule breaking/cheating etc
+    // Runs on the Host and the Client
+    if (!this.checkPhase(GAMEPHASES.SETUP))
+      sanityChecks.forEach((check) => {check(this.G)});
 
-    // The rest can only be set to the state by the Host
+    /*
+      The rest of the game loop
+      is run only by the Host
+      Client only gets the G updates
+    */
     if (!this._isHost()) return;
 
-    if (this.checkPhase(GAMEPHASES.SETUP))
-      this._gameSetupHostOnly();  // Sets them to CARDDRAW
-    else // If game has begun - check for rule breaking/cheating etc
-      sanityChecks.forEach((check) => {check(this.G)});
+    // Run the Game Setup (create Decks, find positions)
+    // and start by drawing cards
+    if (this.checkPhase(GAMEPHASES.SETUP)){
+      this._gameSetupHostOnly();
+      this.setPhase(GAMEPHASES.CARDDRAW)
+    }
 
     if (this.checkPhase(GAMEPHASES.CARDDRAW))
       this._startTurn() // Sets them to TURNSTRATEGY
 
-    if (this.checkPhase(GAMEPHASES.READY)) {// READY
-      // This will only be called once per turn
-      // as the GamePhase will change to "CHECKWIN" inside
+    // This will only be called once per turn
+    // as the GamePhase will change to "FINISHED" inside
+    if (this.checkPhase(GAMEPHASES.READY))
       playout({G:this.G, playerID:this.G.ctx.currentPlayer})
-    }
-    // if playout is over - back to CARDDRAW
-    this.checkPhase(GAMEPHASES.FINISHED, GAMEPHASES.CARDDRAW) // Playout is over - back to Draw
 
-    // Run the moves
+    // if playout is over - back to CARDDRAW
+    if (this.checkPhase(GAMEPHASES.FINISHED))
+      this.setPhase(GAMEPHASES.CARDDRAW) // Playout is over - back to Draw
+
+    // If CARDDRAW finds the Deck empty
+    // proceeds to CHECKWIN
+    if (this.checkPhase(GAMEPHASES.CHECKWIN))
+      checkWin({G:this.G, playerID:this.G.ctx.currentPlayer})
+
+    // If the game has concluded ask for a new round
+    if (this.checkPhase(GAMEPHASES.WIN, false) || this.checkPhase(GAMEPHASES.DRAW)){
+      const newGame = confirm("Do you want to start a new game?")
+      if (newGame)
+        this.setPhase(GAMEPHASES.SETUP)
+    }
+
+    // Do not process inputs if no players are in Turn Strategy Phase
+    if (!this.checkPhase(GAMEPHASES.TURNSTRATEGY, false))
+      return
+
+    // Process the "Events" from all players and do "moves" accordingly
     for (const [player, input] of playerInputs.entries()) {
 
       Object.keys(input.keysPressed).forEach((event)=>{
-        // Tokenize event
+        /* Tokenize event
+        Event examples (CardID: 32ka846):
+          ADD 32ka846
+          REMOVE 32ka846
+          SUBMIT
+        */
         const eventTokens = event.split(" ")
         const eventAction = EVENTS[eventTokens[0]]
         const eventParameter = eventTokens[1]

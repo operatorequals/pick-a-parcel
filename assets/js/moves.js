@@ -48,8 +48,6 @@ const moves = {
 	addToTurnStrategy: ({G, playerID}, cardID) => {
 		console.log("Adding card ", cardID)
 
-		// Check Card for validity
-
 		// Check if card already in hand
 		let cardIDs = G.players[playerID].hand.map(card => card.id)
 		let indexOfCard = cardIDs.indexOf(cardID)
