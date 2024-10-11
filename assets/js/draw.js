@@ -110,27 +110,23 @@ function updateInfo({G, playerID}){
     opponent = G.players[(playerID+1) % (Object.keys(G.players).length)]
     phase = GAMEPHASES[player.phase]
     infoStr = `
+    Round: ${G.ctx.round} </br>
     Message: <h1>${player.message !== undefined ? player.message : ""}</h1> <br/>
 
-    PlayerID: ${playerID} <br/>
-    Plays Next: ${G.ctx.currentPlayer} <br/>
+    <h3>
+    PlayerID: ${playerID}
+    </h3><br/>
+    <h4>Play First:</h4>
+    ${G.ctx.currentPlayer === playerID} <br/>
+    <h4>Phase:</h4>
+    ${player.phase} | ${opponent.phase} <br/>
+    <h4>Parcel:</h4>
+    ${player.hasParcel} <> ${opponent.hasParcel}
     <br/>
-    HasParcel: ${player.hasParcel} <br/>
-    Opponent HasParcel: ${opponent.hasParcel} <br/>
-    <br/>
-    Phase: ${player.phase} <br/>
-    Opponent Phase: ${opponent.phase} <br/>
-    <br/>
-
+    <h4>Cards</h4>
+    Hands: ${player.hand.length} <> ${opponent.hand.length}<br/>
+    Turn Strategies: ${player.turnStrategy.length} <> ${opponent.turnStrategy.length}<br/>
     Deck cards: ${G.decks["action"].length + G.decks["direction"].length} <br/>
-    <br/>
-
-    Cards in hand: ${player.hand.length}<br/>
-    Cards in opponent's hand: ${opponent.hand.length}<br/>
-    <br/>
-
-    Own Turn Strategy: ${player.turnStrategy.length}<br/>
-    Opponent Turn Strategy: ${opponent.turnStrategy.length}<br/>
     `
     infoElm.append(infoStr);
 }
