@@ -150,13 +150,14 @@ const cardAction = {
 }
 
 function checkWin({G, playerID}){
-    winnerExists = Object.values(G.players).every(player => player.hasParcel);
-    if (!winnerExists){
-        G.players[playerID].phase = GAMEPHASES.DRAW;
-        G.players[playerID].message = "It's a Draw!";
-        return false;
-    }
-    Object.entries(G.players).forEach((playerID, player)=>{
+    playerID = null;
+    const winnerExists = Object.values(G.players).some(player => player.hasParcel);
+    Object.keys(G.players).forEach((playerID)=>{
+        if (!winnerExists){
+            G.players[playerID].phase = GAMEPHASES.DRAW
+            G.players[playerID].message = "It's a Draw!";
+            return;
+        }
         if (player.hasParcel){
             G.players[playerID].phase = GAMEPHASES.WIN;
             G.players[playerID].message = "You just WON!";
@@ -225,18 +226,17 @@ async function playTurn({G, playerID}, pauseTimer=3000) { // this needs serious 
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
             playerPoints = POINTS.THROW_TO_DESTINATION
         } // add more card types here
+
+        if (playerWon){
+            console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
+            G.players[playerID].phase = GAMEPHASES.WIN;
+            G.players[playerID].message = "You just WON!"
+            G.players[playerID].score += playerPoints
+
+            G.players[nextPlayerID].phase = GAMEPHASES.LOSE; // all other players
+            G.players[nextPlayerID].message = "You just Lost!"
+            return true;
+        }
     }
-
-    if (playerWon){
-        console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
-        G.players[playerID].phase = GAMEPHASES.WIN;
-        G.players[playerID].message = "You just WON!"
-        G.players[playerID].score += playerPoints
-
-        G.players[nextPlayerID].phase = GAMEPHASES.LOSE; // all other players
-        G.players[nextPlayerID].message = "You just Lost!"
-        return true;
-    }
-
     return false
 }

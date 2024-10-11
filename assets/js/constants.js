@@ -37,6 +37,9 @@ const GAMEPHASES = {
   "LOSE": "LOSE",
   "WIN": "WIN",
   "DRAW": "DRAW",
+  "END": "END",
+
+  "NEWGAME": "NEWGAME",
 };
 
 const EVENTS = {

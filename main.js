@@ -44,10 +44,16 @@ class NetPlayJSGame extends netplayjs.Game {
 
   _gameSetupHostOnly() {
     if (this.G.ctx.round > 0){
-      console.log("[PickAParcel] Clearing Hands and Trunk...")
-      // TODO
-      console.log("[PickAParcel] Resetting Parcels...")
-      // TODO
+      console.log("[PickAParcel] Starting new round...")
+      this.G.decks.trunk = [];
+      this.G.decks.action = [];
+      this.G.decks.direction = [];
+      Object.keys(this.G.players).forEach(playerID=>{
+        this.G.players[playerID].hand = [];
+        this.G.players[playerID].TurnStrategy = [];
+        this.G.players[playerID].hasParcel = false;
+        this.G.players[playerID].message = "";
+      });
     }
     console.log("[PickAParcel] Generating Decks...")
     moves.createDeck({G: this.G, playerID:null}, "action")
@@ -59,12 +65,13 @@ class NetPlayJSGame extends netplayjs.Game {
     });
 
     // Set Random player to have the first turn - not the host
-    this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length)
+    this.G.ctx.currentPlayer = Math.floor(Math.random() * this.players.length);
+    this.G.ctx.turn = 0;
   }
 
   _startTurn(){
-    this.players.forEach((player)=>{
-      const playerID = player.getID();
+    // this.players.forEach((player)=>{
+    for (const playerID of Object.keys(this.G.players)) {
       console.log(`[PickAParcel] Drawing cards for ${playerID}...`);
       if (this.G.players[playerID].phase !== GAMEPHASES.CARDDRAW){
         console.error(`Tried to start a turn with GamePhase ${this.G.players[playerID].phase}`)
@@ -85,8 +92,8 @@ class NetPlayJSGame extends netplayjs.Game {
           return false; // Deck finished!
         }
       }
-      this.G.players[playerID].phase = GAMEPHASES.TURNSTRATEGY;
-    });
+    }
+    this.setPhase(GAMEPHASES.TURNSTRATEGY)
     this.G.ctx.turn++;
     return true;
   }
@@ -105,7 +112,7 @@ class NetPlayJSGame extends netplayjs.Game {
       return players.some(player => player.phase === phase);
   }
 
-  tick(playerInputs) {
+  async tick(playerInputs) {
     // If game has begun - check the state for rule breaking/cheating etc
     // Runs on the Host and the Client
     if (!this.checkPhase(GAMEPHASES.SETUP))
@@ -131,7 +138,7 @@ class NetPlayJSGame extends netplayjs.Game {
     // This will only be called once per turn
     // as the GamePhase will change to "FINISHED" inside
     if (this.checkPhase(GAMEPHASES.READY))
-      playout({G:this.G, playerID:this.G.ctx.currentPlayer})
+      await playout({G:this.G, playerID:this.G.ctx.currentPlayer})
 
     // if playout is over - back to CARDDRAW
     if (this.checkPhase(GAMEPHASES.FINISHED))
@@ -139,14 +146,20 @@ class NetPlayJSGame extends netplayjs.Game {
 
     // If CARDDRAW finds the Deck empty
     // proceeds to CHECKWIN
+    // else goes to TURNSTRATEGY
     if (this.checkPhase(GAMEPHASES.CHECKWIN))
       checkWin({G:this.G, playerID:this.G.ctx.currentPlayer})
 
     // If the game has concluded ask for a new round
     if (this.checkPhase(GAMEPHASES.WIN, false) || this.checkPhase(GAMEPHASES.DRAW)){
-      const newGame = confirm("Do you want to start a new game?")
-      if (newGame)
-        this.setPhase(GAMEPHASES.SETUP)
+      this.setPhase(GAMEPHASES.NEWGAME) // to stop the tick() from running the game
+      const newGame = await confirm("Do you want to start a new game?");
+      if (newGame){
+        G.ctx.round++;
+        this.setPhase(GAMEPHASES.SETUP);
+      } else {
+        this.setPhase(GAMEPHASES.END);
+      }
     }
 
     // Do not process inputs if no players are in Turn Strategy Phase
@@ -210,7 +223,7 @@ class NetPlayJSGame extends netplayjs.Game {
 }
 
 
-NetPlayJSGame.timestep = 1000 / 5; // Our game runs slowly as it is a boardgame
+NetPlayJSGame.timestep = 1000 / 10; // Our game runs slowly as it is a boardgame
 NetPlayJSGame.deterministic = true;
 // Create a ghost game (no Canvas), that is only used
 // to sync the data and also for net discovery.
