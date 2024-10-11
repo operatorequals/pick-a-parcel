@@ -11,10 +11,8 @@ class NetPlayJSGame extends netplayjs.Game {
   }
 
   _getOwnPlayerID(){
-    for(let i = 0; i < this.players.length; i++){
-      let player = this.players[i]
-      if (player['isLocal']) return i;
-    }
+    for(let i = 0; i < this.players.length; i++)
+      if (this.players[i]['isLocal']) return i;
     return null;
   }
 
