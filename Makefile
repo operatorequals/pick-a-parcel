@@ -1,5 +1,5 @@
 
-IMAGE="boardgameio-react"
+IMAGE="boardgameio-react:latest"
 PORT="3000"
 
 build-image:
@@ -7,9 +7,9 @@ build-image:
 
 build: build-image
 	mkdir -p build/
-	docker run -ti -v`pwd`/build:/app/build $(IMAGE) build
+	docker run -ti --rm -v`pwd`/build:/app/build $(IMAGE) build
 
 
 run: build-image
-	docker run -ti -p3000:3000 $(IMAGE) start 
+	docker run -ti --rm -p3000:3000 $(IMAGE) start 
 
