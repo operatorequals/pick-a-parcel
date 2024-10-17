@@ -1,4 +1,4 @@
-export const CARDSUMS = { // smaller test deck - 1 round
+const shortgame = { // smaller test deck - 1 round
   "action": {
     "move": 4,
     "steal": 2,
@@ -12,19 +12,21 @@ export const CARDSUMS = { // smaller test deck - 1 round
   },
 };
 
-// export const CARDSUMS = { // it's crucial to sum up to the same number
-//   "action": {
-//     "move": 12,
-//     "steal": 6,
-//     "throw": 6,
-//   },
-//   "direction": {
-//     "up":6,
-//     "down":6,
-//     "left":6,
-//     "right":6,
-//   },
-// };
+const fullgame = { // it's crucial to sum up to the same number
+  "action": {
+    "move": 12,
+    "steal": 6,
+    "throw": 6,
+  },
+  "direction": {
+    "up":6,
+    "down":6,
+    "left":6,
+    "right":6,
+  },
+};
+
+export const CARDSUMS = fullgame
 
 export const CONSTANTS = {
   "DECKNUM": (

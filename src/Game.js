@@ -55,18 +55,21 @@ export const PickAParcel = {
     endStage: false,
   },
   moves: {},
-/*
+
   playerView: ({ G, ctx, playerID }) => {
+  	let newG = JSON.parse(JSON.stringify(G)); // deep copy
+
   	let otherIDs = [...Array(ctx.playerNum).keys()]
   	delete otherIDs[playerID]
   	otherIDs.forEach(otherID=>{
-	  	delete G.players[otherID]
+	  	delete newG.players[otherID]
   	})
 
-  	delete G.decks['action']
-  	delete G.decks['direction']
+  	delete newG.decks['action']
+  	delete newG.decks['direction']
+  	return newG
   }, // to mask the other player secrets
-*/
+
   turn: {
 	activePlayers: { all: 'turnStrategy' },
 
