@@ -171,7 +171,7 @@ export function checkWin({G, playerID}){
     });
 }
 
-export async function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
+export function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
     // Set everyone to playout
     console.log(ctx, ctx.currentPlayer)
     let playerID = ctx.currentPlayer
@@ -189,10 +189,10 @@ export async function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER,
         allFinished = Object.values(G.players).every(player => player.phase === GAMEPHASES.FINISHED);
     }
     console.log(`[PickAParcel] All players finished. Continuing to next Turn...`)
-    events.endTurn();
+    // events.endTurn();
 }
 
-export async function playTurn({G, playerID, events}, pauseTimer=3000) { // this needs serious fix
+export function playTurn({G, playerID, events}, pauseTimer=3000) { // this needs serious fix
     // playerID = G.ctx.currentPlayer // rely on G only
     console.log(`[PickAParcel] It's ${playerID}'s turn.`);
     const playerNum = Object.keys(G.players).length;
@@ -218,8 +218,6 @@ export async function playTurn({G, playerID, events}, pauseTimer=3000) { // this
         // moves.messagePlayer({G:G, playerID: playerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
         // moves.messagePlayer({G:G, playerID: nextPlayerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
 
-        await new Promise(r => setTimeout(r, pauseTimer)); // Pause for a momen
-
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
             playerPoints = POINTS.MOVE_TO_DESTINATION
@@ -229,7 +227,6 @@ export async function playTurn({G, playerID, events}, pauseTimer=3000) { // this
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
             playerPoints = POINTS.THROW_TO_DESTINATION
         } // add more card types here
-        await new Promise(r => setTimeout(r, pauseTimer/3)); // Pause for a momen
 
         G.players[playerID].phase = GAMEPHASES.PLAYOUT  // PLAYOUT
 

@@ -29,6 +29,7 @@ https://github.com/boardgameio/boardgame.io/issues/774
 
 export const PickAParcel = {
   name: 'Pick-A-Parcel',
+  seed: 42, // testing
   minPlayers: 2,
   disableUndo: true,
 
@@ -38,11 +39,11 @@ export const PickAParcel = {
   	// Create Decks
   	const deckTypes = Object.keys(CARDSUMS)
   	deckTypes.forEach((type)=>{
-	    createDeck({G: G}, type);
+	    createDeck({G: G, random: ctx.random}, type);
   	});
   	const objectsOnBoard = Object.keys(G.positions)
   	objectsOnBoard.forEach((object)=>{
-	    pickRandomPosition({G: G}, object);
+	    pickRandomPosition({G: G, random: ctx.random}, object);
   	});
 
   	return G;
@@ -54,16 +55,25 @@ export const PickAParcel = {
     endStage: false,
   },
   moves: {},
+/*
+  playerView: ({ G, ctx, playerID }) => {
+  	let otherIDs = [...Array(ctx.playerNum).keys()]
+  	delete otherIDs[playerID]
+  	otherIDs.forEach(otherID=>{
+	  	delete G.players[otherID]
+  	})
 
-  playerView: ({ G, ctx, playerID }) => G, // to mask the other player secrets
-
+  	delete G.decks['action']
+  	delete G.decks['direction']
+  }, // to mask the other player secrets
+*/
   turn: {
 	activePlayers: { all: 'turnStrategy' },
 
-    onBegin: ({G, ctx})=>{ // Replenish player hands each turn
+    onBegin: ({G, ctx, events}) => { // Replenish player hands each turn
     	console.log(`adding cards to hands`, G, ctx)
-    	drawPlayerCards({G: G, ctx: ctx}, "action");
-    	drawPlayerCards({G: G, ctx: ctx}, "direction");
+    	drawPlayerCards({G: G, ctx: ctx, events: events}, "action");
+    	drawPlayerCards({G: G, ctx: ctx, events: events}, "direction");
     },
 
     stages: {
@@ -78,7 +88,7 @@ export const PickAParcel = {
 	},
 
 	onEnd: playout
-      // ...
+
   },
 
 };

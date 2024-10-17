@@ -32,7 +32,6 @@ const helpers = {
 /* Control Moves */
 export const drawPlayerCards = ({G, ctx, events}, type="action") => {
 	let deck = G.decks[type];
-    console.log(JSON.stringify(G.players))
     for (let playerID = 0; playerID < ctx.numPlayers; playerID++)
     // G.players.forEach(playerID => 
     {
