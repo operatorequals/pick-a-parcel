@@ -1,6 +1,11 @@
 import { Client } from 'boardgame.io/react';
 import { PickAParcel } from './Game';
 
-const App = Client({ game: PickAParcel });
+import { Board } from './components/Board';
+
+const App = Client({
+	game: PickAParcel,
+	board: Board,
+});
 
 export default App;
