@@ -13,3 +13,16 @@ build: build-image
 run: build-image
 	docker run -ti --rm -p3000:3000 $(IMAGE) start 
 
+
+dev: build-image
+	docker run -ti --rm \
+	-v`pwd`/src:/app/src \
+	-v`pwd`/public:/app/public \
+	-p3000:3000 \
+	$(IMAGE) start 
+
+
+exec:
+	docker exec -ti \
+		`docker ps --filter ancestor=$(IMAGE) --format json | jq -r .ID` \
+		sh
