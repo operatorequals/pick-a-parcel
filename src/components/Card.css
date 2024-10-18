@@ -1,0 +1,134 @@
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+
+/*
+Use the Sublime text monokai colors:
+https://github.com/gerardroche/sublime-monokai-free?tab=readme-ov-file#customizations
+*/
+
+.card {
+    width: 8vw;
+    height: 12vw;
+
+    min-width: 8vw;
+    border-radius: 0.5em;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-front, .card-back {
+/*    position: absolute; */
+    border: 0.1em solid #3e3d32; /* Light blue border */
+}
+
+.card-front {
+    background-color: #43443b; /* Dark gray for front */
+    color: #f8f8f2; /* Light gray text */
+}
+
+.card-action {
+    background-color: #43443b; /* Dark gray for front */
+    color: #66d9ef; /* Light gray text */
+}
+
+.card-direction {
+    background-color: #43443b; /* Dark gray for front */
+    color: #fd971f; /* Light gray text */
+}
+
+.card-back {
+    background-color: #272822; /* Slightly lighter gray for back */
+    color: #e6db74; /* Light red text */
+    /*transform: rotateY(180deg);*/
+}
+
+.card:hover .card-front {
+    transform: rotateY(180deg);
+}
+
+.card:hover .card-back {
+    transform: rotateY(0deg);
+}
+
+span.card-value-action{
+    font-size: 2vw;
+    margin: 0 0 10px 0;
+    text-align: center;
+
+/*    position: absolute;
+    top: -2vw;
+*/}
+
+span.card-value-direction{
+    font-size: 1.8vw;
+    text-align: center;
+
+/*    position: absolute;
+    top: 0vw;
+    left: -0.5vw;*/
+}
+
+p.card-type {
+  color: #75715e;
+
+    position: absolute;
+    top: 8.5vw;
+
+    text-align: center;
+    font-size: 1vw;
+}
+
+p.card-back-text {
+    font-size: 1.4vw;
+    position: absolute;
+    top: 2vw;
+    left: 1vw;
+  transform: rotate(-42deg);
+}
+
+span.card-action-parenthesis {
+  color: #f92672;
+}
+
+span.card-action-semicolon {
+  color: #ffffff; 
+}
+
+.card-animation {
+    opacity: 0; /* Start invisible */
+    transform: translateX(-100%); /* Start off-screen to the left */
+    animation: fall-in 0.5s forwards; /* Animation */
+}
+
+@keyframes fall-in {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Add a delay for each card */
+.card-animation:nth-child(1) { animation-delay: 0s; }
+.card-animation:nth-child(2) { animation-delay: 0.1s; }
+.card-animation:nth-child(3) { animation-delay: 0.2s; }
+.card-animation:nth-child(4) { animation-delay: 0.3s; }
+.card-animation:nth-child(5) { animation-delay: 0.35s; }
+.card-animation:nth-child(5) { animation-delay: 0.4s; }
+.card-animation:nth-child(6) { animation-delay: 0.44s; }
+.card-animation:nth-child(7) { animation-delay: 0.47s; }
+.card-animation:nth-child(8) { animation-delay: 0.5s; }

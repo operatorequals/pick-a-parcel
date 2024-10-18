@@ -1,0 +1,36 @@
+div.turn-strategy-wrapper {
+  display: flex;
+  flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.2em;
+    margin: 0.2em;
+}
+
+/* Taken from:
+  https://stackoverflow.com/a/50109649
+*/
+div.turn-strategy-rest {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  flex-direction: row;
+
+  max-width: 30em;
+
+  gap: 0.1em;
+}
+
+.cardWrapper {
+    overflow: hidden;
+}
+
+.cardWrapper:last-child, .cardWrapper:hover {
+    overflow: visible;
+/*    margin-right: 0.1em; */
+}
+
+.reverse {
+/*    transform: rotateX(180deg); */
+}
