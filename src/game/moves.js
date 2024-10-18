@@ -15,14 +15,14 @@ const helpers = {
         for (let c=0; c<turnStrategy.length; c++){
             if (types[c%2] !== turnStrategy[c].type){
                 console.error(`TurnStrategy of ${playerID} does not have valid order!`)
-                return INVALID_MOVE
+                return false
             }
         }
         if (finish){
             const lastCard = turnStrategy[turnStrategy.length-1];
             if (lastCard !== undefined && lastCard.type !== "direction"){
                 console.error(`TurnStrategy of ${playerID} has to end with a 'direction' card!`)
-                return INVALID_MOVE
+                return false
             }
         }
         return true
@@ -87,7 +87,7 @@ export const removeFromTurnStrategy = ({G, playerID}) => {
 }
 
 export const submitTurnStrategy = ({G, ctx, playerID, events }) => {
-// ...select starting cards
+
     if (!helpers.turnStrategyCheck({G:G, playerID:playerID}, true))
         return INVALID_MOVE
 
