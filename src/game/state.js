@@ -5,7 +5,6 @@ export let STATE = {
     0: {
       "hand": [],
       "turnStrategy": [],
-      "phase" : GAMEPHASES.SETUP,
       "message": "",
       "hasParcel": false,
       "score": 0,
@@ -13,7 +12,6 @@ export let STATE = {
     1: {
       "hand": [],
       "turnStrategy": [],
-      "phase" : GAMEPHASES.SETUP,
       "message": "",
       "hasParcel": false,
       "score": 0,

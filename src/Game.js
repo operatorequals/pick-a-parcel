@@ -13,7 +13,6 @@ import {
     messagePlayer,
  } from './game/moves';
 
-
 import {
 	playout
 } from './game/actions'
@@ -23,9 +22,6 @@ import {
 	createDeck,
 } from './game/setup';
 
-/* On simultaneous turns
-https://github.com/boardgameio/boardgame.io/issues/774
-*/
 
 export const PickAParcel = {
   name: 'Pick-A-Parcel',
@@ -59,39 +55,47 @@ export const PickAParcel = {
   playerView: ({ G, ctx, playerID }) => {
   	let newG = JSON.parse(JSON.stringify(G)); // deep copy
 
-  	let otherIDs = [...Array(ctx.playerNum).keys()]
-  	delete otherIDs[playerID]
-  	otherIDs.forEach(otherID=>{
-	  	delete newG.players[otherID]
-  	})
+  	// let otherIDs = [...Array(G.players).keys()]
+  	// otherIDs.filter((item) => item === playerID);
 
-  	delete newG.decks['action']
+  	// otherIDs.forEach(otherID=>{
+	  // 	delete newG.players[otherID].hand // can't see other hands
+  	// })
+
+  	delete newG.decks['action'] // can't see the decks
   	delete newG.decks['direction']
   	return newG
-  }, // to mask the other player secrets
-
-  turn: {
-	activePlayers: { all: 'turnStrategy' },
-
-    onBegin: ({G, ctx, events}) => { // Replenish player hands each turn
-    	console.log(`adding cards to hands`, G, ctx)
-    	drawPlayerCards({G: G, ctx: ctx, events: events}, "action");
-    	drawPlayerCards({G: G, ctx: ctx, events: events}, "direction");
-    },
-
-    stages: {
-
-	    turnStrategy: {
-	      moves: {
-	      	addToTurnStrategy,
-	      	removeFromTurnStrategy,
-	        submitTurnStrategy,
-	      },
-	    },
-	},
-
-	onEnd: playout
-
   },
 
+  turn: {
+	/* On simultaneous turns
+	https://github.com/boardgameio/boardgame.io/issues/774
+  	*/
+  	activePlayers: { all: 'turnStrategy' },
+
+      onBegin: ({G, ctx, events}) => { // Replenish player hands each turn
+      	console.log(`adding cards to hands`, G, ctx)
+      	drawPlayerCards({G: G, ctx: ctx, events: events}, "action");
+      	drawPlayerCards({G: G, ctx: ctx, events: events}, "direction");
+      },
+
+      stages: {
+
+  	    turnStrategy: {
+  	      moves: {
+  	      	addToTurnStrategy,
+  	      	removeFromTurnStrategy,
+  	        submitTurnStrategy,
+  	      },
+  	    },
+    },
+
+	onEnd: playout
+  },
+
+  // endIf: to set a check if conditions meet
+  // onEnd: announce the winner found in ctx.gameover (set by endIf)
 };
+
+// On delayed movements on react components
+// https://delucis.github.io/bgio-effects/plugin/sequencing/

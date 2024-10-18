@@ -15,8 +15,7 @@ export const Board = ({ G }) => {
             placedObject = obj;
           isPlayer = !isNaN(placedObject)
         });
-        const cellClass = placedObject ? (isPlayer ? `player player-${placedObject}` : `objective ${placedObject}`) : ""
-        console.log(placedObject, isPlayer, colIndex, rowIndex)
+        const cellClass = placedObject ? (isPlayer ? `player player-${Number(placedObject)+1}` : `objective ${placedObject}`) : ""
         return <div className={`board-cell ${cellClass}`} key={colIndex+1}></div>
       })}
     </div>

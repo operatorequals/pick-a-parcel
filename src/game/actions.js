@@ -151,8 +151,7 @@ const cardAction = {
     }
 }
 
-export function checkWin({G, playerID}){
-    playerID = null;
+export function checkWin({G}){
     const winnerExists = Object.values(G.players).some(player => player.hasParcel);
     Object.keys(G.players).forEach((playerID)=>{
         if (!winnerExists){

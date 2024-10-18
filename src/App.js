@@ -1,11 +1,17 @@
 import { Client } from 'boardgame.io/react';
 import { PickAParcel } from './Game';
+import { Local } from 'boardgame.io/multiplayer'; // gonna get network
+import { Playfield } from './components/Playfield';
 
-import { Board } from './components/Board';
-
-const App = Client({
+const PickAParcelClient = Client({
 	game: PickAParcel,
-	board: Board,
+	board: Playfield,
+	multiplayer: Local(),	
 });
 
+const App = () => (
+  <div>
+    <PickAParcelClient playerID="0" />
+  </div>
+);
 export default App;
