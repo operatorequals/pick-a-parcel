@@ -1,29 +1,41 @@
 import React from 'react';
-// import './Card.css'; // Optional for styling
+import './Playfield.css'; // Optional for styling
 
 import { Board } from '../components/Board';
 import { Hand } from '../components/Hand';
 import { TurnStrategy } from '../components/TurnStrategy';
 
 export const Playfield = ({G, ctx, events, playerID, moves}) => {
+	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
-		//will need to sort my own ID last
-		// console.log("---",playerID, playerIndex, Number(playerID) === playerIndex)
 		const visible = (Number(playerID) === playerIndex)
-		return <TurnStrategy
+		const turnStrategy = <TurnStrategy
 			key={playerIndex}
 			G={G}
 			playerID={playerIndex}
 			moves={moves}
 			visible={visible}/>
+		if (visible === false)
+			return turnStrategy
+		else
+			ownTurnStrategy = turnStrategy
 	});
+	turnStrategies.push(ownTurnStrategy) // Add own TurnStrategy element last
+	
 	return (
 		<div className="playfield">
-			<Board G={G} />
-			<div className="turn-strategies">
-				{turnStrategies}
+			<div className="playout">
+				<Board G={G} />
+				<div className="turn-strategies">
+					{turnStrategies}
+				</div>
 			</div>
-			<Hand G={G} playerID={playerID} moves={moves}/>
+			<div className="playcontrol">
+				<Hand G={G} playerID={playerID} moves={moves}/>
+				<div className="submit-wrapper">
+					<div id="submit" onClick={()=>moves.submitTurnStrategy()}>Run Script...</div>
+				</div>
+			</div>
 		</div>
 	)
 }

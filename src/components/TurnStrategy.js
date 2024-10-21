@@ -54,8 +54,8 @@ export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 			face="down"/>
   });
 
-
-  return <div className="turn-strategy-wrapper">
+// player-${playerID+1}
+  return <div className={`turn-strategy-wrapper`}>
 			{exec.playerID === playerID ?
 			<div className="turn-strategy-exec">
 			  	<div className="turn-strategy-action">
