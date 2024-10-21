@@ -23,8 +23,6 @@ const PickAParcelClient = Client({
 });
 
 const App = () => (
-  <div>
     <PickAParcelClient playerID="0" />
-  </div>
 );
 export default App;

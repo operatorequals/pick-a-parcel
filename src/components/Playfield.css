@@ -1,0 +1,61 @@
+div.playfield {
+	display: flex;
+	flex-flow: column;
+
+	height: 100%;
+	width: 100%;
+}
+
+div.playout {
+	display: flex;
+
+	height: 64%;
+	padding: 0 1em;
+}
+
+div.turn-strategies {
+	display: flex;
+	flex-flow: column;
+	
+	width: 100%;
+	padding: 0px 1em;
+}
+
+div.playcontrol {
+	display: flex;
+	flex-flow: row;
+	height: 36%;
+	width: 100%;
+}
+
+div.submit-wrapper {
+	height: 100%;
+	width: 24%;
+	display: flex;
+
+}
+
+div#submit {
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+
+    font-family: 'Courier New';
+    padding: 10px 20px;
+    background-color: #43443b; /* Bootstrap primary color */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: auto;
+    padding: 2em;
+}
+
+#submit:hover {
+    background-color: #272822; /* Darker shade on hover */
+}
+
+#submit:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}

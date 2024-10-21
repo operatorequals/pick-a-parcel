@@ -3,14 +3,12 @@
     flex-direction: row;
     /*flex-flow: wrap;*/
 
+    width: 76%;
 	/*row-gap: 0.5em;*/
     column-gap: 1em;
 
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
 
     padding: 0.5vw; /* Avoid creating a scrollbard */
     overflow: hidden;

@@ -1,35 +1,54 @@
 div.turn-strategy-wrapper {
   display: flex;
   flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  justify-content: flex-end;
+  align-items: center;
 
-    gap: 0.2em;
-    margin: 0.2em;
+  margin: auto 0;
 
-    background-color: lightgrey;
+  height: 40%;
+  width: 100%;
+
+  background-color: lightgrey;
+  border-radius: 5px;
+
 }
 
 div.turn-strategy-exec {
   display: flex;
   flex-direction: row;
+
+  /* Double card size */
+  min-width: 16vw;
+  background-color: grey;
 }
+
 /* Taken from:
   https://stackoverflow.com/a/50109649
 */
 div.turn-strategy-rest {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  align-content: center;
   flex-direction: row;
 
-  max-width: 30em;
+  min-width: 8vw; /* card size */
+  min-height: 12vw;
+
+  width: 70%;
+  height: 100%;
 
   gap: 0.1em;
+  padding: 0 0.5em;
+
+  border-left: 2px solid black;
+
+  margin-left: auto;
 }
 
 .cardWrapper {
     overflow: hidden;
+    height: fit-content;
+    margin: auto 0;
 }
 
 .cardWrapper:last-child, .cardWrapper:hover {

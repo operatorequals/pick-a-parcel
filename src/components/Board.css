@@ -1,15 +1,28 @@
 .board {
-  display: grid;
-  gap: 5px; /* space between cells */
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  min-width: 30em;
+
+  aspect-ratio: 1 / 1;
+
+  gap: 0.2em;
+  margin: auto 0;
 }
 
 .board-row {
   display: flex;
+  gap: 0.2em;
+  height: 20%;
 }
 
 .board-cell {
-  width: 40px; /* adjust as needed */
-  height: 40px; /* adjust as needed */
+  min-width: 40px; /* adjust as needed */
+  min-height: 40px; /* adjust as needed */
+
+  width:20%;
+  height:100%;
+
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
