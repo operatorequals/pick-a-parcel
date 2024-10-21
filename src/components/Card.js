@@ -1,5 +1,6 @@
 import React from 'react';
-import './Card.css'; // Optional for styling
+import './Card.css';
+import './CardAnimation.css';
 
 import { GAMEPHASES, CONSTANTS, EVENTS } from '../game/constants';
 

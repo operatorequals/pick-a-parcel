@@ -1,4 +1,4 @@
-.hand {
+div.hand {
     display: flex;
     flex-direction: row;
     /*flex-flow: wrap;*/
@@ -12,4 +12,21 @@
 
     padding: 0.5vw; /* Avoid creating a scrollbard */
     overflow: hidden;
+}
+
+@media only screen and (max-device-width: 480px){
+
+    div.hand {
+        flex-flow: wrap;        
+        justify-content: center;
+        align-items: unset;
+        column-gap: 0.4em;
+        row-gap: 1%;
+        height: 76%;
+        width: 100%;
+
+        margin: auto auto;
+        padding: 0;
+    }
+
 }

@@ -83,3 +83,15 @@
     background-color: #9B59B6;
 }
 
+
+@media only screen and (max-device-width: 480px){
+
+  div.board {
+    width: 66%;
+    min-width: 18em;
+    height: 55%;
+
+    margin: auto auto;
+
+  }
+}

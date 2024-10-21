@@ -1,6 +1,6 @@
 div.playfield {
 	display: flex;
-	flex-flow: column;
+	flex-direction: column;
 
 	height: 100%;
 	width: 100%;
@@ -32,7 +32,6 @@ div.submit-wrapper {
 	height: 100%;
 	width: 24%;
 	display: flex;
-
 }
 
 div#submit {
@@ -58,4 +57,42 @@ div#submit {
 
 #submit:active {
     transform: scale(0.95); /* Slightly shrink on click */
+}
+
+
+@media only screen and (max-device-width: 480px){
+
+	div.playout {
+	    display: flex;            /* Use flexbox */
+	    flex-direction: column;   /* Stack items vertically */
+	    height: 64%;             /* Allow it to take up available height */
+	    width: 100%;
+	    margin: auto auto;
+	    margin-top: 1em;
+	    padding: 0;
+	    gap: 2%;
+	}
+
+	div.playcontrol {
+	    display: flex;            /* Use flexbox */
+	    flex-direction: column;   /* Stack items vertically */
+	    height: 38%;             /* Allow it to take up available height */
+	    width: 100%;
+
+	    gap: 1%;
+	    margin: 0 auto;
+	    align-items: center;
+	    justify-content: flex-end;
+	}
+
+	div.submit-wrapper {
+		height: 2%;
+		width: 80%;
+		display: flex;
+		margin: auto 0;
+	}
+
+	div#submit {
+		padding: 1em;
+	}
 }

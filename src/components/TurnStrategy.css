@@ -59,3 +59,18 @@ div.turn-strategy-rest {
 .reverse {
 /*    transform: rotateX(180deg); */
 }
+
+@media only screen and (max-device-width: 480px){
+
+  div.turn-strategy-wrapper {
+    width: 92%;
+    min-width: 20em;
+    height: 20%;
+
+    margin: auto auto;
+
+  }
+  div.turn-strategy-rest {
+    width: 64%;
+  }
+}
