@@ -33,7 +33,7 @@ const BackContent = () => <div className="card-back card">
 export const Card = ({ id, type, value, face, onclick }) => {
 
   return (
-    <div className="cardWrapper" onClick={()=>onclick(id)}>
+    <div className="cardWrapper card-animation" onClick={()=>onclick(id)}>
         <div className="card-inner">
         {(face === "up") ?
           <FrontContent type={type} value={value} /> : <BackContent />
