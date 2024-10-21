@@ -1,5 +1,8 @@
 import { Stage, ActivePlayers } from 'boardgame.io/core';
 
+import { EffectsPlugin } from 'bgio-effects/plugin';
+import { config } from './bgio-plugins/effects-config';
+
 import { CARDSUMS } from './game/constants';
 import { STATE } from './game/state';
 import {
@@ -28,6 +31,8 @@ export const PickAParcel = {
   seed: 42, // testing
   minPlayers: 2,
   disableUndo: true,
+
+  plugins: [EffectsPlugin(config)],
 
   setup: (ctx) => {
   	console.log(ctx);

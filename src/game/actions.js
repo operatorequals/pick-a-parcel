@@ -1,4 +1,7 @@
+import { current } from 'immer';
+
 import { GAMEPHASES, CONSTANTS, POINTS } from './constants';
+
 
 /* These are actions that the Player has no control over */
 const cardAction = {
@@ -170,7 +173,7 @@ export function checkWin({G}){
     });
 }
 
-export function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
+export function playout({G, ctx, events, effects}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
     // Set everyone to playout
     console.log(ctx, ctx.currentPlayer)
     let playerID = ctx.currentPlayer
@@ -183,7 +186,7 @@ export function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER, pause
         G.ctx.currentPlayer = playerID;
 
         pauseTimer = pauseTimer * pauseTimerReduceEachTurn
-        playTurn({G:G, playerID: G.ctx.currentPlayer, events: events}, pauseTimer);
+        playTurn({G:G, playerID: G.ctx.currentPlayer, events: events, effects: effects}, pauseTimer);
         playerID = (playerID + 1) % playerNum
         allFinished = Object.values(G.players).every(player => player.phase === GAMEPHASES.FINISHED);
     }
@@ -191,7 +194,7 @@ export function playout({G, ctx, events}, pauseTimer=CONSTANTS.PAUSETIMER, pause
     // events.endTurn();
 }
 
-export function playTurn({G, playerID, events}, pauseTimer=3000) { // this needs serious fix
+export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // this needs serious fix
     // playerID = G.ctx.currentPlayer // rely on G only
     console.log(`[PickAParcel] It's ${playerID}'s turn.`);
     const playerNum = Object.keys(G.players).length;
@@ -212,7 +215,6 @@ export function playTurn({G, playerID, events}, pauseTimer=3000) { // this needs
         G.players[playerID].phase = GAMEPHASES.EXECUTING
         const action = actionCard.value
         const direction = directionCard.value
-
         // Announce card to players
         // moves.messagePlayer({G:G, playerID: playerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
         // moves.messagePlayer({G:G, playerID: nextPlayerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
@@ -226,6 +228,10 @@ export function playTurn({G, playerID, events}, pauseTimer=3000) { // this needs
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
             playerPoints = POINTS.THROW_TO_DESTINATION
         } // add more card types here
+
+        effects.execute({
+            "action":action, "direction":direction, 'playerID': playerID,
+            'positions': current(G).positions})
 
         G.players[playerID].phase = GAMEPHASES.PLAYOUT  // PLAYOUT
 
