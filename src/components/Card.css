@@ -17,7 +17,8 @@ https://github.com/gerardroche/sublime-monokai-free?tab=readme-ov-file#customiza
     width: 8vw;
     height: 12vw;
 
-    min-width: 8vw;
+    aspect-ratio: 3 / 4;
+    /*min-width: 8vw;*/
     border-radius: 0.5em;
     position: relative;
 
