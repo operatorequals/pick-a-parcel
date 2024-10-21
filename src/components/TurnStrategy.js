@@ -8,35 +8,44 @@ import { Card } from '../components/Card';
 
 export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 
-  const [exec, setExec] = useState({});
+  // const [exec, setExec] = useState({});
+  // const [turnStrategy, setTurnStrategy] = useState(G.players[playerID].turnStrategy);
+  let exec = {};
+  let turnStrategy = G.players[playerID].turnStrategy;
 
+  console.log(`Rendering Turn Strategy (${visible ? "" : "in"}visible) for ${playerID}`, turnStrategy)
   useEffectListener(
-    // Name of the effect to listen for.
-      'toExecute',
-    // Function to call when the effect fires.
+      'preExecute',
       (effectPayload, boardProps) => {
-  		setExec({
+  		exec = {
       		'action': effectPayload.action,
       		'direction': effectPayload.direction,
       		'playerID': effectPayload.playerID,
-      	});
+      	}
+      	// setTurnStrategy(effectPayload.turnStrategy)
+      	turnStrategy = effectPayload.turnStrategy
+      	console.log("[TurnStrategy] preExecute", turnStrategy.length)
       	// const timeout = setTimeout(setExec({}), 2000);
       	// return () => clearTimeout(timeout);
       },
-      [setExec],
+      [exec, turnStrategy,
+      // setTurnStrategy
+      ],
   );
-
-  useEffectListener(
-  	'executed',
-      (effectPayload, boardProps) => setExec({}),
-      [setExec],
-  );
+// 
+//   useEffectListener(
+//   	'postExecute',
+//       (effectPayload, boardProps) => {
+//       	exec = {}
+//       	console.log("[TurnStrategy] postExecute")
+//       },
+//       [exec],
+//   );
 
   if (playerID == undefined)
-    return <div className="turn-strategy-rest"></div>;
+  	visible = true;
+    // return <div className="turn-strategy-rest"></div>;
 
-  console.log(`Turn Strategy ${playerID} visible:`, visible)
-  const turnStrategy = G.players[playerID].turnStrategy
   const cards = Array.from({ length: turnStrategy.length }, (_, cardIndex) => {
     const card = turnStrategy[cardIndex];
     if (visible)
@@ -56,7 +65,7 @@ export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 
 // player-${playerID+1}
   return <div className={`turn-strategy-wrapper`}>
-			{exec.playerID === playerID ?
+			{exec.action !== undefined ?
 			<div className="turn-strategy-exec">
 			  	<div className="turn-strategy-action">
 					<Card
@@ -72,6 +81,6 @@ export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 			  	</div>
 		  	</div>
 		  	: ""}
-		  	<div className="turn-strategy-rest">{cards}</div>
+		  	<div className="turn-strategy-rest">{cards.length !== 0 ? cards : ""}</div>
 		 </div>;
 }

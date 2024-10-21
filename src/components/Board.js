@@ -14,7 +14,7 @@ export const Board = ({ G }) => {
 
   useEffectListener(
     // Name of the effect to listen for.
-      'executed',
+      'postExecute',
     // Function to call when the effect fires.
       (effectPayload, boardProps) => {
         console.log(`execute in Board:`, effectPayload)
