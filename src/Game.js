@@ -27,9 +27,10 @@ import {
 
 
 export const PickAParcel = {
-  name: 'Pick-A-Parcel',
   seed: 42, // testing
-  minPlayers: 2,
+
+  name: 'Pick-A-Parcel',
+  minPlayers: 2,  
   disableUndo: true,
 
   plugins: [EffectsPlugin(config)],
@@ -79,7 +80,7 @@ export const PickAParcel = {
   	activePlayers: { all: 'turnStrategy' },
 
       onBegin: ({G, ctx, events}) => { // Replenish player hands each turn
-      	console.log(`adding cards to hands`, G, ctx)
+      	// console.log(`adding cards to hands`, G, ctx)
       	drawPlayerCards({G: G, ctx: ctx, events: events}, "action");
       	drawPlayerCards({G: G, ctx: ctx, events: events}, "direction");
       },
