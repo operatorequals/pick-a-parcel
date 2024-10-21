@@ -218,6 +218,9 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
         // Announce card to players
         // moves.messagePlayer({G:G, playerID: playerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
         // moves.messagePlayer({G:G, playerID: nextPlayerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
+        effects.toExecute({
+            "action":action, "direction":direction, 'playerID': playerID,
+        })
 
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
@@ -229,9 +232,10 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
             playerPoints = POINTS.THROW_TO_DESTINATION
         } // add more card types here
 
-        effects.execute({
+        effects.executed({
             "action":action, "direction":direction, 'playerID': playerID,
-            'positions': current(G).positions})
+            'positions': current(G).positions}
+            )
 
         G.players[playerID].phase = GAMEPHASES.PLAYOUT  // PLAYOUT
 

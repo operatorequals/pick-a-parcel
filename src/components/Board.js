@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Board.css'; // Optional: for styling
 
 import { useEffectListener } from 'bgio-effects/react';
-import { useLatestPropsOnEffect } from 'bgio-effects/react';
 
 import { GAMEPHASES, CONSTANTS, POINTS } from '../game/constants';
 
@@ -15,7 +14,7 @@ export const Board = ({ G }) => {
 
   useEffectListener(
     // Name of the effect to listen for.
-      'execute',
+      'executed',
     // Function to call when the effect fires.
       (effectPayload, boardProps) => {
         console.log(`execute in Board:`, effectPayload)
@@ -24,9 +23,9 @@ export const Board = ({ G }) => {
       [setPositions],
   );
 
-  Object.entries(positions).forEach(([obj, pos])=>{
-    console.log(`Drawing ${obj} in X: ${pos.x} Y: ${pos.y}`);
-  });
+  // Object.entries(positions).forEach(([obj, pos])=>{
+  //   console.log(`Drawing ${obj} in X: ${pos.x} Y: ${pos.y}`);
+  // });
 
   const rows = Array.from({ length: CONSTANTS.BOARDSIZE }, (_, rowIndex) => {
     rowIndex = (CONSTANTS.BOARDSIZE-rowIndex) // invert Y axis

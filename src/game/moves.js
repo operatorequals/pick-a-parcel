@@ -74,7 +74,6 @@ export const addToTurnStrategy = ({G, playerID}, cardID) => {
 	let handLengthBefore = G.players[playerID].hand.length
 	let card = G.players[playerID].hand.splice(indexOfCard, 1) // remove from the hand
 	G.players[playerID].turnStrategy.push(...card) // add to the turn strategy
-	console.log(G.players[playerID].hand, handLengthBefore, G.players[playerID].hand.length)
 }
 
 export const removeFromTurnStrategy = ({G, playerID}) => {

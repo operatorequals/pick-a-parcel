@@ -6,17 +6,16 @@ import { Hand } from '../components/Hand';
 import { TurnStrategy } from '../components/TurnStrategy';
 
 export const Playfield = ({G, ctx, events, playerID, moves}) => {
-	console.log(G.players)
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
 		//will need to sort my own ID last
 		// console.log("---",playerID, playerIndex, Number(playerID) === playerIndex)
-		const own = (Number(playerID) === playerIndex)
+		const visible = (Number(playerID) === playerIndex)
 		return <TurnStrategy
 			key={playerIndex}
 			G={G}
 			playerID={playerIndex}
 			moves={moves}
-			own={own}/>
+			visible={visible}/>
 	});
 	return (
 		<div className="playfield">

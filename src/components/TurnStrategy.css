@@ -6,8 +6,14 @@ div.turn-strategy-wrapper {
 
     gap: 0.2em;
     margin: 0.2em;
+
+    background-color: lightgrey;
 }
 
+div.turn-strategy-exec {
+  display: flex;
+  flex-direction: row;
+}
 /* Taken from:
   https://stackoverflow.com/a/50109649
 */
