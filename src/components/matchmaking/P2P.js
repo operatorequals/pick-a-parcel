@@ -7,7 +7,7 @@ import './P2P.css'; // Optional: for styling
 export const P2PQRCode = ({ matchID }) => {
 
 
-	const matchUrl = `${window.location.origin}/#/?matchID=${matchID}`;
+	const matchUrl = `${window.location}/#/?matchID=${matchID}`;
 
 	return (
 	<div className='page'>
