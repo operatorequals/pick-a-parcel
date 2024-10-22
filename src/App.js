@@ -1,6 +1,6 @@
 import { Client } from 'boardgame.io/react';
 import { Local } from 'boardgame.io/multiplayer'; // gonna get network
-import { Playfield } from './components/Playfield';
+import { Playfield } from './components/game/Playfield';
 
 import { EffectsBoardWrapper } from 'bgio-effects/react';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hand.css'; // Optional: for styling
 
-import { Card } from '../components/Card';
+import { Card } from './Card';
 
 
 export const Hand = ({ G, ctx, playerID, moves }) => {

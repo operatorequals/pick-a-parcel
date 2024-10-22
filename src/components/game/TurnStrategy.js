@@ -3,7 +3,7 @@ import './TurnStrategy.css'; // Optional: for styling
 
 import { useEffectListener } from 'bgio-effects/react';
 
-import { Card } from '../components/Card';
+import { Card } from './Card';
 
 
 export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {

@@ -3,7 +3,7 @@ import './Board.css'; // Optional: for styling
 
 import { useEffectListener } from 'bgio-effects/react';
 
-import { GAMEPHASES, CONSTANTS, POINTS } from '../game/constants';
+import { GAMEPHASES, CONSTANTS, POINTS } from '../../game/constants';
 
 // https://delucis.github.io/bgio-effects/client/react/
 

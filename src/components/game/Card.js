@@ -2,7 +2,7 @@ import React from 'react';
 import './Card.css';
 import './CardAnimation.css';
 
-import { GAMEPHASES, CONSTANTS, EVENTS } from '../game/constants';
+import { GAMEPHASES, CONSTANTS, EVENTS } from '../../game/constants';
 
 
 const FrontContent = ({type, value}) => {

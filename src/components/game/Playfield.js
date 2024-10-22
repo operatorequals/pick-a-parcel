@@ -3,9 +3,9 @@ import './Playfield.css'; // Optional for styling
 
 import { useOrientation } from 'react-use';
 
-import { Board } from '../components/Board';
-import { Hand } from '../components/Hand';
-import { TurnStrategy } from '../components/TurnStrategy';
+import { Board } from './Board';
+import { Hand } from './Hand';
+import { TurnStrategy } from './TurnStrategy';
 
 
 const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies}) => (
