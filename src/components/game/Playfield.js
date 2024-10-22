@@ -47,12 +47,12 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) =>
 
 export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData}) => {
 
-    const orientation = useOrientation().type;
-    console.log("Orientation", orientation)
-
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
     if (noPlayerTwo)
 	    return <P2PQRCode matchID={matchID}/>
+
+    const orientation = useOrientation().type;
+    // const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
@@ -69,14 +69,13 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData})
 		else
 			ownTurnStrategy = turnStrategy
 	}).filter(x=>x !== undefined);
+
 	turnStrategies.push(ownTurnStrategy) // Add own TurnStrategy element last
-	console.log(turnStrategies[0],turnStrategies[1])
+
 	if (orientation.indexOf("landscape") !== -1)
 		return <PlayfieldLandscape G={G} ctx={ctx} events={events} playerID={playerID} moves={moves} turnStrategies={turnStrategies} />
-		// return PlayfieldLandscape({G:G, ctx:ctx, events:events, playerID:playerID, moves:moves, turnStrategies:turnStrategies})
 	else
 		return <PlayfieldPortrait G={G} ctx={ctx} events={events} playerID={playerID} moves={moves} turnStrategies={turnStrategies} />
-		// return PlayfieldPortrait({G:G, ctx:ctx, events:events, playerID:playerID, moves:moves, turnStrategies:turnStrategies})
 }
 
 
