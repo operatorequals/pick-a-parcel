@@ -1,6 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Pick-A-Parcel",
+  "description": "A Boardgame on programming Warehouse Robots!",
+  "start_url": ".",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "portrait",
+
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +23,6 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#f8f8f2",
+  "background_color": "#43443b"
 }
