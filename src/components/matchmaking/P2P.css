@@ -1,0 +1,67 @@
+div.matchmaking{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin: auto auto;
+	padding: 1em 1em;
+	
+	background-color: lightgrey;
+	border-radius: 1em;
+	border: solid 0.1em grey;
+
+	height: fit-content;
+	width: fit-content;
+	min-width: 60%;
+	/*width: 60%;*/
+	/*height: 60%;*/
+
+	font-family: 'Courier New';
+	font-size: 1.2em;
+}
+
+p.matchmaking-text {
+	text-align: center;
+}
+
+span.gametitle{
+	font-style: italic;
+}
+
+
+a.matchmaking{
+	font-size: 1em;
+
+}
+
+div.matchmaking-options{
+	display: flex;
+	flex-direction: row;
+}
+
+div.matchmaking-option{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	padding: 0.5em;
+	width: 50%;
+}
+
+@media only screen and (max-device-width: 480px){
+
+	div.matchmaking{
+		font-size: 1em;
+	}
+
+	div.matchmaking-options{
+		display: flex;
+		flex-direction: column;
+	}
+
+	div.matchmaking-option{
+
+		width: unset;
+	}
+
+}

@@ -7,6 +7,8 @@ import { Board } from './Board';
 import { Hand } from './Hand';
 import { TurnStrategy } from './TurnStrategy';
 
+import { P2PQRCode } from '../matchmaking/P2P';
+
 
 const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies}) => (
 		<div className="playfield">
@@ -43,10 +45,14 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) =>
 
 
 
-export const Playfield = ({G, ctx, events, playerID, moves}) => {
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData}) => {
 
     const orientation = useOrientation().type;
     console.log("Orientation", orientation)
+
+    const noPlayerTwo = !matchData.every(player=>player.isConnected)
+    if (noPlayerTwo)
+	    return <P2PQRCode matchID={matchID}/>
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
