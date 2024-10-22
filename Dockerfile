@@ -10,7 +10,6 @@ RUN npm install
 RUN npm install bgio-effects \
 	--legacy-peer-deps # needed for 'bgio-effects' - https://github.com/delucis/bgio-effects/issues/568
 
-
 COPY public/ /app/public
 COPY src/ /app/src
 

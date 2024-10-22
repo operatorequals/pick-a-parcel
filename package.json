@@ -2,6 +2,7 @@
   "name": "pick-a-parcel.boardgameio",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://operatorequals.github.io/pick-a-parcel/",
   "dependencies": {
     "@boardgame.io/p2p": "^0.4.4",
     "boardgame.io": "^0.50.2",
