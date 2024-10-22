@@ -19,10 +19,12 @@ let matchUrl = undefined;
 let playerID = '0';
 
 const urlHash = window.location.hash
-const guest = urlHash.startsWith("#")
+const params = new URLSearchParams(urlHash)
 
+const guest = params.get("#/?matchID") !== null
+console.log(window.location.hash, urlHash, params)
 if (guest){
-	matchID = urlHash.substr(1, urlHash.length)
+	matchID = params.get("#/?matchID")
 	playerID = '1'
 }
 else{
@@ -52,7 +54,7 @@ const PickAParcelClient = Client({
 
 const App = () => (
     <Routes>
-      <Route path="/" element={	<PickAParcelClient playerID={playerID} matchID={matchID}/>} />
+      <Route path="/*" element={	<PickAParcelClient playerID={playerID} matchID={matchID}/> } />
 	</Routes>
 
 
