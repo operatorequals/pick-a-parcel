@@ -48,8 +48,6 @@ const PickAParcelClient = Client({
 			secure: peerJSSecure,
 		},
 	}),  debug: false,
-
-	// loading: ()=>P2PQRCode({Url: matchUrl}),
 });
 
 const App = () => (

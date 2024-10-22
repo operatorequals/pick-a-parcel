@@ -10,22 +10,24 @@ export const P2PQRCode = ({ matchID }) => {
 	const matchUrl = `${window.location.origin}#${matchID}`;
 
 	return (
+	<div className='page'>
 	<div className='matchmaking'>
 		<h1> Welcome to <span className="gametitle">Pick-A-Parcel</span> Multiplayer</h1>
-		<p className="matchmaking-text">
-		<h2> You are the Game Host! </h2>
-		</p>
+		<h2 className="matchmaking-text"> You are the Game Host! </h2>
 		<div className="matchmaking-options">
 			<div className="matchmaking-option matchmaking-qrcode">
 				<p>
 				Get someone to join the game by scanning the QRCode:
 				</p>
-				<QRCodeSVG value={matchUrl} includeMargin={true}/>
+				<QRCodeSVG value={matchUrl} includeMargin={true}
+					bgColor="#f8f8f2" fgColor="#43443b"
+				/>
 			</div>
-			<div className="matchmaking-option matchmaking-link"> or clicking on:<br/>
+			<div className="matchmaking-option matchmaking-link"> or by clicking on:<br/>
 				<a className='matchmaking' href={matchUrl} target="_blank">{matchUrl}</a>
 			</div>
 		</div>
+	</div>
 	</div>
 	);
 
