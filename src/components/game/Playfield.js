@@ -1,7 +1,7 @@
 import React from 'react';
 import './Playfield.css'; // Optional for styling
 
-import { useOrientation } from 'react-use';
+// import { useOrientation } from 'react-use';
 
 import { Board } from './Board';
 import { Hand } from './Hand';
@@ -51,8 +51,8 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData})
     if (noPlayerTwo)
 	    return <P2PQRCode matchID={matchID}/>
 
-    const orientation = useOrientation().type;
-    // const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"
+    // const orientation = useOrientation().type;
+    const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {

@@ -27,7 +27,7 @@ import {
 
 
 export const PickAParcel = {
-  seed: 42, // testing
+  // seed: 42, // testing
 
   name: 'Pick-A-Parcel',
   minPlayers: 2,  
