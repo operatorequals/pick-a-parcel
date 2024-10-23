@@ -1,6 +1,6 @@
 import { current } from 'immer';
 
-import { GAMEPHASES, CONSTANTS, POINTS } from './constants';
+import { GAMEPHASES, CONSTANTS, POINTS, GAMEOVER_REASONS } from './constants';
 
 
 /* These are actions that the Player has no control over */
@@ -155,22 +155,35 @@ const cardAction = {
 }
 
 export function checkWin({G}){
-    const winnerExists = Object.values(G.players).some(player => player.hasParcel);
-    Object.keys(G.players).forEach((playerID)=>{
-        if (!winnerExists){
-            G.players[playerID].phase = GAMEPHASES.DRAW
-            G.players[playerID].message = "It's a Draw!";
-            return;
-        }
-        if (G.players[playerID]){
-            G.players[playerID].phase = GAMEPHASES.WIN;
-            G.players[playerID].message = "You just WON!";
-            G.players[playerID].score += POINTS.HOLD_PARCEL;
-        } else {
-            G.players[playerID].phase = GAMEPHASES.LOSE;
-            G.players[playerID].message = "You just Lost!";
-        }
-    });
+
+    let gameover = JSON.parse(JSON.stringify(G.gameover)) // deep copy
+    const gameoverReason = G.gameover.reason
+    console.log("Ended?", gameoverReason)
+    if (gameoverReason === undefined) return // return nothing to continue the game
+
+    const parcelHolderID = Object.entries(G.players).filter(
+                ([playerID, player]) => player.hasParcel
+            )[0] // returns the ID or undefined
+
+    const winnerID = G.gameover.winner
+    const playerPoints = POINTS[gameoverReason]
+    console.log(gameoverReason, winnerID, parcelHolderID, playerPoints)
+
+    // if 'winner' already set - none is holding the parcel 
+    if (parcelHolderID !== undefined){//DRAW
+        gameover.winner = parcelHolderID
+    }
+    gameover.points = playerPoints
+    // the points are set but if 'winner' is not set, none get them
+    return gameover
+
+}
+
+export function endGame({G, ctx, effects}){
+    const gameover = ctx.gameover // must be set by the engine
+    const winner = gameover.winner;
+    console.log("Game Over!", gameover)
+    effects.endGame(gameover)
 }
 
 export function playout({G, ctx, events, effects}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
@@ -205,7 +218,7 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
     const directionCard = turnStrategy.shift();
 
     let playerWon = false;
-    let playerPoints = 0;
+    let reason = undefined;
     // Check if player has any cards left in Turn Strategy
     if (actionCard === undefined){
     	G.players[playerID].phase = GAMEPHASES.FINISHED;
@@ -225,12 +238,12 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
 
         if (action === 'move') {
             playerWon = cardAction.movePlayer({G:G, playerID: playerID},  direction);
-            playerPoints = POINTS.MOVE_TO_DESTINATION
+            reason = GAMEOVER_REASONS.MOVE_TO_DESTINATION
         } else if (action === 'steal') {
             playerWon = cardAction.stealParcel({G:G, playerID: playerID});
         } else if (action === 'throw') {
             playerWon = cardAction.throwParcel({G:G, playerID: playerID},  direction);
-            playerPoints = POINTS.THROW_TO_DESTINATION
+            reason = GAMEOVER_REASONS.THROW_TO_DESTINATION
         } // add more card types here
 
         effects.postExecute({
@@ -242,12 +255,8 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
 
         if (playerWon){
             console.log(`[PickAParcel] Player ${playerID} just Won after ${G.ctx.turn} turns!`);
-            G.players[playerID].phase = GAMEPHASES.WIN;
-            G.players[playerID].message = "You just WON!"
-            G.players[playerID].score += playerPoints
-
-            G.players[nextPlayerID].phase = GAMEPHASES.LOSE; // all other players
-            G.players[nextPlayerID].message = "You just Lost!"
+            G.gameover.reason = reason
+            G.gameover.winner = playerID
             events.endGame();
             return true;
         }

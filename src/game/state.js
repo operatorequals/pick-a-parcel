@@ -28,11 +28,17 @@ export let STATE = {
     "direction": [],
     "trunk": [],
   },
-  "ctx": {
+    "ctx": {
     "currentPlayer": 0,
     "turn": 0,
     "round": 0,
   },
+  "gameover":{
+    "winner": undefined,
+    "points": 0,
+    "outcome": undefined,
+    "reason": undefined,
+  }
 }
 
 

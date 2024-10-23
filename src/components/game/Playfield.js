@@ -47,9 +47,8 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) =>
 
 export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData}) => {
 
-    const noPlayerTwo = !matchData.every(player=>player.isConnected)
-    if (noPlayerTwo)
-	    return <P2PQRCode matchID={matchID}/>
+    // const noPlayerTwo = !matchData.every(player=>player.isConnected)
+    // if (noPlayerTwo)	return <P2PQRCode matchID={matchID}/>
 
     // const orientation = useOrientation().type;
     const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"
@@ -63,7 +62,7 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData})
 			playerID={playerIndex}
 			moves={moves}
 			visible={visible}/>
-		console.log(visible, turnStrategy)
+
 		if (visible === false)
 			return turnStrategy
 		else

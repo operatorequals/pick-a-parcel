@@ -10,9 +10,14 @@ export const config = {
   		duration: 2,
   	},
 
-	preExecute: {
-		create: (arg) => ({ ...arg, }),
-  		duration: 1.5,
-	},
+  	preExecute: {
+  		create: (arg) => ({ ...arg, }),
+    		duration: 1.5,
+  	},
+
+    endGame: {
+      create: (arg) => ({ ...arg, }),
+    },
   }
+
 }

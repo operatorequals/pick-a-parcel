@@ -5,7 +5,7 @@ The first parameter is always, G (Gamestate) and PlayerID
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { Client } from 'boardgame.io/client';
 
-import { GAMEPHASES, CARDSUMS, CONSTANTS } from './constants';
+import { GAMEPHASES, CARDSUMS, CONSTANTS, GAMEOVER_REASONS } from './constants';
 
 
 const helpers = {
@@ -38,8 +38,10 @@ export const drawPlayerCards = ({G, ctx, events}, type="action") => {
         const handTypeNum = G.players[playerID].hand.filter(card => card.type === type).length // N of "type" cards in hand
         const neededCards = CONSTANTS["DECKDRAW"] - handTypeNum // can be 0
 
-        if (deck.length < neededCards)
+        if (deck.length < neededCards){
+            G.gameover.reason = GAMEOVER_REASONS.DECKS_FINISHED
             events.endGame();
+        }
 
     	const cards = deck.splice(0, neededCards);
     	G.players[playerID].hand.push(...cards)

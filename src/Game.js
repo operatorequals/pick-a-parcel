@@ -17,7 +17,9 @@ import {
  } from './game/moves';
 
 import {
-	playout
+	playout,
+  checkWin,
+  endGame,
 } from './game/actions'
 
 import {
@@ -36,7 +38,7 @@ export const PickAParcel = {
   plugins: [EffectsPlugin(config)],
 
   setup: (ctx) => {
-  	console.log(ctx);
+  	// console.log();
   	let G = JSON.parse(JSON.stringify(STATE)); // deep copy
   	// Create Decks
   	const deckTypes = Object.keys(CARDSUMS)
@@ -99,8 +101,9 @@ export const PickAParcel = {
 	onEnd: playout
   },
 
-  // endIf: to set a check if conditions meet
-  // onEnd: announce the winner found in ctx.gameover (set by endIf)
+  endIf: checkWin,
+  onEnd: endGame,
+  // announce the winner found in ctx.gameover (set by endIf)
 };
 
 // On delayed movements on react components
