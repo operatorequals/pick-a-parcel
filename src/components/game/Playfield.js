@@ -7,6 +7,7 @@ import { Board } from './Board';
 import { Hand } from './Hand';
 import { TurnStrategy } from './TurnStrategy';
 
+import { GameOver } from '../screens/GameOver'
 import { P2PQRCode } from '../matchmaking/P2P';
 
 
@@ -45,10 +46,13 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) =>
 
 
 
-export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData}) => {
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matchData}) => {
 
-    // const noPlayerTwo = !matchData.every(player=>player.isConnected)
-    // if (noPlayerTwo)	return <P2PQRCode matchID={matchID}/>
+    const noPlayerTwo = !matchData.every(player=>player.isConnected)
+    if (noPlayerTwo)	return <P2PQRCode matchID={matchID}/>
+
+	if (ctx.gameover !== undefined)
+		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset}/> // create a GameOver annoncement component
 
     // const orientation = useOrientation().type;
     const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"

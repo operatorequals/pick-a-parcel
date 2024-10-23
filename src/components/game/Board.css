@@ -83,6 +83,9 @@
     background-color: #9B59B6;
 }
 
+.has-parcel {
+    box-shadow:inset 0px 0px 10px 6px #FF5722;
+}
 
 @media only screen and (max-device-width: 480px){
 

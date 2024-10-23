@@ -161,17 +161,17 @@ export function checkWin({G}){
     console.log("Ended?", gameoverReason)
     if (gameoverReason === undefined) return // return nothing to continue the game
 
-    const parcelHolderID = Object.entries(G.players).filter(
+    const parcelHolder = Object.entries(G.players).filter(
                 ([playerID, player]) => player.hasParcel
-            )[0] // returns the ID or undefined
+            )[0] // returns the playerTuple or undefined
 
     const winnerID = G.gameover.winner
     const playerPoints = POINTS[gameoverReason]
-    console.log(gameoverReason, winnerID, parcelHolderID, playerPoints)
+    console.log(gameoverReason, winnerID, parcelHolder, playerPoints)
 
     // if 'winner' already set - none is holding the parcel 
-    if (parcelHolderID !== undefined){//DRAW
-        gameover.winner = parcelHolderID
+    if (parcelHolder !== undefined){//DRAW
+        gameover.winner = Number(parcelHolder[0])
     }
     gameover.points = playerPoints
     // the points are set but if 'winner' is not set, none get them
@@ -249,6 +249,7 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
         effects.postExecute({
             "action":action, "direction":direction, 'playerID': playerID,
             'positions': current(G).positions,
+            "players": current(G).players
         })
 
         G.players[playerID].phase = GAMEPHASES.PLAYOUT  // PLAYOUT

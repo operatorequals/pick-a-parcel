@@ -13,7 +13,7 @@ export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
   let exec = {};
   let turnStrategy = G.players[playerID].turnStrategy;
 
-  console.log(`Rendering Turn Strategy (${visible ? "" : "in"}visible) for ${playerID}`, turnStrategy)
+  // console.log(`Rendering Turn Strategy (${visible ? "" : "in"}visible) for ${playerID}`, turnStrategy)
   useEffectListener(
       'preExecute',
       (effectPayload, boardProps) => {
