@@ -105,4 +105,13 @@ span.card-action-semicolon {
         height: 6.5em;
     }
 
+
+    span.card-value-action{
+        font-size: 4vw;
+    }
+
+    span.card-value-direction{
+        font-size: 3.8vw;
+    }
+
 }
