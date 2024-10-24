@@ -80,11 +80,18 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 		[setPlayout]
 	);
 
+	const [endGame, setEndGame] = useState(false);
+
+	useEffectListener('endGame',
+		(effectPayload, boardProps) => setEndGame(true),
+		[setEndGame]
+	);
+
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
     if (noPlayerTwo && process.env.NODE_ENV === 'production')	return <P2PQRCode matchID={matchID}/>
 
-	if (ctx.gameover !== undefined)
+	if (ctx.gameover !== undefined && endGame)
 		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset}/> // create a GameOver annoncement component
 
 	let ownTurnStrategy = null;
