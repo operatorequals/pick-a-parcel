@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Playfield.css'; // Optional for styling
 
 // import { useOrientation } from 'react-use';
+import { useEffectListener } from 'bgio-effects/react';
 
 import { Board } from './Board';
 import { Hand } from './Hand';
@@ -11,7 +12,7 @@ import { GameOver } from '../screens/GameOver'
 import { P2PQRCode } from '../matchmaking/P2P';
 
 
-const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies}) => (
+const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies, playerTurnProperties}) => (
 		<div className="playfield">
 			<div className="playout">
 				<Board G={G} />
@@ -19,26 +20,42 @@ const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies}) =
 					{turnStrategies}
 				</div>
 			</div>
-			<div className="playcontrol">
+			<div className={
+					`playcontrol
+					${playerTurnProperties.isNext ? "plays-next" : ""}
+					${!playerTurnProperties.active ? "inactive" : ""}
+					`}>
 				<Hand G={G} playerID={playerID} moves={moves}/>
 				<div className="submit-wrapper">
-					<div id="submit" onClick={()=>moves.submitTurnStrategy()}>Run Script...</div>
+					<div id="submit" onClick={
+						playerTurnProperties.active ?
+						()=>moves.submitTurnStrategy() : ()=>{}}>
+						Run Script...
+					</div>
 				</div>
 			</div>
 		</div>
 )
 
-const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) => (
+const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies, playerTurnProperties}) => (
 		<div className="playfield">
 			<div className="playout">
 				{turnStrategies[0]}
 				<Board G={G} />
 				{turnStrategies[1]}
 			</div>
-			<div className="playcontrol">
+			<div className={
+					`playcontrol
+					${playerTurnProperties.isNext ? "plays-next" : ""}
+					${!playerTurnProperties.active ? "inactive" : ""}
+					`}>
 				<Hand G={G} playerID={playerID} moves={moves}/>
 				<div className="submit-wrapper">
-					<div id="submit" onClick={()=>moves.submitTurnStrategy()}>Run Script...</div>
+					<div id="submit" onClick={
+						playerTurnProperties.active ?
+						()=>moves.submitTurnStrategy() : ()=>{}}>
+						Run Script...
+					</div>
 				</div>
 			</div>
 		</div>
@@ -47,6 +64,17 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies}) =>
 
 
 export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matchData}) => {
+
+	const [playout, setPlayout] = useState(false);
+	useEffectListener('prePlayout',
+		(effectPayload, boardProps) => setPlayout(true),
+		[setPlayout]
+	);
+
+	useEffectListener('postPlayout',
+		(effectPayload, boardProps) => setPlayout(false),
+		[setPlayout]
+	);
 
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
     if (noPlayerTwo)	return <P2PQRCode matchID={matchID}/>
@@ -75,10 +103,20 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 
 	turnStrategies.push(ownTurnStrategy) // Add own TurnStrategy element last
 
+	const playerTurnProperties = {
+		isNext: Number(ctx.currentPlayer) === Number(playerID),
+		active: (Object.keys(ctx.activePlayers).indexOf(playerID) !== -1) && !playout
+	}
+
 	if (orientation.indexOf("landscape") !== -1)
-		return <PlayfieldLandscape G={G} ctx={ctx} events={events} playerID={playerID} moves={moves} turnStrategies={turnStrategies} />
+		return <PlayfieldLandscape G={G} ctx={ctx} events={events} playerID={playerID} moves={moves}
+			turnStrategies={turnStrategies}
+			playerTurnProperties={playerTurnProperties}/>
 	else
-		return <PlayfieldPortrait G={G} ctx={ctx} events={events} playerID={playerID} moves={moves} turnStrategies={turnStrategies} />
+		return <PlayfieldPortrait G={G} ctx={ctx} events={events} playerID={playerID} moves={moves}
+			turnStrategies={turnStrategies}
+			playerTurnProperties={playerTurnProperties}/>
+
 }
 
 

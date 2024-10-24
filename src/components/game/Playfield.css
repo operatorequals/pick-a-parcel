@@ -26,6 +26,9 @@ div.playcontrol {
 	flex-flow: row;
 	height: 36%;
 	width: 100%;
+	border-radius: 1em 1em 0 0;
+
+	box-sizing: border-box;
 }
 
 div.submit-wrapper {
@@ -59,6 +62,26 @@ div#submit {
     transform: scale(0.95); /* Slightly shrink on click */
 }
 
+div.inactive{
+	background-color: grey;
+	opacity: 60%;
+}
+
+div.inactive div.submit-wrapper div#submit{
+    cursor: unset;
+    transition: unset;
+    pointer-events: none;
+}
+
+div.plays-next {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    border-top: solid 0.1em grey;
+  }
+}
 
 @media only screen and (max-device-width: 480px){
 
