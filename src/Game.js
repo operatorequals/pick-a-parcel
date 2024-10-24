@@ -81,8 +81,9 @@ export const PickAParcel = {
   	*/
   	activePlayers: { all: 'turnStrategy' },
 
-      onBegin: ({G, ctx, events}) => { // Replenish player hands each turn
+      onBegin: ({G, ctx, events, effects}) => { // Replenish player hands each turn
       	// console.log(`adding cards to hands`, G, ctx)
+        effects.preTurn(">") // place it after playouts
       	drawPlayerCards({G: G, ctx: ctx, events: events}, "action");
       	drawPlayerCards({G: G, ctx: ctx, events: events}, "direction");
       },

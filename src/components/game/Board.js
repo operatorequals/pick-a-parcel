@@ -43,7 +43,7 @@ export const Board = ({ G }) => {
           isPlayer = !isNaN(placedObject) && placedObject !== null
           playerID = isPlayer ? Number(placedObject) : null
         });
-        console.log(placedObject, isPlayer, playerID, players[playerID])
+        // console.log(placedObject, isPlayer, playerID, players[playerID])
         let playerHasParcelClass = "";
         if (isPlayer){
           playerHasParcelClass = players[playerID].hasParcel ? "has-parcel" : ""

@@ -5,19 +5,26 @@ export const config = {
 
   effects: {
   	postExecute: {
-
-	    create: (arg) => ({ ...arg, }), // the cards executed
+	    create: (arg) => ({ ...arg, }),
   		duration: 2,
   	},
 
   	preExecute: {
   		create: (arg) => ({ ...arg, }),
-    		duration: 1.5,
+    		duration: 1,
   	},
 
     endGame: {
       create: (arg) => ({ ...arg, }),
     },
+
+    prePlayout: {},
+
+    postPlayout: {},
+
+    preTurn: {},
+
   }
+
 
 }

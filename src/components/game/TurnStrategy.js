@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TurnStrategy.css'; // Optional: for styling
+import './Board.css'; // Optional: for styling
 
 import { useEffectListener } from 'bgio-effects/react';
 
@@ -8,43 +9,56 @@ import { Card } from './Card';
 
 export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 
-  // const [exec, setExec] = useState({});
-  // const [turnStrategy, setTurnStrategy] = useState(G.players[playerID].turnStrategy);
-  let exec = {};
   let turnStrategy = G.players[playerID].turnStrategy;
+  const [playout, setPlayout] = useState(false);
+  const [exec, setExec] = useState({});
+  const [turnStrategyExec, setTurnStrategyExec] = useState(turnStrategy);
+  // console.log("Turn Strategy", playerID, turnStrategy, turnStrategyExec)
+  // let exec = {};
 
-  // console.log(`Rendering Turn Strategy (${visible ? "" : "in"}visible) for ${playerID}`, turnStrategy)
+ useEffectListener('postPlayout',
+    (effectPayload, boardProps) => {
+      // console.log("[TurnStrategy] postPlayout")
+      setPlayout(false)
+    },
+    [setPlayout]
+  );
+
   useEffectListener(
       'preExecute',
       (effectPayload, boardProps) => {
-  		exec = {
+
+        if (effectPayload.playerID !== playerID) return // drawn only in corresponding component
+        setPlayout(true)
+
+        setTurnStrategyExec(effectPayload.turnStrategy)
+    		const execPayload = {
       		'action': effectPayload.action,
       		'direction': effectPayload.direction,
-      		'playerID': effectPayload.playerID,
       	}
-      	// setTurnStrategy(effectPayload.turnStrategy)
-      	turnStrategy = effectPayload.turnStrategy
-      	console.log("[TurnStrategy] preExecute", turnStrategy.length)
-      	// const timeout = setTimeout(setExec({}), 2000);
-      	// return () => clearTimeout(timeout);
+        setExec(execPayload)
+      	// turnStrategy = effectPayload.turnStrategy
+      	console.log("[TurnStrategy] preExecute", turnStrategyExec.length)
+  
       },
-      [exec, turnStrategy,
-      // setTurnStrategy
-      ],
+      [setTurnStrategyExec, setExec],
   );
-// 
-//   useEffectListener(
-//   	'postExecute',
-//       (effectPayload, boardProps) => {
-//       	exec = {}
-//       	console.log("[TurnStrategy] postExecute")
-//       },
-//       [exec],
-//   );
 
-  if (playerID == undefined)
+  useEffectListener(
+  	'postExecute',
+      (effectPayload, boardProps) => {
+        if (effectPayload.playerID !== playerID) return // drawn only in corresponding component
+        setExec({})
+      	console.log("[TurnStrategy] postExecute")
+      },
+      [setExec],
+  );
+
+  if (playerID === undefined) //spectator
   	visible = true;
-    // return <div className="turn-strategy-rest"></div>;
+
+  // if in playout - draw the intermediate turnStrategy
+  if (playout) turnStrategy = turnStrategyExec;
 
   const cards = Array.from({ length: turnStrategy.length }, (_, cardIndex) => {
     const card = turnStrategy[cardIndex];
@@ -55,16 +69,18 @@ export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
 			type={card.type}
 			value={card.value}
 			face="up"
+      animation={!playout}
 			onclick={moves.removeFromTurnStrategy}/>
 	else
 	    return <Card
 			key={card.id}
 			id={card.id}
+      animation={!playout}
 			face="down"/>
   });
 
 // player-${playerID+1}
-  return <div className={`turn-strategy-wrapper`}>
+  return <div className={`turn-strategy-wrapper player-${playerID+1}`}>
 			{exec.action !== undefined ?
 			<div className="turn-strategy-exec">
 			  	<div className="turn-strategy-action">

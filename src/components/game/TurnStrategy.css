@@ -8,8 +8,8 @@ div.turn-strategy-wrapper {
 
   height: 40%;
   width: 100%;
-
-  background-color: lightgrey;
+  /*opacity: 0.6;*/
+  /*background-color: lightgrey;*/
   border-radius: 5px;
 
 }

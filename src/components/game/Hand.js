@@ -13,7 +13,13 @@ export const Hand = ({ G, ctx, playerID, moves }) => {
 
   const cards = Array.from({ length: hand.length }, (_, cardIndex) => {
     const card = hand[cardIndex];
-    return <Card key={card.id} id={card.id} type={card.type} value={card.value} face="up" onclick={moves.addToTurnStrategy}/>
+    return <Card key={card.id}
+    	id={card.id}
+    	type={card.type}
+    	value={card.value}
+    	face="up"
+    	animation={true}
+    	onclick={moves.addToTurnStrategy}/>
   });
 
   return <div className="hand">{cards}</div>;

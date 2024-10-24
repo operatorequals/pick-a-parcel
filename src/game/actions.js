@@ -176,7 +176,6 @@ export function checkWin({G}){
     gameover.points = playerPoints
     // the points are set but if 'winner' is not set, none get them
     return gameover
-
 }
 
 export function endGame({G, ctx, effects}){
@@ -189,7 +188,8 @@ export function endGame({G, ctx, effects}){
 export function playout({G, ctx, events, effects}, pauseTimer=CONSTANTS.PAUSETIMER, pauseTimerReduceEachTurn=90/100) {
     // Set everyone to playout
     console.log(ctx, ctx.currentPlayer)
-    let playerID = ctx.currentPlayer
+    effects.prePlayout() // signal that the playout started
+    let playerID = Number(ctx.currentPlayer)
     const playerNum = Object.keys(G.players).length;
     Object.values(G.players).every(player => player.phase = GAMEPHASES.PLAYOUT); //Playout
 
@@ -199,12 +199,13 @@ export function playout({G, ctx, events, effects}, pauseTimer=CONSTANTS.PAUSETIM
         G.ctx.currentPlayer = playerID;
 
         pauseTimer = pauseTimer * pauseTimerReduceEachTurn
-        playTurn({G:G, playerID: G.ctx.currentPlayer, events: events, effects: effects}, pauseTimer);
+        playTurn({G:G, playerID: playerID, events: events, effects: effects}, pauseTimer);
         playerID = (playerID + 1) % playerNum
         allFinished = Object.values(G.players).every(player => player.phase === GAMEPHASES.FINISHED);
     }
+    effects.postPlayout('>+1') // signal that the playout finished
     console.log(`[PickAParcel] All players finished. Continuing to next Turn...`)
-    // events.endTurn();
+
 }
 
 export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // this needs serious fix
@@ -228,12 +229,10 @@ export function playTurn({G, playerID, events, effects}, pauseTimer=3000) { // t
         G.players[playerID].phase = GAMEPHASES.EXECUTING
         const action = actionCard.value
         const direction = directionCard.value
-        // Announce card to players
-        // moves.messagePlayer({G:G, playerID: playerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
-        // moves.messagePlayer({G:G, playerID: nextPlayerID}, `Player ${playerID}:\n${action}("${direction}");`, pauseTimer)
+
         effects.preExecute({
             "action":action, "direction":direction, 'playerID': playerID,
-            "turnStrategy": current(turnStrategy),
+            "turnStrategy": current(G).players[playerID].turnStrategy,
         })
 
         if (action === 'move') {
