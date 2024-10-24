@@ -4,6 +4,8 @@ import './Playfield.css'; // Optional for styling
 // import { useOrientation } from 'react-use';
 import { useEffectListener } from 'bgio-effects/react';
 
+import { useOrientation } from '../../hooks/useOrientation';
+
 import { Board } from './Board';
 import { Hand } from './Hand';
 import { TurnStrategy } from './TurnStrategy';
@@ -65,6 +67,8 @@ const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies, pla
 
 export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matchData}) => {
 
+    const orientation = useOrientation() ? "portrait" : "landscape";
+
 	const [playout, setPlayout] = useState(false);
 	useEffectListener('prePlayout',
 		(effectPayload, boardProps) => setPlayout(true),
@@ -82,9 +86,6 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 
 	if (ctx.gameover !== undefined)
 		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset}/> // create a GameOver annoncement component
-
-    // const orientation = useOrientation().type;
-    const orientation = window.matchMedia('(max-width: 480px)').matches ? "portrait" : "landscape"
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
