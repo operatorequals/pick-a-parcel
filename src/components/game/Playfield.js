@@ -77,7 +77,8 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 	);
 
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
-    if (noPlayerTwo)	return <P2PQRCode matchID={matchID}/>
+    // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
+    if (noPlayerTwo && process.env.NODE_ENV === 'production')	return <P2PQRCode matchID={matchID}/>
 
 	if (ctx.gameover !== undefined)
 		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset}/> // create a GameOver annoncement component

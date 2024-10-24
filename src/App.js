@@ -33,6 +33,15 @@ else{
 
 const peerJSSecure = window.location.origin.startsWith("https")
 
+let multiplayer = Local();
+if (process.env.NODE_ENV === 'production')
+	multiplayer = P2P({
+		isHost: guest ? false : true,
+		peerOptions: {
+			secure: peerJSSecure,
+		}
+	})
+
 const PickAParcelClient = Client({
 	game: PickAParcel,
 	matchID: matchID,
@@ -42,14 +51,9 @@ const PickAParcelClient = Client({
 	}),
 	playerID: playerID,
 
-	// multiplayer: Local(), debug: true,
+	multiplayer: multiplayer,
 
-	multiplayer: P2P({
-		isHost: guest ? false : true,
-		peerOptions: {
-			secure: peerJSSecure,
-		},
-	}),  debug: false,
+	// debug: true, // is handled by NODE_ENV === production automatically
 });
 
 const App = () => (
