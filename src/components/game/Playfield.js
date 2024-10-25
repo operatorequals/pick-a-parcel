@@ -15,58 +15,6 @@ import { P2PQRCode } from '../matchmaking/P2P';
 
 import { testingMultiplayer } from '../../WebAppConstants';
 
-
-const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies, playerTurnProperties}) => (
-		<div className="playfield">
-			<div className="playout">
-				<Board G={G} />
-				<div className="turn-strategies">
-					{turnStrategies}
-				</div>
-			</div>
-			<div className={
-					`playcontrol
-					${playerTurnProperties.isNext ? "plays-next" : ""}
-					${!playerTurnProperties.active ? "inactive" : ""}
-					`}>
-				<Hand G={G} playerID={playerID} moves={moves}/>
-				<div className="submit-wrapper">
-					<div id="submit" onClick={
-						playerTurnProperties.active ?
-						()=>moves.submitTurnStrategy() : ()=>{}}>
-						Run Script...
-					</div>
-				</div>
-			</div>
-		</div>
-)
-
-const PlayfieldPortrait = ({G, ctx, events, playerID, moves, turnStrategies, playerTurnProperties}) => (
-		<div className="playfield">
-			<div className="playout">
-				{turnStrategies[0]}
-				<Board G={G} />
-				{turnStrategies[1]}
-			</div>
-			<div className={
-					`playcontrol
-					${playerTurnProperties.isNext ? "plays-next" : ""}
-					${!playerTurnProperties.active ? "inactive" : ""}
-					`}>
-				<Hand G={G} playerID={playerID} moves={moves}/>
-				<div className="submit-wrapper">
-					<div id="submit" onClick={
-						playerTurnProperties.active ?
-						()=>moves.submitTurnStrategy() : ()=>{}}>
-						Run Script...
-					</div>
-				</div>
-			</div>
-		</div>
-)
-
-
-
 export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matchData}) => {
 
     const orientation = useOrientation() ? "portrait" : "landscape";
@@ -93,9 +41,6 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
     if (noPlayerTwo && (testingMultiplayer || process.env.NODE_ENV === 'production')) return <P2PQRCode matchID={matchID}/>
 
-	if (ctx.gameover !== undefined && endGame)
-		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset} matchID={matchID}/> // create a GameOver annoncement component
-
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {
 		const visible = (Number(playerID) === playerIndex)
@@ -119,18 +64,41 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 		active: (Object.keys(ctx.activePlayers).indexOf(playerID) !== -1) && !playout
 	}
 
-	if (orientation.indexOf("landscape") !== -1)
-		return <PlayfieldLandscape G={G} ctx={ctx} events={events} playerID={playerID} moves={moves}
-			turnStrategies={turnStrategies}
-			playerTurnProperties={playerTurnProperties}/>
-	else
-		return <PlayfieldPortrait G={G} ctx={ctx} events={events} playerID={playerID} moves={moves}
-			turnStrategies={turnStrategies}
-			playerTurnProperties={playerTurnProperties}/>
-
+	return (
+		<div className="playfield">
+			{
+				(ctx.gameover !== undefined && endGame) ?
+				<GameOver G={G} ctx={ctx} playerID={playerID} reset={reset} matchID={matchID} /> : ""
+			}
+			{
+				(orientation.indexOf("landscape") !== -1) ?
+				<div className="playout">
+					<Board G={G} />
+					<div className="turn-strategies">
+						{turnStrategies}
+					</div>
+				</div>
+				:<div className="playout">
+					{turnStrategies[0]}
+					<Board G={G} />
+					{turnStrategies[1]}
+				</div>
+			}
+			<div className={
+					`playcontrol
+					${playerTurnProperties.isNext ? "plays-next" : ""}
+					${!playerTurnProperties.active ? "inactive" : ""}
+					`}>
+				<Hand G={G} playerID={playerID} moves={moves}/>
+				<div className="submit-wrapper">
+					<div id="submit" onClick={
+						playerTurnProperties.active ?
+						()=>moves.submitTurnStrategy() : ()=>{}}>
+						Run Script...
+					</div>
+				</div>
+			</div>
+		</div>
+		)
 }
-
-
-			// <Card id="1m96uly" type="action" value="move" flipped="true"
-			// onclick={moves.addToTurnStrategy}
 
