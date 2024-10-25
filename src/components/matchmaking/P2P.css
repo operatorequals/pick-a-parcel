@@ -22,11 +22,11 @@ div.matchmaking{
 	border: solid 0.1em #3e3d32;
 	box-shadow: 0.5em 0.5em 0.3em #75715e;
 
-	/*height: fit-content;*/
-	/*width: fit-content;*/
+	height: fit-content;
+	width: fit-content;
 	/*min-width: 70%;*/
-	width: 60%;
-	height: 60%;
+	/*width: 60%;*/
+	/*height: 60%;*/
 
 	font-family: 'Courier New';
 	font-size: 1.2em;
