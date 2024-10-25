@@ -3,17 +3,16 @@ import {QRCodeSVG} from 'qrcode.react';
 import './P2P.css'; // Optional: for styling
 
 
+export const P2PQRCode = ({ matchID, matchIDPrefix }) => {
 
-export const P2PQRCode = ({ matchID }) => {
-
-
-	const matchUrl = `${window.location}/#/?matchID=${matchID}`;
+	matchIDPrefix = matchIDPrefix ? matchIDPrefix : 'pick-a-parcel-'
+	const matchUrl = `${window.location}#?matchID=${matchIDPrefix}${matchID}`;
 
 	return (
 	<div className='page'>
 	<div className='matchmaking'>
 		<h1> Welcome to <span className="gametitle">Pick-A-Parcel</span> Multiplayer</h1>
-		<h2 className="matchmaking-text"> You are the Game Host! </h2>
+		<h2 className="matchmaking-text"> Your match ID is: <pre>{matchID}</pre> </h2>
 		<div className="matchmaking-options">
 			<div className="matchmaking-option matchmaking-qrcode">
 				<p>
