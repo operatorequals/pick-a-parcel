@@ -29,3 +29,8 @@ exec: # dev
 	docker exec -ti \
 		`docker ps --filter ancestor=$(IMAGE) --format json | jq -r .ID` \
 		sh
+
+recompile:
+	docker exec -ti \
+		`docker ps --filter ancestor=$(IMAGE) --format json | jq -r .ID` \
+		find src/ -exec touch {} \;
