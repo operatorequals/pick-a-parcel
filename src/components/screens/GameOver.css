@@ -1,0 +1,54 @@
+.gameover-container {
+    font-size: 1.5em;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid color var(--sublime-gray);
+    background-color: var(--sublime-gray);
+    padding: 2em 4em;
+}
+
+.result-text {
+    margin-bottom: 1em;
+    font-weight: 700;
+    color: var(--sublime-blue);
+}
+
+.result-points {
+    color: var(--sublime-yellow);
+}
+
+.result-points span {
+    color: var(--sublime-orange);
+    font-weight: 700;
+}
+
+.reset-button {
+    margin-top: 1em;
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
+}
+
+.reset-button span {
+    color: var(--sublime-red)
+}
+
+.reset-button span:hover {
+    color: #ff0048;
+}
