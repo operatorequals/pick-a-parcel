@@ -22,13 +22,13 @@ export const GameOver = ({ G, ctx, reset, playerID, matchID }) => {
     return (
         <div className='gameover-container'>
             <div className='text-container'>
-                <div className="result-text">
+                <h2 className="result-text">
                     {draw ?
                         "It's a DRAW" :
                         (won ? "You WON!" :
                             "You LOST")
                     }
-                </div>
+                </h2>
                 {!draw ?
                     <div className="result-points">
                         Points acquired: <span>{ctx.gameover.points}</span>!
