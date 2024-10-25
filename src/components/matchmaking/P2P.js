@@ -6,13 +6,19 @@ import './P2P.css'; // Optional: for styling
 export const P2PQRCode = ({ matchID, matchIDPrefix }) => {
 
 	matchIDPrefix = matchIDPrefix ? matchIDPrefix : 'pick-a-parcel-'
-	const matchUrl = `${window.location}#?matchID=${matchIDPrefix}${matchID}`;
+	matchIDPrefix = ''
+
+	const fullPath = window.location.origin + window.location.pathname
+	let params = new URLSearchParams()
+	params.set('matchID', matchIDPrefix+matchID)
+
+	const matchUrl = `${fullPath}#?${params.toLocaleString()}`;
 
 	return (
 	<div className='page'>
 	<div className='matchmaking'>
 		<h1> Welcome to <span className="gametitle">Pick-A-Parcel</span> Multiplayer</h1>
-		<h2 className="matchmaking-text"> Your match ID is: <pre>{matchID}</pre> </h2>
+		<h2 className="matchmaking-text"> Your match ID is: <code className="matchmaking-matchid">{matchID}</code> </h2>
 		<div className="matchmaking-options">
 			<div className="matchmaking-option matchmaking-qrcode">
 				<p>

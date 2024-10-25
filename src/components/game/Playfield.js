@@ -92,7 +92,7 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
     if (noPlayerTwo && process.env.NODE_ENV === 'production')	return <P2PQRCode matchID={matchID}/>
 
 	if (ctx.gameover !== undefined && endGame)
-		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset}/> // create a GameOver annoncement component
+		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset} matchID={matchID}/> // create a GameOver annoncement component
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {

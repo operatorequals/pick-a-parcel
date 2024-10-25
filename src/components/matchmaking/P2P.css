@@ -32,6 +32,11 @@ div.matchmaking{
 	font-size: 1.2em;
 }
 
+pre.matchmaking-matchid {
+	font-family: 'Courier New';
+
+}
+
 h2.matchmaking-text {
 	text-align: center;
 	color: #fd971f;

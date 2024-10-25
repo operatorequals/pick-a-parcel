@@ -2,13 +2,22 @@
 
 // import './GameOver.css';
 
-export const GameOver = ({G, ctx, reset, playerID}) => {
+export const GameOver = ({G, ctx, reset, playerID, matchID}) => {
 
 	const winner = ctx.gameover.winner;
 	const reason = ctx.gameover.reason;
 	const draw = winner === undefined;
 	const won = Number(winner) === Number(playerID);
-	
+
+	const fullPath = window.location.origin + window.location.pathname
+	const replayerMatchID = Number(matchID) * 87634 % 10000
+
+	let params = new URLSearchParams()
+	params.set('matchID', replayerMatchID)
+	params.set('isHost', playerID === '0' ? 'true' : 'false')
+
+	const replayURL = `${fullPath}#?${params.toLocaleString()}`;
+
 	return (
 		<div>
 			<div className="result-text">
@@ -23,7 +32,7 @@ export const GameOver = ({G, ctx, reset, playerID}) => {
 				Points acquired: {ctx.gameover.points}!
 			</div>
 			: ""}
-			<a href={window.location}>RESET!</a>
+			<a href={replayURL}>RESET!</a>
 		</div>
 		)
 }
