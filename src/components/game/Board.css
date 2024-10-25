@@ -1,32 +1,34 @@
 .board {
-  display: flex;
-  flex-direction: column;
-  height: 90%;
-  min-width: 28em;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    min-height: 28em;
 
-  aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1;
 
-  gap: 0.2em;
-  margin: auto 0;
+    gap: 0.2em;
+    margin: auto 0;
 }
 
 .board-row {
-  display: flex;
-  gap: 0.2em;
-  height: 20%;
+    display: flex;
+    gap: 0.2em;
+    height: 20%;
 }
 
 .board-cell {
-  min-width: 40px; /* adjust as needed */
-  min-height: 40px; /* adjust as needed */
+    min-width: 40px;
+    /* adjust as needed */
+    min-height: 40px;
+    /* adjust as needed */
 
-  width:20%;
-  height:100%;
+    width: 20%;
+    height: 100%;
 
-  border: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -39,19 +41,19 @@
 }
 
 .parcel {
-    box-shadow:inset 0px 0px 10px 6px #FF5722;
+    box-shadow: inset 0px 0px 10px 6px #FF5722;
 }
 
 .goal {
-    box-shadow:inset 0px 0px 10px 8px #39FF14;
+    box-shadow: inset 0px 0px 10px 8px #39FF14;
 }
 
 .player {
     /*background-color: blue;*/
-    box-shadow:inset 0px 0px 1px 1px #43443b;
+    box-shadow: inset 0px 0px 1px 1px #43443b;
     color: white;
     font-weight: bold;
-    border: 1px solid rgba(255,255,255,0);
+    border: 1px solid rgba(255, 255, 255, 0);
 
     /*background-image: url("../../assets/img/robot.png");*/
     background-size: 4vw;
@@ -84,17 +86,17 @@
 }
 
 .has-parcel {
-    box-shadow:inset 0px 0px 10px 6px #FF5722;
+    box-shadow: inset 0px 0px 10px 6px #FF5722;
 }
 
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 480px) {
 
-  div.board {
-    width: 66%;
-    min-width: 18em;
-    height: 55%;
+    div.board {
+        width: 66%;
+        min-width: 18em;
+        height: 55%;
 
-    margin: auto auto;
+        margin: auto auto;
 
-  }
+    }
 }

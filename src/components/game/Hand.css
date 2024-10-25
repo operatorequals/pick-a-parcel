@@ -1,28 +1,27 @@
-div.hand {
+.hand {
     display: flex;
     flex-direction: row;
     /*flex-flow: wrap;*/
-
+    height: 14em;
     width: 76%;
-	/*row-gap: 0.5em;*/
-    column-gap: 1em;
-
+    /*row-gap: 0.5em;*/
+    column-gap: .3em;
+    padding: 0 .5em;
     justify-content: flex-start;
     align-items: center;
-
-    padding: 0.5vw; /* Avoid creating a scrollbard */
+    /* Avoid creating a scrollbard */
     overflow: hidden;
 }
 
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 480px) {
 
-    div.hand {
-        flex-flow: wrap;        
+    .hand {
+        flex-flow: wrap;
         justify-content: center;
         align-items: unset;
         column-gap: 0.4em;
         row-gap: 1%;
-        height: 86%;
+        height: 14em;
         width: 100%;
 
         margin: auto auto;

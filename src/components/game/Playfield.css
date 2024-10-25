@@ -1,52 +1,53 @@
 div.playfield {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-	height: 100%;
-	width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 div.playout {
-	display: flex;
+    display: flex;
 
-	height: 64%;
-	padding: 0 1em;
+    height: 64%;
+    padding: 0 1em;
 }
 
 div.turn-strategies {
-	display: flex;
-	flex-flow: column;
-	
-	width: 100%;
-	padding: 0px 1em;
+    display: flex;
+    flex-flow: column;
+
+    width: 100%;
+    padding: 0px 1em;
 }
 
 div.playcontrol {
-	display: flex;
-	flex-flow: row;
-	height: 36%;
-	width: 100%;
-	border-radius: 1em 1em 0 0;
+    display: flex;
+    flex-flow: row;
+    height: 36%;
+    width: 100%;
+    border-radius: 1em 1em 0 0;
     border-top: solid 0.1em transparent;
 
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 div.submit-wrapper {
-	height: 100%;
-	width: 24%;
-	display: flex;
+    height: 14em;
+    width: 24%;
+    display: flex;
 }
 
 div#submit {
-	display: flex;
+    display: flex;
 
-	align-items: center;
-	justify-content: center;
+    align-items: center;
+    justify-content: center;
 
     font-family: 'Courier New';
     padding: 10px 20px;
-    background-color: #43443b; /* Bootstrap primary color */
+    background-color: #43443b;
+    /* Bootstrap primary color */
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -56,67 +57,75 @@ div#submit {
 }
 
 #submit:hover {
-    background-color: #272822; /* Darker shade on hover */
+    background-color: #272822;
+    /* Darker shade on hover */
 }
 
 #submit:active {
-    transform: scale(0.95); /* Slightly shrink on click */
+    transform: scale(0.95);
+    /* Slightly shrink on click */
 }
 
-div.inactive{
-	background-color: grey;
-	opacity: 60%;
+div.inactive {
+    background-color: grey;
+    opacity: 60%;
 }
 
-div.inactive div.submit-wrapper div#submit{
+div.inactive div.submit-wrapper div#submit {
     cursor: unset;
     transition: unset;
     pointer-events: none;
 }
 
 div.plays-next {
-  animation: blinker 1s step-start infinite;
+    animation: blinker 1s step-start infinite;
 }
 
 @keyframes blinker {
-  50% {
-    border-top: solid 0.1em grey;
-  }
+    50% {
+        border-top: solid 0.1em grey;
+    }
 }
 
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 480px) {
 
-	div.playout {
-	    display: flex;            /* Use flexbox */
-	    flex-direction: column;   /* Stack items vertically */
-	    height: 64%;             /* Allow it to take up available height */
-	    width: 100%;
-	    margin: auto auto;
-	    margin-top: 1em;
-	    padding: 0;
-	    gap: 2%;
-	}
+    div.playout {
+        display: flex;
+        /* Use flexbox */
+        flex-direction: column;
+        /* Stack items vertically */
+        height: 64%;
+        /* Allow it to take up available height */
+        width: 100%;
+        margin: auto auto;
+        margin-top: 1em;
+        padding: 0;
+        gap: 2%;
+    }
 
-	div.playcontrol {
-	    display: flex;            /* Use flexbox */
-	    flex-direction: column;   /* Stack items vertically */
-	    height: 38%;             /* Allow it to take up available height */
-	    width: 100%;
+    div.playcontrol {
+        display: flex;
+        /* Use flexbox */
+        flex-direction: column;
+        /* Stack items vertically */
+        height: 38%;
+        /* Allow it to take up available height */
+        width: 100%;
 
-	    gap: 1%;
-	    margin: 0 auto;
-	    align-items: center;
-	    justify-content: flex-end;
-	}
+        gap: 1%;
+        margin: 0 auto;
+        align-items: center;
+        justify-content: flex-end;
+    }
 
-	div.submit-wrapper {
-		height: 2%;
-		width: 80%;
-		display: flex;
-		margin: auto 0;
-	}
+    div.submit-wrapper {
+        height: 2%;
+        width: 80%;
+        display: flex;
+        margin: auto 0;
+    }
 
-	div#submit {
-		padding: 1em;
-	}
+    div#submit {
+        padding: 1em;
+    }
 }

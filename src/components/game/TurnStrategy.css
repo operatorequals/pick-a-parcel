@@ -1,76 +1,84 @@
 div.turn-strategy-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 
-  margin: auto 0;
+    margin: auto 0;
 
-  height: 40%;
-  width: 100%;
-  /*opacity: 0.6;*/
-  /*background-color: lightgrey;*/
-  border-radius: 5px;
+    height: 40%;
+    width: 100%;
+    /*opacity: 0.6;*/
+    /*background-color: lightgrey;*/
+    border-radius: 5px;
 
 }
 
-div.turn-strategy-exec {
-  display: flex;
-  flex-direction: row;
+div.turn-strategy-wrapper .card {
+    margin: auto 0px;
+}
 
-  /* Double card size */
-  min-width: 16vw;
-  background-color: grey;
+div.turn-strategy-exec {
+    display: flex;
+    flex-direction: row;
+
+    /* Double card size */
+    min-width: 16vw;
+    background-color: grey;
 }
 
 /* Taken from:
   https://stackoverflow.com/a/50109649
 */
 div.turn-strategy-rest {
-  display: flex;
-  align-content: center;
-  flex-direction: row;
+    display: flex;
+    align-content: center;
+    flex-direction: row;
 
-  min-width: 8vw; /* card size */
-  min-height: 12vw;
+    min-width: 8vw;
+    /* card size */
+    min-height: 12vw;
 
-  width: 70%;
-  height: 100%;
+    width: 70%;
+    height: 100%;
 
-  gap: 0.1em;
-  padding: 0 0.5em;
+    gap: 0.1em;
+    padding: 0 0.5em;
 
-  border-left: 2px solid black;
+    border-left: 2px solid black;
 
-  margin-left: auto;
+    margin-left: auto;
 }
 
 .cardWrapper {
     overflow: hidden;
-    height: fit-content;
+    height: 90%;
+    aspect-ratio: 100 / 144;
     margin: auto 0;
 }
 
-.cardWrapper:last-child, .cardWrapper:hover {
+.cardWrapper:last-child,
+.cardWrapper:hover {
     overflow: visible;
-/*    margin-right: 0.1em; */
+    /*    margin-right: 0.1em; */
 }
 
 .reverse {
-/*    transform: rotateX(180deg); */
+    /*    transform: rotateX(180deg); */
 }
 
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 480px) {
 
-  div.turn-strategy-wrapper {
-    width: 92%;
-    min-width: 20em;
-    height: 20%;
+    div.turn-strategy-wrapper {
+        width: 92%;
+        min-width: 20em;
+        height: 20%;
 
-    margin: auto auto;
+        margin: auto auto;
 
-  }
-  div.turn-strategy-rest {
-    width: 64%;
-  }
+    }
+
+    div.turn-strategy-rest {
+        width: 64%;
+    }
 }
