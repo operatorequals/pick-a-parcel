@@ -11,6 +11,7 @@ export const P2PQRCode = ({ matchID, matchIDPrefix }) => {
 	const fullPath = window.location.origin + window.location.pathname
 	let params = new URLSearchParams()
 	params.set('matchID', matchIDPrefix+matchID)
+	params.set('isHost', false)
 
 	const matchUrl = `${fullPath}#?${params.toLocaleString()}`;
 

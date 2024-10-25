@@ -13,6 +13,8 @@ import { TurnStrategy } from './TurnStrategy';
 import { GameOver } from '../screens/GameOver'
 import { P2PQRCode } from '../matchmaking/P2P';
 
+import { testingMultiplayer } from '../../WebAppConstants';
+
 
 const PlayfieldLandscape = ({G, ctx, events, playerID, moves, turnStrategies, playerTurnProperties}) => (
 		<div className="playfield">
@@ -89,7 +91,7 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
-    if (noPlayerTwo && process.env.NODE_ENV === 'production')	return <P2PQRCode matchID={matchID}/>
+    if (noPlayerTwo && (testingMultiplayer || process.env.NODE_ENV === 'production')) return <P2PQRCode matchID={matchID}/>
 
 	if (ctx.gameover !== undefined && endGame)
 		return <GameOver G={G} ctx={ctx} playerID={playerID} reset={reset} matchID={matchID}/> // create a GameOver annoncement component
