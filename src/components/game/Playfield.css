@@ -27,6 +27,7 @@ div.playcontrol {
 	height: 36%;
 	width: 100%;
 	border-radius: 1em 1em 0 0;
+    border-top: solid 0.1em transparent;
 
 	box-sizing: border-box;
 }
