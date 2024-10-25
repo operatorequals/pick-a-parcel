@@ -1,3 +1,4 @@
+import { maxMatchID } from '../../WebAppConstants';
 
 
 // import './GameOver.css';
@@ -10,7 +11,7 @@ export const GameOver = ({G, ctx, reset, playerID, matchID}) => {
 	const won = Number(winner) === Number(playerID);
 
 	const fullPath = window.location.origin + window.location.pathname
-	const replayerMatchID = Number(matchID) * 87634 % 10000
+	const replayerMatchID = Number(matchID) * 87634 % maxMatchID // calculate the same next ID
 
 	let params = new URLSearchParams()
 	params.set('matchID', replayerMatchID)
