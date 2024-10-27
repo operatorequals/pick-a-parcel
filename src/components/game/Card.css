@@ -26,6 +26,8 @@ div.card {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font-family: courier new;
 }
 
 .card-front, .card-back {
