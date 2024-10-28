@@ -4,6 +4,8 @@ import { Playfield } from './components/game/Playfield';
 
 import { P2PQRCode } from './components/matchmaking/P2P';
 
+import { HowToPlay } from './components/pages/HowToPlay';
+
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import { EffectsBoardWrapper } from 'bgio-effects/react';
@@ -60,7 +62,10 @@ const App = () => {
 	      		playerID={playerID}
 	      		matchID={matchID}
 	      	 />
-	      }/>
+			}/>
+	      <Route path="/how-to-play" element={
+	      	<HowToPlay />
+			}/>
 	      {/* <Route path="/how-to-play" element={} /> */}
 	      {/* <Route path="/about" element={} /> */}
 
