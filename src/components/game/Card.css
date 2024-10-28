@@ -1,6 +1,5 @@
 
 .card-inner {
-  position: relative;
   width: 100%;
   height: fit-content;
   transition: transform 0.6s;
@@ -12,108 +11,94 @@
 Use the Sublime text monokai colors:
 https://github.com/gerardroche/sublime-monokai-free?tab=readme-ov-file#customizations
 */
-
-div.card {
-    width: 8vw; /*126 187 pixels wXh = 1.4.8.4*/
-    height: 12vw;
-
-    aspect-ratio: 3 / 4;
-    /*min-width: 8vw;*/
-    border-radius: 0.5em;
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    font-family: courier new;
+.card {
+  font-family: 'courier new' !important;
+  height: calc(calc(81/56)*var(--card-width));
+  width: var(--card-width);
+  border-radius: 6%;
+  padding: 0;
 }
-
-.card-front, .card-back {
-/*    position: absolute; */
-    border: 0.1em solid #3e3d32; /* Light blue border */
+.print-area {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-.card-front {
-    background-color: #43443b; /* Dark gray for front */
-    color: #f8f8f2; /* Light gray text */
-}
-
-.card-action {
-    background-color: #43443b; /* Dark gray for front */
-    color: #66d9ef; /* Light gray text */
-}
-
-.card-direction {
-    background-color: #43443b; /* Dark gray for front */
-    color: #fd971f; /* Light gray text */
-}
-
 .card-back {
-    background-color: #272822; /* Slightly lighter gray for back */
-    color: #e6db74; /* Light red text */
-    /*transform: rotateY(180deg);*/
+  border: 0.2em solid var(--sublime-dark);
 }
-
-span.card-value-action{
-    font-size: 2vw;
-    margin: 0 0 10px 0;
-    text-align: center;
-
-/*    position: absolute;
-    top: -2vw;
-*/}
-
-span.card-value-direction{
-    font-size: 1.8vw;
-    text-align: center;
-
-/*    position: absolute;
-    top: 0vw;
-    left: -0.5vw;*/
+.card-front {
+  background: var(--sublime-gray);
+  color: var(--sublime-white);
+  height: 100%;
+  width: 100%;
+  padding: 12%;
+  display: flex;
 }
-
-p.card-type {
-  color: #75715e;
-
-    position: absolute;
-    top: 8.5vw;
-
-    text-align: center;
-    font-size: 1vw;
+.card-action {
+  color: var(--sublime-blue);
 }
-
-p.card-back-text {
-    font-size: 1.4vw;
-    position: absolute;
-    top: 2vw;
-    left: 1vw;
-  transform: rotate(-42deg);
+.card-action h2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /*font-size: 280%;*/
+  margin-top: 0px !important;
+  margin-bottom: auto;
 }
-
-span.card-action-parenthesis {
-  color: #f92672;
+span.card-value-action {
+  text-align: center;
 }
-
+.card-action-parenthesis {
+  color: var(--sublime-red);
+}
 span.card-action-semicolon {
-  color: #ffffff; 
+  margin-top: auto;
+  color: var(--sublime-white);
+}
+.card-direction {
+  color: var(--sublime-orange);
+  margin-bottom: auto;
+  /*font-size: 180%;*/
+}
+.card .print-area .card-type {
+  position: absolute;
+  top: 82%;
+  left: 14%;
+  color: var(--sublime-yellow);
+  text-align: center;
+  font-size: 100%;
+  margin-top: auto;
+}
+.card-back {
+  background-color: var(--sublime-very-dark);
+  color: var(--sublime-yellow);
+  height: 100%;
+  width: 100%;
+}
+p.card-back-text {
+  font-size: 220%;
+  position: absolute;
+  top: 14%;
+  left: 14%;
+  transform: rotate(-42deg);
 }
 
 @media only screen and (max-device-width: 480px){
 
-    div.card {
-        width: 4.8em;
-        height: 6.5em;
+    :root{
+        /*--card-width: 4em;*/
+        /*--card-height: calc(calc(81/56)*var(--card-width));*/
     }
 
-
     span.card-value-action{
-        font-size: 4vw;
+        /*font-size: 4vw;*/
     }
 
     span.card-value-direction{
-        font-size: 3.8vw;
+        /*font-size: 3.8vw;*/
     }
 
 }
