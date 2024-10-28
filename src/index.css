@@ -35,8 +35,6 @@ code {
     --sublime-dark: #3e3d32;
     --sublime-very-dark: #272822;
 
-    --card-width: 56mm;
-
     --parcel-color: #FF5722;
     --goal-color: #39FF14;
 
@@ -46,4 +44,7 @@ code {
     --player4-color: #A52A2A;
     --player5-color: #2ECC71;
     --player6-color: #9B59B6;
+
+    --card-width: 8em;
+    --card-height: calc(calc(81/56)*var(--card-width));
 }
