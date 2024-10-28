@@ -88,14 +88,15 @@ div.plays-next {
 }
 
 @media only screen and (max-device-width: 480px){
+	div.playfield {
+		padding-top: 0.4em;
+	}
 
 	div.playout {
-	    display: flex;            /* Use flexbox */
-	    flex-direction: column;   /* Stack items vertically */
-	    height: 64%;             /* Allow it to take up available height */
+	    display: flex;
+	    flex-direction: column;
+	    height: 62%;
 	    width: 100%;
-	    margin: auto auto;
-	    margin-top: 1em;
 	    padding: 0;
 	    gap: 2%;
 	}
@@ -103,7 +104,7 @@ div.plays-next {
 	div.playcontrol {
 	    display: flex;            /* Use flexbox */
 	    flex-direction: column;   /* Stack items vertically */
-	    height: 38%;             /* Allow it to take up available height */
+	    height: 34%;             /* Allow it to take up available height */
 	    width: 100%;
 
 	    gap: 1%;

@@ -37,7 +37,7 @@
 
 .objective {
     /*box-shadow:inset 0px 0px 0px 10px #000000;*/
-    background-color: #43443b;
+    background-color: var(--sublime-gray);
     color: #F5F5DC;
 }
 
@@ -51,7 +51,7 @@
 
 .player {
     /*background-color: blue;*/
-    box-shadow:inset 0px 0px 1px 1px var(--sublime-gray);
+    box-shadow:inset 0px 0px 0.2em 0.2em var(--sublime-gray);
     color: white;
     font-weight: bold;
     border: 1px solid white;
