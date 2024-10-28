@@ -4,6 +4,9 @@ div.playfield {
 
 	height: 100%;
 	width: 100%;
+
+	box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);
+	background-color: var(--sublime-white);
 }
 
 div.playout {

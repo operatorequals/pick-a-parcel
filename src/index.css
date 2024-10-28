@@ -32,4 +32,18 @@ code {
     --sublime-orange: #fd971f;
     --sublime-blue: #66d9ef;
     --sublime-white: #f8f8f2;
+    --sublime-dark: #3e3d32;
+    --sublime-very-dark: #272822;
+
+    --card-width: 56mm;
+
+    --parcel-color: #FF5722;
+    --goal-color: #39FF14;
+
+    --player1-color: #7D7F7D;
+    --player2-color: #3D7E9A;
+    --player3-color: #FFC107;
+    --player4-color: #A52A2A;
+    --player5-color: #2ECC71;
+    --player6-color: #9B59B6;
 }

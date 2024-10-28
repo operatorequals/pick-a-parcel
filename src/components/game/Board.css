@@ -23,7 +23,10 @@
   width:20%;
   height:100%;
 
-  border: 1px solid #ccc;
+  border: 1px solid var(--sublime-dark);
+  border-radius: 1em;
+  box-shadow:inset 0px 0px 1px 1px var(--sublime-very-dark);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,19 +42,19 @@
 }
 
 .parcel {
-    box-shadow:inset 0px 0px 10px 6px #FF5722;
+    box-shadow:inset 0px 0px 10px 6px var(--parcel-color);
 }
 
 .goal {
-    box-shadow:inset 0px 0px 10px 8px #39FF14;
+    box-shadow:inset 0px 0px 10px 8px var(--goal-color);
 }
 
 .player {
     /*background-color: blue;*/
-    box-shadow:inset 0px 0px 1px 1px #43443b;
+    box-shadow:inset 0px 0px 1px 1px var(--sublime-gray);
     color: white;
     font-weight: bold;
-    border: 1px solid rgba(255,255,255,0);
+    border: 1px solid white;
 
     /*background-image: url("../../assets/img/robot.png");*/
     background-size: 4vw;
@@ -84,7 +87,7 @@
 }
 
 .has-parcel {
-    box-shadow:inset 0px 0px 10px 6px #FF5722;
+    box-shadow:inset 0px 0px 10px 6px var(--parcel-color);
 }
 
 @media only screen and (max-device-width: 480px){
