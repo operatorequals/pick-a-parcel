@@ -3,14 +3,23 @@ body {
 
 }
 
-div.page{
+div.page-tutorial{
+	display: flex;
 	flex-direction: row;
+	justify-content: center;
 	flex-wrap: nowrap;
+
+	gap: 2em;
+
 	height: 100%;
-	padding: 1em;
 	width: 100%;
+
+	box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);
+	background-color: var(--sublime-white);
+
+	padding: 3em;
+
 	gap: 0;
-	box-shadow: unset;
 }
 
 div.tutorial-container-text {
@@ -37,8 +46,8 @@ div.ui-bubble[id^="section-"] {
 
 div.tutorial-container-interactive-wrapper {
 
-	margin:0;
-	padding: auto;
+	margin: 0;
+
 	width: 480px;
 	min-width: 480px;
 	min-height: 100%;
