@@ -1,0 +1,73 @@
+body {
+	overflow: hidden;
+
+}
+
+div.page{
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: 100%;
+	padding: 1em;
+	width: 100%;
+	gap: 0;
+	box-shadow: unset;
+}
+
+div.tutorial-container-text {
+	padding-top: 20%;
+	padding-bottom: 20%;
+
+	display: flex;
+	flex-direction: column;
+	flex-grow: 5;
+	gap: 7em 0;
+	margin: 0;
+
+	/*justify-content: center;	*/
+	overflow-y: scroll;
+}
+
+div.ui-bubble {
+	width: fit-content;
+}
+
+div.ui-bubble[id^="section-"] {
+	background: var(--sublime-very-dark);
+}
+
+div.tutorial-container-interactive-wrapper {
+
+	margin:0;
+	padding: auto;
+	width: 480px;
+	min-width: 480px;
+	min-height: 100%;
+	height: 100%;
+	flex-grow: 1;
+
+	/*position: fixed;*/
+  	z-index: 1;
+	/*parallax*/
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	/*box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);*/
+
+}
+
+div.tutorial-container-interactive{
+	padding: 1em;
+
+	position:fixed;
+	top: 0;
+  	height: 96%;
+  	width: 480px;
+  	max-width: 480px;
+
+	box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);
+
+	display: flex;
+	flex-direction: column;
+}

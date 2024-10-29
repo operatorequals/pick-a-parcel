@@ -5,6 +5,7 @@ import { Playfield } from './components/game/Playfield';
 import { P2PQRCode } from './components/matchmaking/P2P';
 
 import { HowToPlay } from './components/pages/HowToPlay';
+import { Tutorial } from './components/pages/Tutorial';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -65,6 +66,9 @@ const App = () => {
 			}/>
 	      <Route path="/how-to-play" element={
 	      	<HowToPlay />
+			}/>
+	      <Route path="/tutorial" element={
+	      	<Tutorial />
 			}/>
 	      {/* <Route path="/how-to-play" element={} /> */}
 	      {/* <Route path="/about" element={} /> */}
