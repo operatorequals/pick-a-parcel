@@ -178,7 +178,7 @@ Play a game <a href={process.env.PUBLIC_URL} target="_blank">here</a>!
 			<div className="tutorial-container-interactive-center">
 
 			{ isFirstVisibleID("section-1-0") &&
-				<img src="./pick-a-parcel/assets/robot.png" alt="robot"
+				<img src="./assets/robot.png" alt="robot"
 					className="tutorial-container-interactive-robot"
 					/>
 			}
