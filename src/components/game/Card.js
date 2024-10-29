@@ -32,7 +32,8 @@ const BackContent = () => <div className="card-back card">
     </div>
 
 export const Card = ({ id, type, value, face, onclick, animation }) => {
-
+  if (onclick === undefined)
+    onclick = ()=>{}
   return (
     <div className={`cardWrapper ${animation ? "card-animation" : ""}`} onClick={()=>onclick(id)}>
         <div className="card-inner">

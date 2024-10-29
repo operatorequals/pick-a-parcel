@@ -16,11 +16,11 @@ div.matchmaking{
 	padding: 1em 1em;
 	margin: auto;
 	
-	color: #f8f8f2;
-	background-color: #43443b;
+	color: var(--sublime-white);
+	background-color: var(--sublime-gray);
 	border-radius: 1em;
 	border: solid 0.1em #3e3d32;
-	box-shadow: 0.5em 0.5em 0.3em #75715e;
+	box-shadow: 0.5em 0.5em 0.3em var(--ui-box-shadow);
 
 	height: fit-content;
 	width: fit-content;

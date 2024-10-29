@@ -20,6 +20,7 @@
     border-radius: 20px;
     border: 1px solid color var(--sublime-gray);
     background-color: var(--sublime-gray);
+    box-shadow: 0.5em 0.5em 0.3em var(--ui-box-shadow);
     padding: 2em 4em;
 }
 
