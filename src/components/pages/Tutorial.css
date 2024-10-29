@@ -29,10 +29,9 @@ div.tutorial-container-text {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 5;
-	gap: 7em 0;
+	gap: 16em 0;
 	margin: 0;
 
-	/*justify-content: center;	*/
 	overflow-y: scroll;
 }
 
@@ -62,8 +61,6 @@ div.tutorial-container-interactive-wrapper {
 	background-repeat: no-repeat;
 	background-size: cover;
 
-	/*box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);*/
-
 }
 
 div.tutorial-container-interactive{
@@ -79,4 +76,18 @@ div.tutorial-container-interactive{
 
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+
+}
+
+div.tutorial-container-interactive-center{
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+img.tutorial-container-interactive-robot {
+	width: 30%;
+	margin: auto;
+	/*height: 30%;*/
 }

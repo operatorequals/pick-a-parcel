@@ -10,14 +10,23 @@ import "./Tutorial.css"
 
 import "../game/Board.css"
 
+const TrackableBubbleUI = ({id, children, refs}) => {
+	if (TrackableBubbleUI.idCounter === undefined) TrackableBubbleUI.idCounter = 0
+	if (TrackableBubbleUI.idPrefix === undefined) TrackableBubbleUI.idPrefix = null
+	console.log(TrackableBubbleUI.idCounter, id, children)
+	if (id===undefined) id = TrackableBubbleUI.idCounter++
+	else {
+		TrackableBubbleUI.idCounter = 0
+		TrackableBubbleUI.idPrefix = id
+	}
+	const finalID = `${TrackableBubbleUI.idPrefix}-${TrackableBubbleUI.idCounter}`
+	return <div className="ui-bubble" id={`${finalID}`} ref={(el) => (refs.current[finalID] = el)}>
+		{children}
+	</div>
+};
+
 export const Tutorial = ({}) => {
 
-	// let refs = {}
-	// let inverseRefs = {}
-
-	// const s1 = useRef(null)
-	// const isVisible = useVisibility(s1, { threshold: 0.8 });
-	// console.log(s1, isVisible)
 	const [refs, visibleComponents] = useVisibleComponents({ threshold: 0.8 });
 	const isIdVisible = (id) => visibleComponents.some(el=>el.id===id)
 	const isFirstVisibleID = (id) => ((visibleComponents.length > 0) ? visibleComponents[0].id===id : false)
@@ -26,74 +35,62 @@ export const Tutorial = ({}) => {
 <div className="page-tutorial">
 	
 	<div className="tutorial-container-text" id="sections" >
-		<div className="ui-bubble" id="section-1" ref={(el) => (refs.current["section-1"] = el)}>
+		<TrackableBubbleUI id="section-1" refs={refs} >
 This is a Robot. A Warehouse Robot.			
-		</div>
-
-		<div className="ui-bubble">
+		</TrackableBubbleUI>
+		
+		<TrackableBubbleUI refs={refs} >
 The Robot lives on a square.			
-		</div>
+		</TrackableBubbleUI>
 
-		<div className="ui-bubble">
+		<TrackableBubbleUI refs={refs} >
 The Square is on the Board.
-		</div>
+		</TrackableBubbleUI>
 
-		<div className="ui-bubble" id="section-2" ref={(el) => (refs.current["section-2"] = el)}>
+		<TrackableBubbleUI id="section-2" refs={refs} >
 Ok, now, here is a Card.
 Here is another card.
-		</div>
+		</TrackableBubbleUI>
 
-		<div className="ui-bubble">
+		<TrackableBubbleUI refs={refs} >
 This is a card of type function
 and this is a "parameter" card.
 More on these in a bit...
-		</div>
+		</TrackableBubbleUI>
 
-		<div className="ui-bubble" id="section-3" ref={(el) => (refs.current["section-3"] = el)}>
+		<TrackableBubbleUI id="section-3" refs={refs} >
 Back to the Robot!
 The robot has to take a Parcel
 which is on the board.
-		</div>
+		</TrackableBubbleUI>
 
-		<div className="ui-bubble" onScroll={(e)=>{console.log(e)}}>
+		<TrackableBubbleUI refs={refs} >
 And get it to the Destination
-		</div>
+		</TrackableBubbleUI>
 	</div>
-	
+	{/* isIdVisible */}
 
 	<div className="tutorial-container-interactive-wrapper">
 		<div className="tutorial-container-interactive">
-			{ isFirstVisibleID("section-3") ?
-			<div>
+			<div className="tutorial-container-interactive-center">
+			{ isFirstVisibleID("section-1-0") &&
+				<img src="./pick-a-parcel/assets/robot.png" alt="robot"
+					className="tutorial-container-interactive-robot" />
+			}
+			{ isFirstVisibleID("section-2-0") &&
+				<div>
 				<div className="board-cell" />
 				</div>
-			:
+			}
+			{ isFirstVisibleID("section-3-0") &&
 				<Card />
 			}
+			</div>
 		</div>
 	</div>
-
 </div>
 	);
-
-	// for (const pElem of Children.toArray(jsx.props.children)){
-	// 	if (pElem.props.children.length === 0) continue
-	// 	for (const elem of Children.toArray(pElem.props.children)){
-	// 		if (elem.props.id === undefined) continue
-	// 		if (elem.props.id.startsWith("section-"))
-	// 			refs[elem.props.id] = {
-	// 				'ref': elem.ref,
-	// 				'visible': false,
-	// 			}
-	// 			inverseRefs[elem.ref] = elem.props.id
-	// 	}
-	// }
-
-	// for (const id of Object.keys(refs))
-	// 	// // eslint-disable-next-line react-hooks/rules-of-hooks
-	// 	refs[id].visible = useVisibility(refs[id].ref, { threshold: 0.1 })
-// 
-	// const [visibleComponents, setVisibleComponents] = useState(useInViewportList(Object.keys(inverseRefs), { threshold: 0.8 }));
+	// console.log(visibleComponents)
 	return jsx;
 }
 /*

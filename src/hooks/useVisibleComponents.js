@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useVisibleComponents = (options = {}) => {
-  const [visibleComponents, setVisibleComponents] = useState([]);
+  const [visibleComponents, setVisibleComponents] = useState(new Set());
   const refs = useRef({});
 
   useEffect(() => {
@@ -9,27 +9,36 @@ export const useVisibleComponents = (options = {}) => {
       (entries) => {
         entries.forEach((entry) => {
           const index = entry.target;
-          if (entry.isIntersecting) {
-            setVisibleComponents((prev) => [...new Set([...prev, index])]);
-          } else {
-            setVisibleComponents((prev) => prev.filter((i) => i !== index));
-          }
+
+          setVisibleComponents((prev) => {
+            const updated = new Set(prev);
+
+            if (entry.isIntersecting) {
+              updated.add(index); // Add index if visible
+            } else {
+              updated.delete(index); // Remove index if not visible
+            }
+
+            // Only update if the size has changed
+            return updated.size !== prev.size ? updated : prev;
+          });
         });
       },
       options
     );
 
-    const cleanupEffect = refs.current
-    Object.entries(refs.current).forEach(([id, ref]) => {
+    // Observe the elements
+    Object.values(refs.current).forEach((ref) => {
       if (ref) observer.observe(ref);
     });
 
     return () => {
-      Object.entries(cleanupEffect).forEach(([id, ref]) => {
+      // Clean up the observer on unmount
+      Object.values(refs.current).forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
-  }, [options, setVisibleComponents]);
+  }, [options]);
 
-  return [refs, visibleComponents];
+  return [refs, Array.from(visibleComponents)]; // Convert Set to Array for easier use
 };
