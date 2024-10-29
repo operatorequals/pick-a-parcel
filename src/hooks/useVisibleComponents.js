@@ -27,6 +27,7 @@ export const useVisibleComponents = (options = {}) => {
       options
     );
 
+    const effectCleanup = refs.current
     // Observe the elements
     Object.values(refs.current).forEach((ref) => {
       if (ref) observer.observe(ref);
@@ -34,11 +35,13 @@ export const useVisibleComponents = (options = {}) => {
 
     return () => {
       // Clean up the observer on unmount
-      Object.values(refs.current).forEach((ref) => {
+      Object.values(effectCleanup).forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
   }, [options]);
 
-  return [refs, Array.from(visibleComponents)]; // Convert Set to Array for easier use
+  return [refs,
+  Array.from(visibleComponents).sort((a, b) => a.id >= b.id)
+  ]; // Convert Set to Array for easier use
 };

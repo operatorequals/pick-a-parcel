@@ -90,7 +90,7 @@ And get it to the Destination
 	</div>
 </div>
 	);
-	// console.log(visibleComponents)
+	console.log(visibleComponents)
 	return jsx;
 }
 /*
