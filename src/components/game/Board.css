@@ -56,7 +56,7 @@
     font-weight: bold;
     border: 1px solid white;
 
-    /*background-image: url("../../assets/img/robot.png");*/
+    background-image: url(../../../public/assets/robot.png);
     background-size: 4vw;
     background-position: center;
     background-repeat: no-repeat;

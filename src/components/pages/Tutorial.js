@@ -1,7 +1,13 @@
 import {useRef, useState, useEffect, Children} from 'react';
 import { useParams } from 'react-router-dom';
 
+import { EffectsBoardWrapper } from 'bgio-effects/react';
+
 import { Card } from '../game/Card';
+import { DemoBoard } from '../game/Board';
+
+import { state_1_2 } from './tutorial-states/section-1';
+import { state_3_1, state_3_2 } from './tutorial-states/section-3';
 
 import { useVisibleComponents } from '../../hooks/useVisibleComponents';
 
@@ -20,7 +26,8 @@ const TrackableBubbleUI = ({id, children, refs}) => {
 		TrackableBubbleUI.idPrefix = id
 	}
 	const finalID = `${TrackableBubbleUI.idPrefix}-${TrackableBubbleUI.idCounter}`
-	return <div className="ui-bubble" id={`${finalID}`} ref={(el) => (refs.current[finalID] = el)}>
+	return <div className={`ui-bubble ${!TrackableBubbleUI.idCounter ? "section-start" : ""}`}
+		id={`${finalID}`} ref={(el) => (refs.current[finalID] = el)}>
 		{children}
 	</div>
 };
@@ -36,7 +43,8 @@ export const Tutorial = ({}) => {
 	
 	<div className="tutorial-container-text" id="sections" >
 		<TrackableBubbleUI id="section-1" refs={refs} >
-This is a Robot. A Warehouse Robot.			
+This is a Robot.
+A Warehouse Robot to be precise.
 		</TrackableBubbleUI>
 		
 		<TrackableBubbleUI refs={refs} >
@@ -44,28 +52,35 @@ The Robot lives on a square.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
-The Square is on the Board.
+That Square is on a Board.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI id="section-2" refs={refs} >
 Ok, now, here is a Card.
+		</TrackableBubbleUI>
+
+		<TrackableBubbleUI refs={refs} >
 Here is another card.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
-This is a card of type function
-and this is a "parameter" card.
+There are 2 kinds of cards.
+<code>function</code> cards and
+<code>parameter</code> cards.
 More on these in a bit...
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI id="section-3" refs={refs} >
 Back to the Robot!
-The robot has to take a Parcel
-which is on the board.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
-And get it to the Destination
+The robot has to take a Parcel
+which is on the board "p".
+		</TrackableBubbleUI>
+
+		<TrackableBubbleUI refs={refs} >
+And get it to the Destination ("g" - Goal).
 		</TrackableBubbleUI>
 	</div>
 	{/* isIdVisible */}
@@ -73,18 +88,48 @@ And get it to the Destination
 	<div className="tutorial-container-interactive-wrapper">
 		<div className="tutorial-container-interactive">
 			<div className="tutorial-container-interactive-center">
+
 			{ isFirstVisibleID("section-1-0") &&
 				<img src="./pick-a-parcel/assets/robot.png" alt="robot"
-					className="tutorial-container-interactive-robot" />
+					className="tutorial-container-interactive-robot"
+					/>
 			}
+			{ isFirstVisibleID("section-1-1") &&
+				<div className="board-cell player"
+					style={{
+						height: "10em",
+						width: "10em",
+						backgroundSize: "10em",
+						}}
+				/>
+			}
+			{ isFirstVisibleID("section-1-2") &&
+				<DemoBoard players={state_1_2.players} positions={state_1_2.positions}/>
+			}
+
 			{ isFirstVisibleID("section-2-0") &&
-				<div>
-				<div className="board-cell" />
-				</div>
+				<Card type="action" value="move" face="up" animate={true}/>
 			}
+			{ isFirstVisibleID("section-2-1") &&
+				<Card type="direction" value="up" face="up" animate={true}/>
+			}
+			{ isFirstVisibleID("section-2-2") &&
+			<div>
+				<Card type="action" value="move" face="up" animate={true}/>
+				<Card type="direction" value="up" face="up" animate={true}/>
+			</div>
+			}
+
 			{ isFirstVisibleID("section-3-0") &&
-				<Card />
+				<DemoBoard players={state_1_2.players} positions={state_1_2.positions}/>
 			}
+			{ isFirstVisibleID("section-3-1") &&
+				<DemoBoard players={state_3_1.players} positions={state_3_1.positions}/>
+			}
+			{ isFirstVisibleID("section-3-2") &&
+				<DemoBoard players={state_3_2.players} positions={state_3_2.positions}/>
+			}
+
 			</div>
 		</div>
 	</div>
@@ -108,6 +153,9 @@ Back to the Robot!
 The robot has to take the Parcel
 which is on the board.
 And get it to the Destination
+
+---
+
 But, robots can't move by themselves
 they need to be programmed.
 With code.

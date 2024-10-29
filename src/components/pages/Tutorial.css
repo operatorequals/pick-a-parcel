@@ -24,7 +24,7 @@ div.page-tutorial{
 
 div.tutorial-container-text {
 	padding-top: 20%;
-	padding-bottom: 20%;
+	padding-bottom: 40%;
 
 	display: flex;
 	flex-direction: column;
@@ -39,7 +39,7 @@ div.ui-bubble {
 	width: fit-content;
 }
 
-div.ui-bubble[id^="section-"] {
+div.ui-bubble.section-start {
 	background: var(--sublime-very-dark);
 }
 
@@ -86,8 +86,19 @@ div.tutorial-container-interactive-center{
 	justify-content: center;
 }
 
+div.tutorial-container-interactive-center .board{
+	/*width: 20em;*/
+	height: 20em;
+}
+
+div.tutorial-container-interactive-center .board .board-row .board-cell{
+	width: 4em;
+	/*height: 4em;*/
+}
+
 img.tutorial-container-interactive-robot {
-	width: 30%;
+	width: 10em;
+	height: 10em;
 	margin: auto;
 	/*height: 30%;*/
 }

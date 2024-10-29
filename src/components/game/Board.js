@@ -7,27 +7,7 @@ import { GAMEPHASES, CONSTANTS, POINTS } from '../../game/constants';
 
 // https://delucis.github.io/bgio-effects/client/react/
 
-export const Board = ({ G }) => {
-  // let positions = G.positions;
-
-  const [positions, setPositions] = useState(G.positions);
-  const [players, setPlayers] = useState(G.players);
-
-  useEffectListener(
-    // Name of the effect to listen for.
-      'postExecute',
-    // Function to call when the effect fires.
-      (effectPayload, boardProps) => {
-        console.log(`execute in Board:`, effectPayload)
-        setPositions(effectPayload.positions)
-        setPlayers(effectPayload.players) // to find out whether holding the parcel
-      },
-      [setPositions],
-  );
-
-  // Object.entries(positions).forEach(([obj, pos])=>{
-  //   console.log(`Drawing ${obj} in X: ${pos.x} Y: ${pos.y}`);
-  // });
+export const DemoBoard = ({ players, positions }) => {
 
   const rows = Array.from({ length: CONSTANTS.BOARDSIZE }, (_, rowIndex) => {
     rowIndex = (CONSTANTS.BOARDSIZE-rowIndex) // invert Y axis
@@ -56,5 +36,31 @@ export const Board = ({ G }) => {
     </div>
   });
 
-  return <div className="board">{rows}</div>;
+  return <div className="board">{rows}</div>;  
+}
+
+export const Board = ({ G }) => {
+  // let positions = G.positions;
+
+  const [positions, setPositions] = useState(G.positions);
+  const [players, setPlayers] = useState(G.players);
+
+  useEffectListener(
+    // Name of the effect to listen for.
+      'postExecute',
+    // Function to call when the effect fires.
+      (effectPayload, boardProps) => {
+        console.log(`execute in Board:`, effectPayload)
+        setPositions(effectPayload.positions)
+        setPlayers(effectPayload.players) // to find out whether holding the parcel
+      },
+      [setPositions],
+  );
+
+  return <DemoBoard players={players} positions={positions} />
+
+  // Object.entries(positions).forEach(([obj, pos])=>{
+  //   console.log(`Drawing ${obj} in X: ${pos.x} Y: ${pos.y}`);
+  // });
+
 };
