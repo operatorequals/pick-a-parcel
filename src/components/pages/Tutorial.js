@@ -45,6 +45,8 @@ const TrackableBubbleUI = ({id, children, refs}) => {
 
 export const Tutorial = ({}) => {
 
+	document.getElementsByTagName("body")[0].style.overflow = "hidden";
+	
 	const [refs, visibleComponents] = useVisibleComponents({ threshold: 0.8 });
 	const isIdVisible = (id) => visibleComponents.some(el=>el.id===id)
 	const isFirstVisibleID = (id) => ((visibleComponents.length > 0) ? visibleComponents[0].id===id : false)
