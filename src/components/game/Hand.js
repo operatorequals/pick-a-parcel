@@ -19,7 +19,7 @@ export const Hand = ({ G, ctx, playerID, moves }) => {
     	value={card.value}
     	face="up"
     	animation={true}
-    	onclick={moves.addToTurnStrategy}/>
+    	onclick={moves !== undefined ? moves.addToTurnStrategy : undefined}/>
   });
 
   return <div className="hand">{cards}</div>;

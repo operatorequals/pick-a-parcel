@@ -102,3 +102,12 @@ img.tutorial-container-interactive-robot {
 	margin: auto;
 	/*height: 30%;*/
 }
+
+
+div.tutorial-container-interactive-center .card-holder{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	gap: 0.2em;
+}
