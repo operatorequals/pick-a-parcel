@@ -16,7 +16,7 @@ export const P2PQRCode = ({ matchID, matchIDPrefix }) => {
 	const matchUrl = `${fullPath}#?${params.toLocaleString()}`;
 
 	return (
-	<div className='page'>
+	<div className='page-matchmaking'>
 	<div className='matchmaking'>
 		<h1> Welcome to <span className="gametitle">Pick-A-Parcel</span> Multiplayer</h1>
 		<h2 className="matchmaking-text"> Your match ID is: <code className="matchmaking-matchid">{matchID}</code> </h2>

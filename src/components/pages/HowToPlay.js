@@ -4,7 +4,7 @@ export const HowToPlay = ({}) => {
 
 	return (
 
-<div className="page">
+<div className="page-howtoplay">
 	<div className="ui-bubble">
 
 <h2 class="atx" id="the-setting">The Setting</h2>
