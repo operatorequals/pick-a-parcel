@@ -15,14 +15,19 @@ import { P2PQRCode } from '../matchmaking/P2P';
 
 import { testingMultiplayer } from '../../WebAppConstants';
 
-export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matchData}) => {
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData}) => {
 
     const orientation = useOrientation() ? "portrait" : "landscape";
 
 	const [playout, setPlayout] = useState(false);
+	const [endGame, setEndGame] = useState(false);
+	
 	useEffectListener('prePlayout',
-		(effectPayload, boardProps) => setPlayout(true),
-		[setPlayout]
+		(effectPayload, boardProps) => {
+			setEndGame(false) // reset endGame, in case it is set
+			setPlayout(true)
+		},
+		[setPlayout, setEndGame]
 	);
 
 	useEffectListener('postPlayout',
@@ -30,7 +35,6 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 		[setPlayout]
 	);
 
-	const [endGame, setEndGame] = useState(false);
 
 	useEffectListener('endGame',
 		(effectPayload, boardProps) => setEndGame(true),
@@ -61,14 +65,17 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, reset, matc
 
 	const playerTurnProperties = {
 		isNext: Number(ctx.currentPlayer) === Number(playerID),
-		active: (Object.keys(ctx.activePlayers).indexOf(playerID) !== -1) && !playout
+		active: ctx.activePlayers !== null ? (
+			(Object.keys(ctx.activePlayers).indexOf(playerID) !== -1) && !playout
+			) : false
 	}
+	console.log(G, ctx, playerID, matchID)
 
 	return (
 		<div className="playfield">
 			{
-				(ctx.gameover !== undefined && endGame) ?
-				<GameOver G={G} ctx={ctx} playerID={playerID} reset={reset} matchID={matchID} /> : ""
+				(ctx.gameover !== undefined && endGame) &&
+				<GameOver G={G} ctx={ctx} playerID={playerID} matchID={matchID} />
 			}
 			{
 				(orientation.indexOf("landscape") !== -1) ?

@@ -3,7 +3,7 @@ import './GameOver.css';
 
 // import './GameOver.css';
 
-export const GameOver = ({ G, ctx, reset, playerID, matchID }) => {
+export const GameOver = ({ G, ctx, playerID, matchID }) => {
 
     const winner = ctx.gameover.winner;
     const reason = ctx.gameover.reason;

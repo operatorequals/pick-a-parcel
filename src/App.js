@@ -35,14 +35,17 @@ const App = () => {
 	else
 		playerID = '0'
 
+	let debug = true;
 	let multiplayer = Local();
-	if (process.env.NODE_ENV === 'production' || testingMultiplayer)
+	if (process.env.NODE_ENV === 'production' || testingMultiplayer){
 		multiplayer = P2P({
 			isHost: isHost,
 			peerOptions: {
 				secure: peerJSSecure,
 			}
 		})
+		debug = false
+	}
 
 	const PickAParcelClient = Client({
 		game: PickAParcel,
@@ -54,6 +57,7 @@ const App = () => {
 		}),
 		playerID: playerID,
 		multiplayer: multiplayer,
+		debug: debug
 	});
 
     return (
