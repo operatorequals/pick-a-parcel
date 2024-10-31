@@ -8,6 +8,9 @@ import { Card } from './Card';
 
 
 export const TurnStrategy = ({ G, ctx, playerID, moves, visible },) => {
+  // As Tutorial tends to remve scrolling, and t's needed until everything fits
+  // snaggly on screen without scrolls
+  document.getElementsByTagName("body")[0].style.overflow = "unset";
 
   let turnStrategy = G.players[playerID].turnStrategy;
   const [playout, setPlayout] = useState(false);

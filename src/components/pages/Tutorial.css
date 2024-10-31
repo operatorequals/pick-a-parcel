@@ -110,3 +110,49 @@ div.tutorial-container-interactive-center .card-holder{
 
 	gap: 0.2em;
 }
+
+@media only screen and (max-device-width: 480px){
+
+	div.page-tutorial{
+		flex-direction: column;
+		padding: 0;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+
+	div.tutorial-container-text{
+		width: fit-content;
+		padding-top: 55vh;
+	}
+
+	div.tutorial-container-interactive-wrapper{
+		display: contents;
+		width: 0;
+		height: 0;
+		min-width: 0;
+		min-height: 0;
+
+		background: transparent;
+
+	}
+
+	div.tutorial-container-interactive{
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 65%;
+		padding: 0;
+
+		background: var(--sublime-white);
+		background: linear-gradient(0deg, rgba(var(--sublime-white-n), 0%), rgba(var(--sublime-white-n), 100%)); 
+	}
+
+	div.tutorial-container-interactive{
+		padding-top:1em;
+	}
+
+	div.card-holder {
+		height: 30%;
+	}
+}
