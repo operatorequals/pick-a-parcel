@@ -1,13 +1,16 @@
 
 IMAGE="boardgameio-react:latest"
 PORT="3000"
+APP_VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
 
 build-image:
 	docker build -t $(IMAGE) .
 
 build: build-image
 	mkdir -p build/
-	docker run -ti --rm -v`pwd`/build:/app/build $(IMAGE) build
+	docker run -ti --rm \
+		-e  REACT_APP_VERSION=$(APP_VERSION) \
+		-v`pwd`/build:/app/build $(IMAGE) build
 
 test-build:
 	mkdir -p build/pick-a-parcel/
@@ -20,6 +23,7 @@ run: build-image
 
 dev: build-image
 	docker run -ti --rm \
+	-e  REACT_APP_VERSION=$(APP_VERSION) \
 	-v`pwd`/src:/app/src \
 	-v`pwd`/public:/app/public \
 	-p3000:3000 \
