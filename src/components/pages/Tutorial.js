@@ -171,7 +171,7 @@ It's a Warehouse battle.
 {/* Here is how to fight: */}
 <h2> Have Fun! </h2>
 <br/>
-Play a game <a href={process.env.PUBLIC_URL} target="_blank">here</a>!
+Play a game <b><a href={process.env.PUBLIC_URL} target="_blank">here</a>!</b>
 		</TrackableBubbleUI>
 
 	</div>
