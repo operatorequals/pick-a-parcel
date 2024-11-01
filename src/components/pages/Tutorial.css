@@ -1,24 +1,8 @@
-body {
-}
 
 div.page-tutorial{
-	overflow: hidden;
-	display: flex;
 	flex-direction: row;
-	justify-content: center;
 	flex-wrap: nowrap;
-
-	gap: 2em;
-
-	height: 100%;
-	width: 100%;
-
-	box-shadow:inset 0px 0px 10px 6px var(--sublime-gray);
-	background-color: var(--sublime-white);
-
-	padding: 3em;
-
-	gap: 0;
+	font-size: 1.1em;
 }
 
 div.tutorial-container-text {
@@ -34,7 +18,7 @@ div.tutorial-container-text {
 	overflow-y: scroll;
 }
 
-div.ui-bubble {
+div.tutorial-container-text div.ui-bubble {
 	width: fit-content;
 }
 

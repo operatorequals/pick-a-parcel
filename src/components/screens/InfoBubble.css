@@ -1,0 +1,38 @@
+
+div.info-bubble {
+	flex-direction: column;
+	gap:0.1em;	
+
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+	padding: 0.5em!important;
+	margin: 0.3em!important;
+	/*width: 40%!important;	*/
+	width: fit-content!important;
+}
+
+div.info-bubble-entry {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+}
+
+span.info-bubble-span {
+	display: flex;
+	gap: 0.5em;	
+	align-items: center;
+}
+
+img.info-bubble-icon {
+	width: 1.8em;
+}
+
+@media only screen and (max-device-width: 480px){
+	div.info-bubble {
+		width: fit-content!important;
+	}
+
+}

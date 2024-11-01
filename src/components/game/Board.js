@@ -5,6 +5,8 @@ import { useEffectListener } from 'bgio-effects/react';
 
 import { GAMEPHASES, CONSTANTS, POINTS } from '../../game/constants';
 
+import robotIcon from '../../assets/img/robot.png';
+
 // https://delucis.github.io/bgio-effects/client/react/
 
 export const DemoBoard = ({ players, positions }) => {
@@ -31,7 +33,12 @@ export const DemoBoard = ({ players, positions }) => {
         // console.log(playerHasParcelClass)
         // TODO: NEEDS to use intermediate G (from effect) to see if got the parcel
         const cellClass = placedObject ? (isPlayer ? `player player-${Number(placedObject)+1} ${playerHasParcelClass}` : `objective ${placedObject}`) : ""
-        return <div className={`board-cell ${cellClass}`} key={colIndex+1}>{placedObject ? placedObject[0] : ""}</div>
+        return  <div
+                  className={`board-cell ${cellClass}`}
+                  key={colIndex+1}
+                  style={{backgroundImage: isPlayer ? `url(${robotIcon})` : ""}}>
+                    {placedObject ? placedObject[0] : ""}
+                </div>
       })}
     </div>
   });

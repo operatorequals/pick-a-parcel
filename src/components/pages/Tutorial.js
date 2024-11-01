@@ -27,6 +27,8 @@ import "./Tutorial.css"
 
 import "../game/Board.css"
 
+import robotIcon from '../../assets/img/robot.png';
+
 const TrackableBubbleUI = ({id, children, refs}) => {
 	if (TrackableBubbleUI.idCounter === undefined) TrackableBubbleUI.idCounter = 0
 	if (TrackableBubbleUI.idPrefix === undefined) TrackableBubbleUI.idPrefix = null
@@ -62,7 +64,7 @@ export const Tutorial = ({}) => {
 		</TrackableBubbleUI>
 		
 		<TrackableBubbleUI refs={refs} >
-The <em>Robot</em> lives on a square.			
+The <em>Robot</em> lives on a square.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
@@ -132,7 +134,9 @@ If a <em>Packet</em> is around, the <code>steal</code> card will <em>steal</em> 
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
-<span className="ui-alt2-text"> /* (A parameter is always needed, to not cause any syntax errors...) */ </span>
+<span className="ui-alt2-text"> /*
+A parameter is always needed, to not cause any syntax errors...
+*/ </span>
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
@@ -140,7 +144,7 @@ The <code>throw</code> function, hurls the packet in the direction of the <em>pa
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
-The packet travels until it reaches a <em>wall</em>, the <em>Destination</em>, or <em>another Player</em>.
+The packet travels until it reaches a <em>wall</em>, the <em>Destination</em>, or <em>another Robot</em>.
 		</TrackableBubbleUI>
 
 		<TrackableBubbleUI refs={refs} >
@@ -181,7 +185,7 @@ Play a game <b><a href={process.env.PUBLIC_URL} target="_blank">here</a>!</b>
 			<div className="tutorial-container-interactive-center">
 
 			{ isFirstVisibleID("section-1-0") &&
-				<img src="./assets/robot.png" alt="robot"
+				<img src={robotIcon} alt="robot"
 					className="tutorial-container-interactive-robot"
 					/>
 			}
@@ -191,6 +195,7 @@ Play a game <b><a href={process.env.PUBLIC_URL} target="_blank">here</a>!</b>
 						height: "10em",
 						width: "10em",
 						backgroundSize: "10em",
+						backgroundImage: `url(${robotIcon})`,
 						}}
 				/>
 			}

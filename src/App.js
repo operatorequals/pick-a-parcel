@@ -3,6 +3,8 @@ import { Local } from 'boardgame.io/multiplayer'; // gonna get network
 import { Playfield } from './components/game/Playfield';
 
 import { P2PQRCode } from './components/matchmaking/P2P';
+import { InfoBubble } from './components/screens/InfoBubble';
+import { Loading } from './components/screens/Loading';
 
 import { HowToPlay } from './components/pages/HowToPlay';
 import { Tutorial } from './components/pages/Tutorial';
@@ -57,6 +59,7 @@ const App = () => {
 		}),
 		playerID: playerID,
 		multiplayer: multiplayer,
+		loading: Loading,
 		debug: debug
 	});
 
@@ -73,6 +76,9 @@ const App = () => {
 			}/>
 	      <Route path="/tutorial" element={
 	      	<Tutorial />
+			}/>
+	      <Route path="/info" element={
+	      	<InfoBubble />
 			}/>
 	      {/* <Route path="/how-to-play" element={} /> */}
 	      {/* <Route path="/about" element={} /> */}

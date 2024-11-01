@@ -1,3 +1,5 @@
+import './ui.css';
+
 import './HowToPlay.css';
 
 export const HowToPlay = ({}) => {
