@@ -91,6 +91,12 @@ div.ui-bubble a {
 
 
 @media only screen and (max-device-width: 480px){
+    div[class^="page-"] {
+        height: fit-content;
+        min-height: 100%;
+        padding-bottom: 2em;
+        padding-top: 2em;
+    }
 
     div.ui-bubble{
         font-size: 1em;
