@@ -28,7 +28,10 @@ export const Loading = ({}) => {
 		{ tooLong
 			? <div>
 				<h4> This is taking way too long... </h4>
-				Maybe try refreshing the page?
+				Maybe try <span
+					onClick={()=>window.location.reload()}
+					style={{cursor: "pointer", fontStyle: "italic"}}
+					>refreshing the page</span>?
 			</div>
 			: <h4>Good Luck!</h4>
 		}
