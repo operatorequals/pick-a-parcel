@@ -1,0 +1,70 @@
+div.ui-menu	{
+	display: flex;
+	flex-direction: column;
+
+	width: fit-content;
+	gap: 0.6em;
+	padding-top: 0.4em;
+
+	font-size: 1.4em;
+}
+
+div.ui-menu-refs {
+	display: flex;
+	flex-direction: column;
+
+	gap: 0.8em;
+}
+
+div.ui-menu-ref{
+	width: 100%;
+}
+
+
+span.ui-menu-ref-no-comment {
+	color: var(--sublime-white);	
+	font-style: initial;
+}
+
+span.ui-menu-ref-comment {
+	color: var(--ui-box-shadow);	
+	font-style: italic;
+}
+
+
+span.code-syntax-function {
+	color: var(--sublime-blue);
+	font-style: italic;
+}
+
+span.code-syntax-parenthesis {
+	color: var(--sublime-red);	
+	font-style: initial;
+}
+
+span.code-syntax-semicolon {
+	color: var(--sublime-white);
+}
+
+
+
+div.menu-slide {
+    position: fixed;
+
+    top: 0;
+    left: -100%; /* Hide off-screen */
+
+    margin: 4em 1em;
+    /*height: 100%;*/
+
+    z-index: 999;
+    transition: left 0.3s ease; /* Slide effect */
+}
+
+div.menu-slide.menu-slide-open {
+    left: 0; /* Slide in */
+}
+
+div.menu-slide-btn-close {
+	cursor: pointer;
+}

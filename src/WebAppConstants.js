@@ -19,3 +19,5 @@ export const urls = {
 	"tutorial": baseUrl + "/tutorial",
 
 }
+
+export const homeIFrameName = "iframe-home"

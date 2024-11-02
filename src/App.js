@@ -1,13 +1,15 @@
 import { Client } from 'boardgame.io/react';
-import { Local } from 'boardgame.io/multiplayer'; // gonna get network
+import { Local } from 'boardgame.io/multiplayer';
 import { Playfield } from './components/game/Playfield';
 
 import { P2PQRCode } from './components/matchmaking/P2P';
 import { InfoBubble } from './components/screens/InfoBubble';
 import { Loading } from './components/screens/Loading';
+import { Menu } from './components/screens/Menu';
 
 import { HowToPlay } from './components/pages/HowToPlay';
 import { Tutorial } from './components/pages/Tutorial';
+import { Home } from './components/pages/Home';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -65,6 +67,7 @@ const App = () => {
 
     return (
 		<Routes>
+
 	      <Route path="/" element={
 	      	<PickAParcelClient
 	      		playerID={playerID}
@@ -80,9 +83,9 @@ const App = () => {
 	      <Route path="/info" element={
 	      	<InfoBubble />
 			}/>
-	      {/* <Route path="/how-to-play" element={} /> */}
+	      <Route path="/test/menu" element={<Menu/>} />
+	      <Route path="/test/home" element={<Home/>} />
 	      {/* <Route path="/about" element={} /> */}
-
 		</Routes>
 	)
 
