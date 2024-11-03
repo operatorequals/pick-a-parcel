@@ -3,23 +3,37 @@ div.ui-menu	{
 	flex-direction: column;
 
 	width: fit-content;
+
+    height: 100%;
+
 	gap: 0.6em;
 	padding-top: 0.4em;
 
 	font-size: 1.4em;
+
+	box-sizing: border-box;
 }
 
 div.ui-menu-refs {
 	display: flex;
 	flex-direction: column;
 
+	width: fit-content;
+
 	gap: 0.8em;
 }
 
 div.ui-menu-ref{
-	width: 100%;
+	width: auto;
 }
 
+div.ui-menu-title {
+  width: fit-content;
+}
+
+div.ui-menu-title > h4 {
+  width: fit-content;
+}
 
 span.ui-menu-ref-no-comment {
 	color: var(--sublime-white);	
@@ -49,15 +63,15 @@ span.code-syntax-semicolon {
 
 
 div.menu-slide {
-    position: fixed;
+    /*position: fixed;*/
 
-    top: 0;
-    left: -100%; /* Hide off-screen */
+    /*top: 0;*/
+    /* Hide off-screen */
+    /*left: -100%; */
 
-    margin: 4em 1em;
-    /*height: 100%;*/
+    /*margin: 4em 1em;*/
 
-    z-index: 999;
+    /*z-index: 999;*/
     transition: left 0.3s ease; /* Slide effect */
 }
 
@@ -67,4 +81,5 @@ div.menu-slide.menu-slide-open {
 
 div.menu-slide-btn-close {
 	cursor: pointer;
+	width: fit-content;
 }

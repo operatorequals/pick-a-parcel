@@ -24,10 +24,10 @@ const MenuItem = ({name, url, iFrameName}) => {
 	)
 }
 
-export const Menu = ({ isOpen, onClose, iFrameName}) => {
+export const Menu = ({ isOpen, onClose, iFrameName,className}) => {
 	iFrameName = iFrameName !== undefined ? iFrameName : homeIFrameName
 	return (
-<div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''}`}>
+<div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''} ${className !== undefined ? className : ""}`}>
 	<div className="ui-menu-title">
 		<h4>Pick-A-Parcel</h4>
 	</div>
