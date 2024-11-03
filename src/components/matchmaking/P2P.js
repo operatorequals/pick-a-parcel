@@ -1,30 +1,18 @@
 import { useState } from 'react';
 import {QRCodeSVG} from 'qrcode.react';
 
+import { getMatchURL } from '../../WebAppConstants'
+
 import './P2P.css'; // Optional: for styling
 import '../pages/ui.css'; // Optional: for styling
-
-
-
 
 
 export const P2PQRCode = ({ matchID, matchIDPrefix }) => {
 
 	const [inputMatchID, setInputMatchID] = useState(null);
 
-	matchIDPrefix = matchIDPrefix ? matchIDPrefix : 'pick-a-parcel-'
-	matchIDPrefix = ''
-
-	const getMatchURL = (matchID, isHost) => {
-		let params = new URLSearchParams()
-		params.set('matchID', matchID)
-		params.set('isHost', isHost)
-		const fullPath = window.location.origin + window.location.pathname
-
-		return `${fullPath}#/?${params.toLocaleString()}`;
-	}
-
-	const matchUrl = getMatchURL(matchIDPrefix+matchID, false)
+	 // give non-iframe link
+	const matchUrl = getMatchURL(matchID, false)
 
 	return (
 <div className='page-matchmaking'>

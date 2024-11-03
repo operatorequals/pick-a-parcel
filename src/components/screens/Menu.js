@@ -41,7 +41,7 @@ export const Menu = ({ isOpen, onClose, iFrameName,className}) => {
 		<span className="code-syntax-parenthesis">)<span className="code-syntax-semicolon">;</span></span>
 	</div>
 	<div onClick={onClose} className="menu-slide-btn-close">
-		<span className="code-syntax-function">goAway</span><span className="code-syntax-parenthesis">()</span><span className="code-syntax-semicolon">;</span>
+		<span className="code-syntax-function">play</span><span className="code-syntax-parenthesis">()</span><span className="code-syntax-semicolon">;</span>
 	</div>
 </div>
 	);

@@ -1,8 +1,8 @@
-div.page-home {
+div.page-main {
 	flex-direction: row;
 	gap: 0;
 
-	width: 130vw;
+	width: 125vw;
 
 	position: fixed;
 	left: -30vw;
@@ -27,39 +27,44 @@ div.page-container iframe{
 }
 
 div.page-menu {
-	width: 30vw;
-	max-width: 30vw;
-	min-width: 30vw;
+	width: 25vw;
+	max-width: 25vw;
+	min-width: 25vw;
+
+	min-height: 100%;
 }
 
 div.game-menu {
-	width: 30vw;
-	max-width: 30vw;
-	min-width: 30vw;
+	width: 25vw;
+	max-width: 25vw;
+	min-width: 25vw;
+
+	min-height: 100%;
 }
 
-div.page-home.slide-left {
-	left: -30vw;
+div.page-main.slide-left {
+	left: -25vw;
     transition: left 0.3s ease; /* Slide effect */
 }
 
-div.page-home.slide-right {
+div.page-main.slide-right {
 	left: 0vw;
     transition: left 0.3s ease; /* Slide effect */
 }
 
 
 @media only screen and (max-device-width: 480px){
-	div.page-home {
-		flex-direction: column-reverse;
+	div.page-main {
+		/*flex-direction: column-reverse;*/
 	}
 
 	div.iframe-container {
 		width: 100%;
-		height: fit-content;
+		/*height: fit-content;*/
+		min-height: 100%;
 	}
 
 	div.game-menu {
-		display:none;
+		/*display:none;*/
 	}
 }

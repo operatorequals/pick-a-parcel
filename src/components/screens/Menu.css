@@ -12,6 +12,7 @@ div.ui-menu	{
 	font-size: 1.4em;
 
 	box-sizing: border-box;
+	border-radius: 0;
 }
 
 div.ui-menu-refs {
