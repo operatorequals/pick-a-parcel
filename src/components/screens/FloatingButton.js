@@ -10,15 +10,19 @@ export const FloatingButton = ({onClick, className, content}) => {
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
-        setOffset({ x: e.clientX - position.left, y: e.clientY - position.top });
+        const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+        setOffset({ x: clientX - position.left, y: clientY - position.top });
     };
 
     const handleMouseMove = (e) => {
         if (isDragging) {
             requestAnimationFrame(() => {
+                const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
                 setPosition({
-                    top: e.clientY - offset.y,
-                    left: e.clientX - offset.x,
+                    top: clientY - offset.y,
+                    left: clientX - offset.x,
                 });
             });
         }
@@ -33,15 +37,20 @@ export const FloatingButton = ({onClick, className, content}) => {
         if (isDragging) {
             window.addEventListener('mousemove', handleMouseMove);
             window.addEventListener('mouseup', handleMouseUp);
+            window.addEventListener('touchmove', handleMouseMove);
+            window.addEventListener('touchend', handleMouseUp);
         } else {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('touchmove', handleMouseMove);
+            window.removeEventListener('touchend', handleMouseUp);
         }
 
-        // Cleanup on component unmount
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('touchmove', handleMouseMove);
+            window.removeEventListener('touchend', handleMouseUp);
         };
     }, [isDragging, handleMouseMove, handleMouseUp]);
 
@@ -64,6 +73,8 @@ export const FloatingButton = ({onClick, className, content}) => {
                 }
             }
             onMouseDown={handleMouseDown}
+            onTouchStart={handleMouseDown} // Add touch start event            
+            
             onClick={onClick}
         >{content}</div>
     );

@@ -43,7 +43,8 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData})
 
     const noPlayerTwo = !matchData.every(player=>player.isConnected)
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
-    if (noPlayerTwo && (testingMultiplayer || process.env.NODE_ENV === 'production')) return <P2PQRCode matchID={matchID}/>
+    if (noPlayerTwo && (testingMultiplayer || process.env.NODE_ENV === 'production'))
+    	return <P2PQRCode matchID={matchID}/>
 
 	let ownTurnStrategy = null;
 	const turnStrategies = Array.from({ length: Object.keys(G.players).length }, (_, playerIndex) => {

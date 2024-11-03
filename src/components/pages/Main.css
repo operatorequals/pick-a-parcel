@@ -17,13 +17,21 @@ div.page-container {
 	width: 100%;
 
 	box-sizing: border-box;
+	padding: 0;
 }
 
 
 div.page-container iframe{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	width: 100%;
 	height: 100%;
 	border: none;
+
+	z-index: -1;
 }
 
 div.page-menu {
@@ -55,16 +63,39 @@ div.page-main.slide-right {
 
 @media only screen and (max-device-width: 480px){
 	div.page-main {
+		width: 160vw;
+
+		left: 0;
+		padding: 0;
+
 		/*flex-direction: column-reverse;*/
 	}
 
-	div.iframe-container {
+	div.page-main.slide-left {
+		left: -75vw;
+	}
+
+	div.page-menu {
+		width: 40vw;
+		/*max-width: 25vw;*/
+		min-width: 75vw;
+
+		min-height: 100vh;
+
+		box-shadow: unset;
+	}
+
+	div.main-container {
 		width: 100%;
-		/*height: fit-content;*/
+		height: fit-content;
 		min-height: 100%;
+
+		position: absolute;
+		left: 0;
+		padding-top: 100%;
 	}
 
 	div.game-menu {
-		/*display:none;*/
+		display:none;
 	}
 }
