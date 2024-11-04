@@ -49,7 +49,7 @@ export const Menu = ({ isOpen, onClose, className, appRoutes, isInGame}) => {
 	{/* and also get you to /game page */}
 
 	<div onClick={()=>{
-				window.location="/#/game";
+//				window.location="/#/game";
 				onClose();
 			}
 		} className="menu-slide-btn-close"> 
