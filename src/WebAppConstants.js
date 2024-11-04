@@ -23,8 +23,6 @@ export const WebAppURLs = {
 	"info": baseUrl + "/info",
 }
 
-export const homeIFrameName = "iframe-home"
-
 export const getMatchURL = (matchID, isHost) => {
 	let params = new URLSearchParams()
 	params.set('matchID', matchIDPrefix+matchID)

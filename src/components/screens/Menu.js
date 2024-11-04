@@ -6,6 +6,7 @@ import { homeIFrameName } from '../../WebAppConstants'
 import './Menu.css'
 import '../pages/ui.css'
 
+const capitalize = s => s && String(s[0]).toUpperCase() + String(s).slice(1)
 
 const MenuItem = ({name, url, iFrameName}) => {
 
@@ -27,7 +28,7 @@ const MenuItem = ({name, url, iFrameName}) => {
 	)
 }
 
-export const Menu = ({ isOpen, onClose, className, initialTab}) => {
+export const Menu = ({ isOpen, onClose, className, appRoutes}) => {
 	return (
 <div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''} ${className !== undefined ? className : ""}`}>
 	<div className="ui-menu-title">
@@ -35,10 +36,12 @@ export const Menu = ({ isOpen, onClose, className, initialTab}) => {
 	</div>
 	<div className="ui-menu-refs">
 		<span className="code-syntax-function">go<span className="code-syntax-parenthesis">(</span></span>
-			<MenuItem name="Home" url="game" />
-			<MenuItem name="Tutorial" url="tutorial" />
-			<MenuItem name="Instruction" url="how-to-play" />
-			<MenuItem name="About" url="#" />
+			{
+				appRoutes.map(({ path, name, order }) => {
+					if (order === undefined) return
+					return <MenuItem name={capitalize(name)} url={path} />
+				})
+			}
 
 		<span className="code-syntax-parenthesis">)<span className="code-syntax-semicolon">;</span></span>
 	</div>

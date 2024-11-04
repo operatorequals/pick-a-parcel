@@ -56,6 +56,7 @@ const App = () => {
 
 	<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}
 		className="side-menu"
+		appRoutes={appRoutes}
 	/>
 	<FloatingButton onClick={toggleMenu} className="ui-bubble"/>
 

@@ -7,9 +7,10 @@ import { Game } from './components/pages/Game';
 
 export const appRoutes = [
 	{
-		"name": "base",
+		"name": "home",
 		"component": Main,
 		"path": "/",
+		"order": 1,
 	},
 	{	"name": "game",
 		"component": Game,
@@ -18,10 +19,17 @@ export const appRoutes = [
 	{	"name": "instructions",
 		"component": HowToPlay,
 		"path": "/how-to-play",
+		"order": 2,
 	},
 	{	"name": "tutorial",
 		"component": Tutorial,
 		"path": "/tutorial",
+		"order": 3,
+	},
+	{	"name": "about",
+		"component": ()=><div>About Page!</div>,
+		"path": "/about",
+		"order": 4,
 	},
 ]
 
