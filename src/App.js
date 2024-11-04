@@ -5,13 +5,7 @@ import { InfoBubble } from './components/screens/InfoBubble';
 import { Menu } from './components/screens/Menu';
 import { FloatingButton } from './components/screens/FloatingButton';
 import { GameDialog } from './components/screens/GameDialog';
-
 import { Matchmaking } from './components/matchmaking/Matchmaking';
-
-import { HowToPlay } from './components/pages/HowToPlay';
-import { Tutorial } from './components/pages/Tutorial';
-import { Main } from './components/pages/Main';
-import { Game } from './components/pages/Game';
 
 import { generateMatchID } from './WebAppConstants';
 
@@ -72,6 +66,7 @@ const App = () => {
 	<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}
 		appRoutes={appRoutes}
 		isInGame={isInGame}
+		match={match}
 		className="side-menu"
 	/>
 	<FloatingButton onClick={toggleMenu} className="ui-bubble"/>

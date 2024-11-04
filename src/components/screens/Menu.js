@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { NavLink } from "react-router-dom";
 
+import { getMatchURL } from '../../WebAppConstants';
+
 import './Menu.css'
 import '../pages/ui.css'
 
@@ -26,7 +28,12 @@ const MenuItem = ({name, url, iFrameName}) => {
 	)
 }
 
-export const Menu = ({ isOpen, onClose, className, appRoutes, isInGame}) => {
+export const Menu = ({ isOpen, onClose, className, appRoutes, isInGame, match}) => {
+	const matchUrl = getMatchURL(
+		match.matchID,
+		match.isHost // we are Host - share URL for a client
+	)
+
 	return (
 <div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''} ${className !== undefined ? className : ""}`}>
 	<div className="ui-menu-title">
@@ -49,12 +56,12 @@ export const Menu = ({ isOpen, onClose, className, appRoutes, isInGame}) => {
 	{/* and also get you to /game page */}
 
 	<div onClick={()=>{
-//				window.location="/#/game";
+				window.location=matchUrl;
 				onClose();
 			}
 		} className="menu-slide-btn-close"> 
 		<span className="code-syntax-function">play</span><span className="code-syntax-parenthesis">(
-			{isInGame ? "\"game\"" : ""}
+			<span className="code-syntax-parameter">{isInGame ? "game" : ""}</span>
 			)</span><span className="code-syntax-semicolon">;</span>
 	</div>
 </div>

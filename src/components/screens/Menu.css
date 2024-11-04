@@ -52,6 +52,11 @@ span.code-syntax-function {
 	font-style: italic;
 }
 
+span.code-syntax-parameter {
+	color: var(--sublime-orange);
+	font-style: italic;
+}
+
 span.code-syntax-parenthesis {
 	color: var(--sublime-red);	
 	font-style: initial;
