@@ -26,11 +26,11 @@ export const appRoutes = [
 		"path": "/tutorial",
 		"order": 3,
 	},
-	{	"name": "about",
-		"component": ()=><div>About Page!</div>,
-		"path": "/about",
-		"order": 4,
-	},
+	// {	"name": "about",
+	// 	"component": ()=><div>About Page!</div>,
+	// 	"path": "/about",
+	// 	"order": 4,
+	// },
 ]
 
 export const appRoutesMap =  Object.assign({}, ...(appRoutes.map(item => ({ [item.name]: {...item} }) )));
