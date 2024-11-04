@@ -93,9 +93,6 @@ div.plays-next {
 }
 
 @media only screen and (max-device-width: 480px){
-	div.playfield {
-		padding-top: 0.4em;
-	}
 
 	div.playout {
 	    display: flex;

@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { InfoBubble } from './components/screens/InfoBubble';
 import { Menu } from './components/screens/Menu';
 import { FloatingButton } from './components/screens/FloatingButton';
+import { GameDialog } from './components/screens/GameDialog';
 
 import { Matchmaking } from './components/matchmaking/Matchmaking';
 
@@ -56,14 +57,14 @@ const App = () => {
 	  });
 
 	let menuClass = isMenuOpen ? "slide-right" : "slide-left"	
-	if (isMobile)
+	if (isMobile){
 		if (isMenuOpen === 0)
 			menuClass = "slide-right"
-		if (isMenuOpen === 1)
+		else if (isMenuOpen === 1)
 			menuClass = "slide-left"
-		if (isMenuOpen === 2)
+		else if (isMenuOpen === 2)
 			menuClass = "slide-left-2"
-
+	}
     return (
 <div className={
 	`page-app ${menuClass}`}>
@@ -83,17 +84,11 @@ const App = () => {
 	<div className="game-menu side-menu">
 		{/* < InfoBubble /> */}
 		{isInGame ?
-			<div className="chat">
-				Your MatchID: {match.matchID}
-				You are {match.isHost ? "" : "NOT"} the host
-				<div 
-					onClick={
-						()=>{
-							setMatch({});
-							setIsInGame(false);
-						}
-					}>Stop Match</div>
-			</div> :
+			<GameDialog
+				setMatch={setMatch}
+				match={match}
+				setIsInGame={setIsInGame}
+			/> :
 			<Matchmaking
 				setMatch={setMatch}
 				match={match}

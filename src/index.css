@@ -26,6 +26,13 @@ code {
     width: 100%;
 }
 
+@media only screen and (max-device-width: 480px){
+    .bgio-client {
+        height: 100vh;
+        width: 100vw;
+    }
+}
+
 :root {
     --sublime-gray: #43443b;
     --sublime-yellow: #e6db74;

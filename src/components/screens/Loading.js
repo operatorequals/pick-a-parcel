@@ -23,7 +23,7 @@ export const Loading = ({isHost}) => {
 	return(
 <div className="page-loading">
 	<div className="ui-bubble" style={{textAlign: "center"}}>
-		<h2> Connecting to Game... </h2>
+		<h2> {!isHost ? <span>Connecting to</span> : <span>Hosting</span>} Game... </h2>
 		{matchID !== null && <h3> Match ID: {matchID} </h3>}
 		{ tooLong
 			? <div>
