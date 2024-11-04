@@ -20,8 +20,8 @@ export const Home = ({}) => {
 
 	<InfoBubble style={{
 		position: "absolute",
-		right: 0,
-		bottom: 0,
+		right: "1em",
+		bottom: "4em",
 	}}/>
 
 </div>

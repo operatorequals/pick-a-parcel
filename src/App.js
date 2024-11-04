@@ -28,7 +28,7 @@ const App = () => {
     	isHost: params.has('isHost') ? (params.get('isHost') === 'true') : true,
     	});
 
-    const [isMenuOpen, setIsMenuOpen] = useState(0);
+    const [isMenuOpen, setIsMenuOpen] = useState(isMobile ? 1 : 0);
     const toggleMenu = () => setIsMenuOpen(prev => {
     	// On desktop toggles 0 to 1, in mobile takes 0, 1, 2 values
     	return prev < (isMobile ? 2 : 1) ? ++prev : 0
