@@ -13,11 +13,14 @@ const baseUrl = (process.env.PUBLIC_URL.startsWith("/") ?
 	process.env.PUBLIC_URL) + (hashRouting ? "/#" : "")
 
 console.log(process.env.PUBLIC_URL, baseUrl)
-export const urls = {
+
+export const WebAppURLs = {
 	"base": baseUrl,
 	"game": baseUrl + "/game",
 	"how-to-play": baseUrl + "/how-to-play",
 	"tutorial": baseUrl + "/tutorial",
+	"about": baseUrl + "/about",
+	"info": baseUrl + "/info",
 }
 
 export const homeIFrameName = "iframe-home"
@@ -29,7 +32,7 @@ export const getMatchURL = (matchID, isHost, iframe=false) => {
 	const fullPath = window.location.origin + window.location.pathname
 
 	if (iframe)
-		return `${urls.game}?${params.toLocaleString()}`;
+		return `${WebAppURLs.game}?${params.toLocaleString()}`;
 	else
-		return `${urls.base}?${params.toLocaleString()}`;
+		return `${WebAppURLs.base}?${params.toLocaleString()}`;
 }

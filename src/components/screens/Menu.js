@@ -24,7 +24,7 @@ const MenuItem = ({name, url, iFrameName}) => {
 	)
 }
 
-export const Menu = ({ isOpen, onClose, iFrameName,className}) => {
+export const Menu = ({ isOpen, onClose, iFrameName, className, initialTab}) => {
 	iFrameName = iFrameName !== undefined ? iFrameName : homeIFrameName
 	return (
 <div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''} ${className !== undefined ? className : ""}`}>
@@ -33,7 +33,7 @@ export const Menu = ({ isOpen, onClose, iFrameName,className}) => {
 	</div>
 	<div className="ui-menu-refs">
 		<span className="code-syntax-function">go<span className="code-syntax-parenthesis">(</span></span>
-			<MenuItem name="Home" url="#" iFrameName={iFrameName} />
+			<MenuItem name="Home" url="#/game" iFrameName={iFrameName} />
 			<MenuItem name="Tutorial" url="/#/tutorial" />
 			<MenuItem name="Instruction" url="/#/how-to-play" iFrameName={iFrameName} />
 			<MenuItem name="About" url="#" iFrameName={iFrameName} />

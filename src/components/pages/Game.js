@@ -15,7 +15,9 @@ import { PickAParcel } from '../../Game';
 
 import { generateMatchID, testingMultiplayer } from '../../WebAppConstants';
 
-export const Game = ({matchID, isHost}) => {
+
+export const Game = ({matchID, isHost, setIsInGame}) => {
+	
 	const peerJSSecure = window.location.protocol.startsWith("https")
 	const credentials = generateCredentials();
 
@@ -54,5 +56,6 @@ export const Game = ({matchID, isHost}) => {
 	return	<PickAParcelClient
 	      		playerID={playerID}
 	      		matchID={matchID}
+	      		setIsInGame={setIsInGame}
 			/>
 }
