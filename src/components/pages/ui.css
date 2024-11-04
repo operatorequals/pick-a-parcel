@@ -118,6 +118,28 @@ div.ui-button {
     transform: scale(0.95); /* Slightly shrink on click */
 }
 
+/* Code syntax */
+
+span.code-syntax-function {
+    color: var(--sublime-blue);
+    font-style: italic;
+}
+
+span.code-syntax-parameter {
+    color: var(--sublime-orange);
+    font-style: italic;
+}
+
+span.code-syntax-parenthesis {
+    color: var(--sublime-red);  
+    font-style: initial;
+}
+
+span.code-syntax-semicolon {
+    color: var(--sublime-white);
+}
+
+
 @media only screen and (max-device-width: 480px){
     div[class^="page-"] {
         height: fit-content;
