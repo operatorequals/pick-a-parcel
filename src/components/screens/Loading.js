@@ -29,13 +29,12 @@ export const Loading = ({isHost}) => {
 			? <div>
 
 				<h4> This is taking way too long... </h4>
-				Maybe try
-				{!isHost ?
+				Maybe try {!isHost ?
 					<span
 						onClick={()=>window.location.reload()}
 						style={{cursor: "pointer", fontStyle: "italic"}}
 					>refreshing the page?</span> :
-					<span>asking the other Player to refresh the page!</span>
+					<span>asking the client to refresh the page!</span>
 				}
 			</div>
 			: <h4>Good Luck!</h4>

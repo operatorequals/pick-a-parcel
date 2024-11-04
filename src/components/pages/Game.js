@@ -59,6 +59,7 @@ export const Game = React.memo(({match, setIsInGame}) => {
 	return	<PickAParcelClient
 	      		playerID={playerID}
 	      		matchID={matchID}
+	      		isHost={isHost}
 	      		setIsInGame={setIsInGame}
 			/>
 });

@@ -11,11 +11,11 @@ import { Hand } from './Hand';
 import { TurnStrategy } from './TurnStrategy';
 
 import { GameOver } from '../screens/GameOver'
-import { P2PQRCode } from '../matchmaking/P2P';
+import { Loading } from '../screens/Loading'
 
 import { testingMultiplayer } from '../../WebAppConstants';
 
-export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, setIsInGame}) => {
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, isHost, setIsInGame}) => {
 
     const orientation = useOrientation() ? "portrait" : "landscape";
 
@@ -49,7 +49,7 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, 
 
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
     if (!allConnected && (testingMultiplayer || process.env.NODE_ENV === 'production')){
-    	return <P2PQRCode matchID={matchID}/>
+    	return <Loading isHost={isHost}/>
     }
 
 	let ownTurnStrategy = null;

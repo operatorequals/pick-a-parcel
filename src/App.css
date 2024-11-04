@@ -7,7 +7,7 @@ div.page-app {
   - 75vw Main Screen
   - 25vw Chat/Multiplayer Menu
   */
-  width: 125vw;
+  width: calc(100vw + var(--side-menu-width));
 
   position: fixed;
   left: calc(-1 * var(--side-menu-width));
@@ -15,15 +15,14 @@ div.page-app {
   box-sizing: border-box;
 
   --side-menu-width: 20vw;
-  /*box-shadow: 10px 0 5px -2px var(--ui-box-shadow);*/
-    /*box-shadow:inset 0px 0px 10px -6px var(--sublime-gray);*/
 }
 
 div.page-container {
-  width: calc(125vw - calc(2 * var(--side-menu-width)));
+  width: calc(calc(100vw + var(--side-menu-width)) - calc(2 * var(--side-menu-width)));
 
   box-sizing: border-box;
   padding: 0;
+  overflow: auto;
 }
 
 div.side-menu {

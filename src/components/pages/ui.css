@@ -28,9 +28,6 @@ div.ui-bubble{
     box-shadow: 0.5em 0.5em 0.3em var(--ui-box-shadow);
     border: solid 0.1em var(--sublime-dark);
     border-radius: 1em;
-
-    min-width: 30%;
-    width: 60%;
     /*height: 60%;*/
 
     font-family: 'Courier New';
