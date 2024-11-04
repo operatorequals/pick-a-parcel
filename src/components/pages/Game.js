@@ -18,7 +18,7 @@ import { PickAParcel } from '../../Game';
 import { generateMatchID, testingMultiplayer } from '../../WebAppConstants';
 
 // using memo to avoid re-rendering from Parent
-export const Game = React.memo(({match, setIsInGame}) => {
+export const Game = React.memo(({match, setIsInGame, orientation}) => {
 	
 	const peerJSSecure = window.location.protocol.startsWith("https")
 	const credentials = generateCredentials();
@@ -61,5 +61,6 @@ export const Game = React.memo(({match, setIsInGame}) => {
 	      		matchID={matchID}
 	      		isHost={isHost}
 	      		setIsInGame={setIsInGame}
+	      		orientation={orientation}
 			/>
 });

@@ -14,12 +14,15 @@ import { Game } from './components/pages/Game';
 
 import { generateMatchID } from './WebAppConstants';
 
+import { useOrientation } from './hooks/useOrientation';
+
 import { appRoutes, appRoutesMap } from './Router';
 
 import './App.css'
 
 const App = () => {
 	const [isInGame, setIsInGame] = useState(false)
+    const orientation = useOrientation() ? "portrait" : "landscape";
 
 	const location = useLocation()
 	const params = new URLSearchParams(location.search)
@@ -39,6 +42,7 @@ const App = () => {
 		    	<Component
 		    		match={match}
 		      		setIsInGame={setIsInGame}
+		      		orientation={orientation}
 		    	 />
 		    } />;
 		else
@@ -48,12 +52,17 @@ const App = () => {
 	  });
 
     return (
-<div className={`page-app ${isMenuOpen ? "slide-right" : "slide-left"}`}>
+<div className={
+	`page-app
+	${isMenuOpen ?
+		"slide-right" :
+		"slide-left"
+		}`}>
 
 	<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}
-		className="side-menu"
 		appRoutes={appRoutes}
 		isInGame={isInGame}
+		className="side-menu"
 	/>
 	<FloatingButton onClick={toggleMenu} className="ui-bubble"/>
 
@@ -62,7 +71,7 @@ const App = () => {
 		{appRoutesComponent}
 	</Routes>
 	</div>
-	<div className="page-game-menu side-menu">
+	<div className="game-menu side-menu">
 		{/* < InfoBubble /> */}
 		{isInGame ?
 			<div className="chat">

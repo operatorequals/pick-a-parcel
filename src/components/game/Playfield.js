@@ -4,8 +4,6 @@ import './Playfield.css'; // Optional for styling
 // import { useOrientation } from 'react-use';
 import { useEffectListener } from 'bgio-effects/react';
 
-import { useOrientation } from '../../hooks/useOrientation';
-
 import { Board } from './Board';
 import { Hand } from './Hand';
 import { TurnStrategy } from './TurnStrategy';
@@ -15,9 +13,7 @@ import { Loading } from '../screens/Loading'
 
 import { testingMultiplayer } from '../../WebAppConstants';
 
-export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, isHost, setIsInGame}) => {
-
-    const orientation = useOrientation() ? "portrait" : "landscape";
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, isHost, setIsInGame, orientation}) => {
 
 	const [playout, setPlayout] = useState(false);
 	const [endGame, setEndGame] = useState(false);

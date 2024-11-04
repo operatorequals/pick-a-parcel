@@ -2,13 +2,13 @@ import { Route, Routes } from "react-router-dom";
 
 import { HowToPlay } from './components/pages/HowToPlay';
 import { Tutorial } from './components/pages/Tutorial';
-import { Main } from './components/pages/Main';
+import { Home } from './components/pages/Home';
 import { Game } from './components/pages/Game';
 
 export const appRoutes = [
 	{
 		"name": "home",
-		"component": Main,
+		"component": Home,
 		"path": "/",
 		"order": 1,
 	},

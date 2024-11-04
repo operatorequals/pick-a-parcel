@@ -46,39 +46,36 @@ div.page-app.slide-right {
 
 @media only screen and (max-device-width: 480px){
   div.page-app {
-    width: 160vw;
-
+  
     left: 0;
     padding: 0;
 
-    /*flex-direction: column-reverse;*/
+    --side-menu-width: 100vw;
+    width: var(--side-menu-width)
   }
 
-  div.page-app.slide-left {
-    left: -75vw;
-  }
-
-  div.page-menu {
-    width: 40vw;
-    /*max-width: 25vw;*/
-    min-width: 75vw;
+  div.side-menu {
 
     min-height: 100vh;
+    height: 100vh;
 
     box-shadow: unset;
+
+    margin: 0;
   }
 
-  div.main-container {
-    width: 100%;
-    height: fit-content;
-    min-height: 100%;
+  div.page-app.slide-left-2 {
+    left: calc(-2 * var(--side-menu-width));
+    transition: left 0.3s ease; /* Slide effect */
+  }
 
-    position: absolute;
-    left: 0;
-    padding-top: 100%;
+  div.page-container {
+    min-width: var(--side-menu-width);
+    min-height: 100vh;
+    height: fit-content;
   }
 
   div.game-menu {
-    display:none;
+    /*display:none;*/
   }
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {QRCodeSVG} from 'qrcode.react';
 
 import '../pages/ui.css'; // Optional: for styling
-import './P2P.css'; // Optional: for styling
+import './Matchmaking.css'; // Optional: for styling
 
 
 import { getMatchURL, generateMatchID } from '../../WebAppConstants'
