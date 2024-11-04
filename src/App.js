@@ -23,6 +23,7 @@ import './App.css'
 const App = () => {
 	const [isInGame, setIsInGame] = useState(false)
     const orientation = useOrientation() ? "portrait" : "landscape";
+    const isMobile = orientation === 'portrait'
 
 	const location = useLocation()
 	const params = new URLSearchParams(location.search)
@@ -32,8 +33,11 @@ const App = () => {
     	isHost: params.has('isHost') ? (params.get('isHost') === 'true') : true,
     	});
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const toggleMenu = () => setIsMenuOpen(prev => !prev);
+    const [isMenuOpen, setIsMenuOpen] = useState(0);
+    const toggleMenu = () => setIsMenuOpen(prev => {
+    	// On desktop toggles 0 to 1, in mobile takes 0, 1, 2 values
+    	return prev < (isMobile ? 2 : 1) ? ++prev : 0
+    });
 
 	const appRoutesComponent = appRoutes.map(({ path, name, component }) => {
 		const Component = component
@@ -51,13 +55,18 @@ const App = () => {
 		    } />;
 	  });
 
+	let menuClass = isMenuOpen ? "slide-right" : "slide-left"	
+	if (isMobile)
+		if (isMenuOpen === 0)
+			menuClass = "slide-right"
+		if (isMenuOpen === 1)
+			menuClass = "slide-left"
+		if (isMenuOpen === 2)
+			menuClass = "slide-left-2"
+
     return (
 <div className={
-	`page-app
-	${isMenuOpen ?
-		"slide-right" :
-		"slide-left"
-		}`}>
+	`page-app ${menuClass}`}>
 
 	<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}
 		appRoutes={appRoutes}

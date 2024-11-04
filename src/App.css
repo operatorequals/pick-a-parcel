@@ -65,7 +65,7 @@ div.page-app.slide-right {
   }
 
   div.page-app.slide-left-2 {
-    left: calc(-2 * var(--side-menu-width));
+    left: calc(1 * var(--side-menu-width));
     transition: left 0.3s ease; /* Slide effect */
   }
 
