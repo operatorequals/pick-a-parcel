@@ -13,6 +13,8 @@ div[class^="page-"] {
 
     padding: 0;
     margin: 0;
+
+    position: relative;
 }
 
 div.ui-bubble{

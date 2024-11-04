@@ -5,7 +5,7 @@ import './InfoBubble.css'
 import githubIcon from '../../assets/img/github.png';
 import heartIcon from '../../assets/img/heart.png';
 
-export const InfoBubble = ({}) => {
+export const InfoBubble = ({style}) => {
 
 	const publicUrl = process.env.PUBLIC_URL.startsWith("/") ? "https://operatorequals.github.io/pick-a-parcel" : process.env.PUBLIC_URL
 	const githubUrl = "https://github.com/operatorequals/pick-a-parcel"
@@ -16,7 +16,7 @@ export const InfoBubble = ({}) => {
 
 	console.log(process.env)
 	return (
-<div className="ui-bubble info-bubble">
+<div className="ui-bubble info-bubble" style={style}>
 	<div className="info-bubble-entry">
 		<span className="ui-text info-bubble-span">
 			Source Code:

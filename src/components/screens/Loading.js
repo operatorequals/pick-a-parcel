@@ -40,7 +40,11 @@ export const Loading = ({isHost}) => {
 			: <h4>Good Luck!</h4>
 		}
 	</div>
-	<InfoBubble />
+	<InfoBubble style={{
+		position: "absolute",
+		right: 0,
+		bottom: 0,
+		}}/>
 </div>
 
 	)
