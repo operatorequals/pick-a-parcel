@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import { Client } from 'boardgame.io/react';
 import { Local } from 'boardgame.io/multiplayer';
 
@@ -15,11 +17,12 @@ import { PickAParcel } from '../../Game';
 
 import { generateMatchID, testingMultiplayer } from '../../WebAppConstants';
 
-
-export const Game = ({matchID, isHost, setIsInGame}) => {
+// using memo to avoid re-rendering from Parent
+export const Game = React.memo(({match, setIsInGame}) => {
 	
 	const peerJSSecure = window.location.protocol.startsWith("https")
 	const credentials = generateCredentials();
+	const {matchID, isHost} = {...match}
 
 	let playerID = undefined;
 	if (!isHost) // hardcode guest as Player 1
@@ -58,4 +61,4 @@ export const Game = ({matchID, isHost, setIsInGame}) => {
 	      		matchID={matchID}
 	      		setIsInGame={setIsInGame}
 			/>
-}
+});

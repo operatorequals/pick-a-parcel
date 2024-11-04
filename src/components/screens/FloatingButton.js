@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './FloatingButton.css';
 
-import menuIcon from './assets/img/menu.svg'
+import menuIcon from '../../assets/img/menu.svg'
 
 export const FloatingButton = ({onClick, className, content}) => {
     const [position, setPosition] = useState({ top: 10, left: 10 });

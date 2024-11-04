@@ -1,38 +1,85 @@
-.App {
-  text-align: center;
+div.page-app {
+  flex-direction: row;
+  gap: 0;
+
+  /* Split as:
+  - 25vw Menu
+  - 75vw Main Screen
+  - 25vw Chat/Multiplayer Menu
+  */
+  width: 125vw;
+
+  position: fixed;
+  left: calc(-1 * var(--side-menu-width));
+
+  box-sizing: border-box;
+
+  --side-menu-width: 20vw;
+  /*box-shadow: 10px 0 5px -2px var(--ui-box-shadow);*/
+    /*box-shadow:inset 0px 0px 10px -6px var(--sublime-gray);*/
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div.page-container {
+  width: calc(125vw - calc(2 * var(--side-menu-width)));
+
+  box-sizing: border-box;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+div.side-menu {
+  width: var(--side-menu-width);
+  max-width: var(--side-menu-width);
+  min-width: var(--side-menu-width);
+
+  min-height: 100%;
+}
+
+div.page-app.slide-left {
+  left: calc(-1 * var(--side-menu-width));
+  transition: left 0.3s ease; /* Slide effect */
+}
+
+div.page-app.slide-right {
+  left: 0vw;
+    transition: left 0.3s ease; /* Slide effect */
+}
+
+
+@media only screen and (max-device-width: 480px){
+  div.page-app {
+    width: 160vw;
+
+    left: 0;
+    padding: 0;
+
+    /*flex-direction: column-reverse;*/
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  div.page-app.slide-left {
+    left: -75vw;
   }
-  to {
-    transform: rotate(360deg);
+
+  div.page-menu {
+    width: 40vw;
+    /*max-width: 25vw;*/
+    min-width: 75vw;
+
+    min-height: 100vh;
+
+    box-shadow: unset;
+  }
+
+  div.main-container {
+    width: 100%;
+    height: fit-content;
+    min-height: 100%;
+
+    position: absolute;
+    left: 0;
+    padding-top: 100%;
+  }
+
+  div.game-menu {
+    display:none;
   }
 }

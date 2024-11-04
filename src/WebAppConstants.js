@@ -25,14 +25,11 @@ export const WebAppURLs = {
 
 export const homeIFrameName = "iframe-home"
 
-export const getMatchURL = (matchID, isHost, iframe=false) => {
+export const getMatchURL = (matchID, isHost) => {
 	let params = new URLSearchParams()
 	params.set('matchID', matchIDPrefix+matchID)
 	params.set('isHost', isHost)
 	const fullPath = window.location.origin + window.location.pathname
 
-	if (iframe)
-		return `${WebAppURLs.game}?${params.toLocaleString()}`;
-	else
-		return `${WebAppURLs.base}?${params.toLocaleString()}`;
+	return `${WebAppURLs.game}?${params.toLocaleString()}`;
 }

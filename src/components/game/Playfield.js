@@ -41,12 +41,12 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, 
 		[setEndGame]
 	);
 
-	// const [noPlayerTwo, setNoPlayerTwo] = useState(!matchData.every(player=>player.isConnected))
 	const allConnected = matchData.every(player=>player.isConnected)
+
 	useEffect(() => { // Update App State - a game is ON!
     	setIsInGame(matchData.every(player=>player.isConnected))
-    	console.log("Setting isInGame to:", allConnected)
-	}, [setIsInGame]);
+	}, [setIsInGame, matchData]);
+
     // disable along the debug panel: https://boardgame.io/documentation/#/debugging?id=using-the-debug-panel-in-production
     if (!allConnected && (testingMultiplayer || process.env.NODE_ENV === 'production')){
     	return <P2PQRCode matchID={matchID}/>

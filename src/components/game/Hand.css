@@ -4,13 +4,12 @@ div.hand {
     /*flex-flow: wrap;*/
 
     width: 76%;
-	/*row-gap: 0.5em;*/
-    column-gap: 1em;
+	/*row-gap: 0.1em;*/
 
     justify-content: flex-start;
     align-items: center;
 
-    padding: 0.5vw; /* Avoid creating a scrollbard */
+    margin-left: 1em;
     overflow: hidden;
 }
 

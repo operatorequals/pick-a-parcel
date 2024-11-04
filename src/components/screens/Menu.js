@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink } from "react-router-dom";
 
 import { homeIFrameName } from '../../WebAppConstants'
 
@@ -17,15 +18,16 @@ const MenuItem = ({name, url, iFrameName}) => {
 	onTouchStart={() => setHover(true)}
 	onTouchEnd={() => setHover(false)}
 	>
-	<a href={url} target={target}>
+	<NavLink to={url}
+		// target={target}
+		>
 		<span className={hover ? "ui-menu-ref-no-comment" : "ui-menu-ref-comment"} >{hover ? "" : "/*"} {name} {hover ? "" : "*/"}</span>
-	</a>
+	</NavLink>
 </div>
 	)
 }
 
-export const Menu = ({ isOpen, onClose, iFrameName, className, initialTab}) => {
-	iFrameName = iFrameName !== undefined ? iFrameName : homeIFrameName
+export const Menu = ({ isOpen, onClose, className, initialTab}) => {
 	return (
 <div className={`ui-bubble ui-menu menu-slide ${isOpen ? 'menu-slide-open' : ''} ${className !== undefined ? className : ""}`}>
 	<div className="ui-menu-title">
@@ -33,10 +35,10 @@ export const Menu = ({ isOpen, onClose, iFrameName, className, initialTab}) => {
 	</div>
 	<div className="ui-menu-refs">
 		<span className="code-syntax-function">go<span className="code-syntax-parenthesis">(</span></span>
-			<MenuItem name="Home" url="#/game" iFrameName={iFrameName} />
-			<MenuItem name="Tutorial" url="/#/tutorial" />
-			<MenuItem name="Instruction" url="/#/how-to-play" iFrameName={iFrameName} />
-			<MenuItem name="About" url="#" iFrameName={iFrameName} />
+			<MenuItem name="Home" url="game" />
+			<MenuItem name="Tutorial" url="tutorial" />
+			<MenuItem name="Instruction" url="how-to-play" />
+			<MenuItem name="About" url="#" />
 
 		<span className="code-syntax-parenthesis">)<span className="code-syntax-semicolon">;</span></span>
 	</div>
