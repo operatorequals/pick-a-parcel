@@ -26,7 +26,7 @@ const fullgame = { // it's crucial to sum up to the same number
   },
 };
 
-export const CARDSUMS = fullgame
+export const CARDSUMS = process.env.NODE_ENV === 'production' ? fullgame : shortgame
 
 export const CONSTANTS = {
   "DECKNUM": (

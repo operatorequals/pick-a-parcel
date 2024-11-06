@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import { InfoBubble } from './components/screens/InfoBubble';
@@ -19,6 +19,8 @@ const App = () => {
 	const [isInGame, setIsInGame] = useState(false)
     const orientation = useOrientation() ? "portrait" : "landscape";
     const isMobile = orientation === 'portrait'
+
+	const jumpedToGame = useRef(false); // This ref will track whether the effect has run
 
 	const location = useLocation()
 	const params = new URLSearchParams(location.search)
@@ -53,12 +55,26 @@ const App = () => {
 	let menuClass = isMenuOpen ? "slide-right" : "slide-left"	
 	if (isMobile){
 		if (isMenuOpen === 0)
-			menuClass = "slide-right"
+			menuClass = "slide-left-2" // menu
 		else if (isMenuOpen === 1)
-			menuClass = "slide-left"
+			menuClass = "slide-right" // main
 		else if (isMenuOpen === 2)
-			menuClass = "slide-left-2"
+			menuClass = "slide-left" // matchmaking
 	}
+
+	// Jump to game 
+	useEffect(() => {
+		if (!isMobile) return;
+		if (jumpedToGame.current) return;
+		if (isInGame){
+			setIsMenuOpen(1)
+			jumpedToGame.current = true;
+		} else
+			jumpedToGame.current = false;
+		console.log(jumpedToGame.current, menuClass, isInGame)
+	}, [isInGame, jumpedToGame, setIsMenuOpen]);
+
+
     return (
 <div className={
 	`page-app ${menuClass}`}>
