@@ -78,7 +78,7 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, 
 		<div className="playfield">
 			{
 				(ctx.gameover !== undefined && endGame) &&
-				<GameOver G={G} ctx={ctx} playerID={playerID} matchID={matchID} />
+				<GameOver ctx={ctx} playerID={playerID} matchID={matchID}/>
 			}
 			{
 				(orientation.indexOf("landscape") !== -1) ?

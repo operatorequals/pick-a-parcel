@@ -1,9 +1,9 @@
-import { maxMatchID } from '../../WebAppConstants';
+import { maxMatchID, WebAppURLs } from '../../WebAppConstants';
 import './GameOver.css';
 
 // import './GameOver.css';
 
-export const GameOver = ({ G, ctx, playerID, matchID }) => {
+export const GameOver = ({ ctx, playerID, matchID }) => {
 
     const winner = ctx.gameover.winner;
     const reason = ctx.gameover.reason;
@@ -17,7 +17,8 @@ export const GameOver = ({ G, ctx, playerID, matchID }) => {
     params.set('matchID', replayerMatchID);
     params.set('isHost', playerID === '0' ? 'true' : 'false');
 
-    const replayURL = `${fullPath}#?${params.toLocaleString()}`;
+    const replayURL = `javascript:window.location.href=window.location.href`;
+    // const replayURL = `${WebAppURLs.game}?${params.toLocaleString()}`;
 
     return (
         <div className='gameover-container'>
@@ -34,7 +35,7 @@ export const GameOver = ({ G, ctx, playerID, matchID }) => {
                         Points acquired: <span>{ctx.gameover.points}</span>!
                     </div>
                     : ""}
-                <a className='reset-button' href={replayURL}>playAgain<span>()</span>;</a>
+                <a className='reset-button' href="javascript:location.reload()">playAgain<span>()</span>;</a>
             </div>
         </div>
     );
