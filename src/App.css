@@ -1,6 +1,7 @@
 div.page-app {
   flex-direction: row;
   gap: 0;
+  /*overflow-y: scroll;*/
 
   /* Split as:
   - 25vw Menu
@@ -51,7 +52,18 @@ div.page-app.slide-right {
     padding: 0;
 
     --side-menu-width: 100vw;
-    width: var(--side-menu-width)
+    width: var(--side-menu-width);
+    height: inherit;
+
+  }
+
+  div.page-container {
+    min-width: var(--side-menu-width);
+    min-height: 100vh;
+    height: initial;
+
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
   }
 
   div.side-menu {
@@ -69,11 +81,6 @@ div.page-app.slide-right {
     transition: left 0.3s ease; /* Slide effect */
   }
 
-  div.page-container {
-    min-width: var(--side-menu-width);
-    min-height: 100vh;
-    height: fit-content;
-  }
 
   div.game-menu {
     /*display:none;*/

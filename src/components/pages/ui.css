@@ -142,10 +142,13 @@ span.code-syntax-semicolon {
 
 @media only screen and (max-device-width: 480px){
     div[class^="page-"] {
-        height: fit-content;
+        height: max-content;
         min-height: 100vh;
         padding-bottom: 2em;
         padding-top: 2em;
+
+        /*overflow-y: scroll;*/
+        /*overflow-x: hidden;*/
     }
 
     div.ui-bubble{
