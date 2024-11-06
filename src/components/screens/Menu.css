@@ -1,0 +1,69 @@
+div.ui-menu	{
+	display: flex;
+	flex-direction: column;
+
+	width: fit-content;
+
+    height: 100%;
+
+	gap: 0.6em;
+	padding-top: 0.4em;
+
+	font-size: 1.4em;
+
+	box-sizing: border-box;
+	border-radius: 0;
+}
+
+div.ui-menu-refs {
+	display: flex;
+	flex-direction: column;
+
+	width: fit-content;
+
+	gap: 0.8em;
+}
+
+div.ui-menu-ref{
+	width: auto;
+}
+
+div.ui-menu-title {
+  width: fit-content;
+}
+
+div.ui-menu-title > h4 {
+  width: fit-content;
+}
+
+span.ui-menu-ref-no-comment {
+	color: var(--sublime-white);	
+	font-style: initial;
+}
+
+span.ui-menu-ref-comment {
+	color: var(--ui-box-shadow);	
+	font-style: italic;
+}
+
+div.menu-slide {
+    /*position: fixed;*/
+
+    /*top: 0;*/
+    /* Hide off-screen */
+    /*left: -100%; */
+
+    /*margin: 4em 1em;*/
+
+    z-index: 999;
+    transition: left 0.3s ease; /* Slide effect */
+}
+
+div.menu-slide.menu-slide-open {
+    left: 0; /* Slide in */
+}
+
+div.menu-slide-btn-close {
+	cursor: pointer;
+	width: fit-content;
+}

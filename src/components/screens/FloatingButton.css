@@ -1,0 +1,26 @@
+div.floating-button {
+    position: fixed;
+    border: none;
+    border-radius: 10em;
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+    margin: 0;
+    padding: 0;
+
+    z-index: 999;
+}
+
+div.floating-button:hover {
+    background-color: var(--sublime-very-dark);
+}
+
+div.floating-button-size {
+    min-width: 2em;
+    width: 5em!important;
+
+    min-height: 2em;
+    height: 5em!important;
+
+}

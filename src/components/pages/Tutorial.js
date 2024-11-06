@@ -48,7 +48,7 @@ const TrackableBubbleUI = ({id, children, refs}) => {
 export const Tutorial = ({}) => {
 	// Remove scrollbars until I find a better way to deal with CSS
 	// Playfield Component adds them back, exactly the same way
-	document.getElementsByTagName("body")[0].style.overflow = "hidden";
+	// document.getElementsByTagName("body")[0].style.overflow = "hidden";
 	
 	const [refs, visibleComponents] = useVisibleComponents({ threshold: 0.8 });
 	const isIdVisible = (id) => visibleComponents.some(el=>el.id===id)

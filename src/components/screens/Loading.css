@@ -2,10 +2,11 @@ div.page-loading {
 	padding: 0;
 }
 
-div.ui-bubble {
+div.page-loading div.ui-bubble {
 	width: fit-content;
 }
 
-div.ui-bubble h2, h3, h4 {
+div.page-loading div.ui-bubble h2, h3, h4 {
 	margin-bottom: 0.2em;
 }
+

@@ -9,6 +9,15 @@ div.page-howtoplay div.ui-bubble{
 }
 
 @media only screen and (max-device-width: 480px){
+	div.page-howtoplay{
+		height: max-content;
+        overflow-y: scroll;
+        overflow-x: hidden;
+		
+		position: absolute;
+		top: 0;
+	}
+
 	div.page-howtoplay .ui-bubble{
 		width: 80%;
 	}

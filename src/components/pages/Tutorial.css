@@ -98,6 +98,7 @@ div.tutorial-container-interactive-center .card-holder{
 @media only screen and (max-device-width: 480px){
 
 	div.page-tutorial{
+		height: max-content;
 		flex-direction: column;
 		padding: 0;
 		justify-content: flex-end;
@@ -146,8 +147,8 @@ div.tutorial-container-interactive-center .card-holder{
 
 	div.card-holder {
 		height: 30%;
-padding: 2em;
-justify-content: center;
-padding-top: 0.5em;
+		/*padding: 2em;*/
+		justify-content: center;
+		padding-top: 0.5em;
 	}
 }

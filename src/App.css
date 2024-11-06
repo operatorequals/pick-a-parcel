@@ -1,38 +1,88 @@
-.App {
-  text-align: center;
+div.page-app {
+  flex-direction: row;
+  gap: 0;
+  /*overflow-y: scroll;*/
+
+  /* Split as:
+  - 25vw Menu
+  - 75vw Main Screen
+  - 25vw Chat/Multiplayer Menu
+  */
+  width: calc(100vw + var(--side-menu-width));
+
+  position: fixed;
+  left: calc(-1 * var(--side-menu-width));
+
+  box-sizing: border-box;
+
+  --side-menu-width: 20vw;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div.page-container {
+  width: calc(calc(100vw + var(--side-menu-width)) - calc(2 * var(--side-menu-width)));
+
+  box-sizing: border-box;
+  padding: 0;
+  overflow: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+div.side-menu {
+  width: var(--side-menu-width);
+  max-width: var(--side-menu-width);
+  min-width: var(--side-menu-width);
+
+  min-height: 100%;
+}
+
+div.page-app.slide-left {
+  left: calc(-1 * var(--side-menu-width));
+  transition: left 0.3s ease; /* Slide effect */
+}
+
+div.page-app.slide-right {
+  left: 0vw;
+    transition: left 0.3s ease; /* Slide effect */
+}
+
+
+@media only screen and (max-device-width: 480px){
+  div.page-app {
+  
+    left: 0;
+    padding: 0;
+
+    --side-menu-width: 100vw;
+    width: var(--side-menu-width);
+    height: inherit;
+
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  div.page-container {
+    min-width: var(--side-menu-width);
+    min-height: 100vh;
+    height: initial;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
   }
-  to {
-    transform: rotate(360deg);
+
+  div.side-menu {
+
+    min-height: 100vh;
+    height: 100vh;
+
+    box-shadow: unset;
+
+    margin: 0;
+  }
+
+  div.page-app.slide-left-2 {
+    left: calc(1 * var(--side-menu-width));
+    transition: left 0.3s ease; /* Slide effect */
+  }
+
+
+  div.game-menu {
+    /*display:none;*/
   }
 }

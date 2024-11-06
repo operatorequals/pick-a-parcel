@@ -1,10 +1,5 @@
-div.page-matchmaking div.ui-bubble {
-	width: 70%;
-	word-break: break-word;
-}
-
-pre.matchmaking-matchid {
-
+div.page-matchmaking{
+	gap: 0.5em;
 }
 
 span.gametitle{
@@ -13,9 +8,17 @@ span.gametitle{
 }
 
 div.ui-bubble a.matchmaking{
-	font-size: 1em;
+	font-size: 0.8em;
 	color: var(--sublime-white);
 	text-decoration: underline;
+	word-break: break-all;
+}
+
+div.ui-bubble[class*="matchmaking-options-"]{
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	width: 75%
 }
 
 div.matchmaking-options{
@@ -94,6 +97,7 @@ button[type=submit][disabled]{
 	div.page-matchmaking {
 		height: fit-content;
 		min-height: 100%;
+		padding: 0;
 	}
 
 	div.matchmaking{

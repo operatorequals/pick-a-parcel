@@ -1,92 +1,99 @@
-import { Client } from 'boardgame.io/react';
-import { Local } from 'boardgame.io/multiplayer'; // gonna get network
-import { Playfield } from './components/game/Playfield';
-
-import { P2PQRCode } from './components/matchmaking/P2P';
-import { InfoBubble } from './components/screens/InfoBubble';
-import { Loading } from './components/screens/Loading';
-
-import { HowToPlay } from './components/pages/HowToPlay';
-import { Tutorial } from './components/pages/Tutorial';
-
+import { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import { EffectsBoardWrapper } from 'bgio-effects/react';
+import { InfoBubble } from './components/screens/InfoBubble';
+import { Menu } from './components/screens/Menu';
+import { FloatingButton } from './components/screens/FloatingButton';
+import { GameDialog } from './components/screens/GameDialog';
+import { Matchmaking } from './components/matchmaking/Matchmaking';
 
-import { P2P, generateCredentials } from '@boardgame.io/p2p';
+import { generateMatchID } from './WebAppConstants';
 
-import { PickAParcel } from './Game';
+import { useOrientation } from './hooks/useOrientation';
 
-import { generateMatchID, testingMultiplayer } from './WebAppConstants';
+import { appRoutes, appRoutesMap } from './Router';
 
-const peerJSSecure = window.location.protocol.startsWith("https")
+import './App.css'
 
 const App = () => {
+	const [isInGame, setIsInGame] = useState(false)
+    const orientation = useOrientation() ? "portrait" : "landscape";
+    const isMobile = orientation === 'portrait'
 
-	const credentials = generateCredentials();
 	const location = useLocation()
 	const params = new URLSearchParams(location.search)
-	let matchID = params.has('matchID') ? params.get('matchID') : generateMatchID();
-	const isHost = params.has('isHost') ? (params.get('isHost') === 'true') : true;
-	let playerID = params.has('playerID') ? params.get('playerID') : '0';
 
-	console.log(params, matchID, isHost, playerID)
+    const [match, setMatch] = useState({
+    	matchID: params.has('matchID') ? params.get('matchID') : generateMatchID(),
+    	isHost: params.has('isHost') ? (params.get('isHost') === 'true') : true,
+    	});
 
-	if (!isHost) // hardcode guest as Player 1
-		playerID = '1'
-	else
-		playerID = '0'
+    const [isMenuOpen, setIsMenuOpen] = useState(isMobile ? 1 : 0);
+    const toggleMenu = () => setIsMenuOpen(prev => {
+    	// On desktop toggles 0 to 1, in mobile takes 0, 1, 2 values
+    	return prev < (isMobile ? 2 : 1) ? ++prev : 0
+    });
 
-	let debug = true;
-	let multiplayer = Local();
-	if (process.env.NODE_ENV === 'production' || testingMultiplayer){
-		multiplayer = P2P({
-			isHost: isHost,
-			peerOptions: {
-				secure: peerJSSecure,
-			}
-		})
-		debug = false
+	const appRoutesComponent = appRoutes.map(({ path, name, component }) => {
+		const Component = component
+		if (name === "game")
+		    return <Route key={name} path={path} element={
+		    	<Component
+		    		match={match}
+		      		setIsInGame={setIsInGame}
+		      		orientation={orientation}
+		    	 />
+		    } />;
+		else
+		    return <Route key={name} path={path} element={
+		    	<Component/>
+		    } />;
+	  });
+
+	let menuClass = isMenuOpen ? "slide-right" : "slide-left"	
+	if (isMobile){
+		if (isMenuOpen === 0)
+			menuClass = "slide-right"
+		else if (isMenuOpen === 1)
+			menuClass = "slide-left"
+		else if (isMenuOpen === 2)
+			menuClass = "slide-left-2"
 	}
-
-	const PickAParcelClient = Client({
-		game: PickAParcel,
-		credentials: credentials,
-		matchID: matchID,
-		board: EffectsBoardWrapper(Playfield, {
-		  updateStateAfterEffects: true,
-		  speed: 1,
-		}),
-		playerID: playerID,
-		multiplayer: multiplayer,
-		loading: Loading,
-		debug: debug
-	});
-
     return (
-		<Routes>
-	      <Route path="/" element={
-	      	<PickAParcelClient
-	      		playerID={playerID}
-	      		matchID={matchID}
-	      	 />
-			}/>
-	      <Route path="/how-to-play" element={
-	      	<HowToPlay />
-			}/>
-	      <Route path="/tutorial" element={
-	      	<Tutorial />
-			}/>
-	      <Route path="/info" element={
-	      	<InfoBubble />
-			}/>
-	      {/* <Route path="/how-to-play" element={} /> */}
-	      {/* <Route path="/about" element={} /> */}
+<div className={
+	`page-app ${menuClass}`}>
 
-		</Routes>
+	<Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}
+		appRoutes={appRoutes}
+		isInGame={isInGame}
+		match={match}
+		className="side-menu"
+	/>
+	<FloatingButton onClick={toggleMenu} className="ui-bubble"/>
+
+	<div className="page-container">
+	<Routes>
+		{appRoutesComponent}
+	</Routes>
+	</div>
+	<div className="game-menu side-menu">
+		{/* < InfoBubble /> */}
+		{isInGame ?
+			<GameDialog
+				setMatch={setMatch}
+				match={match}
+				setIsInGame={setIsInGame}
+			/> :
+			<Matchmaking
+				setMatch={setMatch}
+				match={match}
+			/>
+		}
+	</div>
+	
+</div>
+
 	)
-
-
 
 };
 export default App;
