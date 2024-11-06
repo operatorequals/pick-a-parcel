@@ -13,7 +13,8 @@ export const Home = ({}) => {
 <div className={`page-home`}>
 	<div className="ui-bubble">
 		<h2>Welcome to Pick-A-Parcel</h2>
-		<h3>Online Version</h3>
+		<h3>A Boardgame about programming Warehouse Robots!</h3>
+		<h4>Online Version</h4>
 		Stay Tuned...
 
 	</div>
