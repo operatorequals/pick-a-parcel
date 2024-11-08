@@ -13,7 +13,7 @@ import { Loading } from '../screens/Loading'
 
 import { testingMultiplayer } from '../../WebAppConstants';
 
-export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, isHost, setIsInGame, orientation}) => {
+export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, isHost, setIsInGame, setScore, orientation}) => {
 
 	const [playout, setPlayout] = useState(false);
 	const [endGame, setEndGame] = useState(false);
@@ -78,7 +78,12 @@ export const Playfield = ({G, ctx, events, playerID, moves, matchID, matchData, 
 		<div className="playfield">
 			{
 				(ctx.gameover !== undefined && endGame) &&
-				<GameOver ctx={ctx} playerID={playerID} matchID={matchID}/>
+				<GameOver
+					ctx={ctx}
+					playerID={playerID}
+					matchID={matchID}
+					setScore={setScore}
+					/>
 			}
 			{
 				(orientation.indexOf("landscape") !== -1) ?

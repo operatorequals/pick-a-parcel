@@ -29,7 +29,7 @@ import {
 
 
 export const PickAParcel = {
-  // seed: 42, // testing
+  seed: process.env.NODE_ENV !== 'production' ? 45 : undefined, // testing
 
   name: 'Pick-A-Parcel',
   minPlayers: 2,  

@@ -16,7 +16,6 @@ export const Home = ({}) => {
 		<h3>A Boardgame about programming Warehouse Robots!</h3>
 		<h4>Online Version</h4>
 		Stay Tuned...
-
 	</div>
 
 	<InfoBubble style={{

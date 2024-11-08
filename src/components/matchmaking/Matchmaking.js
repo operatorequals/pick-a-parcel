@@ -12,12 +12,13 @@ export const Matchmaking = ({match, setMatch}) => {
 
 	const [inputMatchID, setInputMatchID] = useState(null);
 
-	if (match.matchID === undefined)
+	if (match.matchID === undefined){
 		setMatch({
 			matchID: generateMatchID(),
 			isHost: true,
 		})
-
+		sessionStorage.setItem('score', 0);
+	}
 	const matchUrl = getMatchURL(
 		match.matchID,
 		!match.isHost // we are Host - share URL for a client

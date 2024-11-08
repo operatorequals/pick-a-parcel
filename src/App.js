@@ -16,6 +16,13 @@ import { appRoutes, appRoutesMap } from './Router';
 import './App.css'
 
 const App = () => {
+	const [score, setScore] = useState(0)
+	useEffect(()=>{
+	    const previousScore = Number(sessionStorage.getItem('score'));
+	    if (previousScore) setScore(previousScore)
+		},[]
+	)
+
 	const [isInGame, setIsInGame] = useState(false)
     const orientation = useOrientation() ? "portrait" : "landscape";
     const isMobile = orientation === 'portrait'
@@ -36,6 +43,10 @@ const App = () => {
     	return prev < (isMobile ? 2 : 1) ? ++prev : 0
     });
 
+	useEffect(() => {
+		sessionStorage.setItem('score', score);
+	}, [score]);
+
 	const appRoutesComponent = appRoutes.map(({ path, name, component }) => {
 		const Component = component
 		if (name === "game")
@@ -44,6 +55,7 @@ const App = () => {
 		    		match={match}
 		      		setIsInGame={setIsInGame}
 		      		orientation={orientation}
+		      		setScore={setScore}
 		    	 />
 		    } />;
 		else
@@ -99,6 +111,7 @@ const App = () => {
 				setMatch={setMatch}
 				match={match}
 				setIsInGame={setIsInGame}
+				score={score}
 			/> :
 			<Matchmaking
 				setMatch={setMatch}

@@ -1,9 +1,11 @@
+import { useEffect } from "react";
+
 import { maxMatchID, WebAppURLs } from '../../WebAppConstants';
 import './GameOver.css';
 
 // import './GameOver.css';
 
-export const GameOver = ({ ctx, playerID, matchID }) => {
+export const GameOver = ({ ctx, playerID, matchID, setScore }) => {
 
     const winner = ctx.gameover.winner;
     const reason = ctx.gameover.reason;
@@ -19,6 +21,13 @@ export const GameOver = ({ ctx, playerID, matchID }) => {
 
     const replayURL = `javascript:window.location.href=window.location.href`;
     // const replayURL = `${WebAppURLs.game}?${params.toLocaleString()}`;
+
+    useEffect(() => { // Update App State - a game is ON!
+        if (won)
+            setScore(prev=>prev+ctx.gameover.points);
+        },
+        [won]
+    )
 
     return (
         <div className='gameover-container'>
